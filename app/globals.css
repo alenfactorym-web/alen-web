@@ -1,0 +1,406 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ✅ Fonts */
+@font-face { font-family: "AlQabas"; src: url("/fonts/alqabas-bold.ttf") format("truetype"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "BahijTheSansArabic"; src: url("/fonts/Bahij_TheSansArabic-Bold.ttf") format("truetype"); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: "SarchiaSulaimani"; src: url("/fonts/88_Sarchia_Sulaimani.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+
+/* ✅ NEW: Satoshi (put files in /public/fonts) */
+@font-face { font-family: "Satoshi"; src: url("/fonts/Satoshi-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("/fonts/Satoshi-Medium.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("/fonts/Satoshi-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("/fonts/Satoshi-Black.woff2") format("woff2"); font-weight: 900; font-style: normal; font-display: swap; }
+@font-face {
+  font-family: "Harabara";
+  src: url("/fonts/Harabara.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-alshafi-logo {
+  font-family: "Harabara", system-ui !important;
+  font-weight: 400 !important;
+}
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* 🕹️ Control panel */
+  --m-p-stack-pt: 42vh; --m-p-spice-h: 340px; --m-p-text-y: -10px; --m-p-title-f: 2.3rem; --m-p-sub-f: 1rem;
+  --m-l-stack-pt: -2vh; --m-l-spice-h: 200px; --m-l-text-y: -26px; --m-l-title-f: 2.1rem; --m-l-sub-f: 1rem;
+  --t-p-stack-pt: 39vh; --t-p-title-f: 4.5rem; --t-p-sub-f: 1.8rem;
+  --t-l-stack-pt: 12vh; --t-l-spice-h: 240px; --t-l-text-y: 22px; --t-l-title-f: 2.7rem; --t-l-sub-f: 1rem;
+}
+
+@theme inline { --color-background: var(--background); --color-foreground: var(--foreground); }
+
+
+html, body { background: rgba(255,255,255,0.92); }
+html{
+  /* ✅ default EN font for whole site */
+  font-family: "Satoshi", system-ui !important;
+}
+
+body{
+  background: var(--background);
+  color: var(--foreground);
+  margin: 0;
+  /* ✅ default EN font for whole site */
+  font-family: "Satoshi", system-ui !important;
+}
+
+/* ✅ EN Titles / Brand (ALEN FACTORY vibe) */
+.alen-title{
+  font-family: "Satoshi", system-ui !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.02em;
+}
+
+.font-en-title{
+  font-family: "Satoshi", system-ui !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em;
+}
+
+/* ✅ EN body (remove Montserrat completely) */
+.font-en-body{
+  font-family: "Satoshi", system-ui !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+}
+
+/* ✅ Kurdish */
+.ku-title { font-family: "SarchiaSulaimani", system-ui !important; font-weight: 700 !important; }
+.ku-body, .font-ku { font-family: "SarchiaSulaimani", system-ui !important; font-weight: 400 !important; }
+.ku-body { font-size: 19px !important; }
+
+/* ✅ Arabic */
+.font-ar-title { font-family: "AlQabas", system-ui !important; font-weight: 700 !important; }
+.font-ar-body { font-family: "BahijTheSansArabic", system-ui !important; font-weight: 300 !important; line-height: 1.9 !important; }
+.font-ar-body :where(h1, h2, h3, h4, h5, h6) { font-family: "AlQabas", system-ui !important; font-weight: 700 !important; }
+.font-ar-body { font-size: 19px !important; }
+
+.news-body { white-space: normal !important; }
+.news-body * { white-space: normal !important; text-indent: 0 !important; }
+
+/* About */
+.about-hero-img { height: clamp(240px, 32vw, 420px) !important; }
+.about-card-img { height: clamp(150px, 20vw, 210px) !important; }
+
+@media (orientation: landscape) {
+  .about-hero-img { height: min(clamp(200px, 28vw, 340px), 55dvh) !important; }
+  .about-card-img { height: min(clamp(130px, 18vw, 190px), 45dvh) !important; }
+}
+/* Pattern adaptive (global) */
+:root{
+  --pattern-size: 800px;   /* دسکتاپ */
+  --pattern-opacity: 0.65;
+  --pattern-boost: 1;
+}
+
+/* Tablet */
+@media (max-width: 1024px){
+  :root{
+    --pattern-size: 1024px;   /* 👈 بزرگ‌تر از قبل */
+    --pattern-opacity: 0.85;
+    --pattern-boost: 1.08;
+  }
+}
+/* Mobile */
+@media (max-width: 640px){
+  :root{
+    --pattern-size: 680px;   /* 👈 این مهمه */
+    --pattern-opacity: 0.75;
+    --pattern-boost: 1.12;
+  }
+}/* 📱 MOBILE PORTRAIT */
+@media (max-width: 767px) and (orientation: portrait) {
+  .hero-stack { padding-top: var(--m-p-stack-pt) !important; justify-content: flex-start !important; }
+  .hero-spice { display: none !important; }
+  .hero-spice-video { height: var(--m-p-spice-h) !important; }
+  .hero-text-block { transform: translateY(var(--m-p-text-y)) !important; }
+  .hero-title { font-size: var(--m-p-title-f) !important; }
+  .hero-sub { font-size: var(--m-p-sub-f) !important; }
+}
+
+/* 📱 MOBILE LANDSCAPE */
+@media (max-height: 550px) and (max-width: 950px) and (orientation: landscape) {
+  .hero-stack { padding-top: var(--m-l-stack-pt) !important; justify-content: flex-start !important; }
+  .hero-spice { display: block !important; max-height: var(--m-l-spice-h) !important; width: auto !important; height: auto !important; }
+  .hero-text-block { transform: translateY(var(--m-l-text-y)) !important; }
+  .hero-title { font-size: var(--m-l-title-f) !important; }
+  .hero-sub { font-size: var(--m-l-sub-f) !important; }
+}
+
+/* 📑 TABLET PORTRAIT */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .hero-stack { padding-top: var(--t-p-stack-pt) !important; justify-content: flex-start !important; }
+  .hero-spice { display: none !important; }
+  .hero-title { font-size: var(--t-p-title-f) !important; }
+  .hero-sub { font-size: var(--t-p-sub-f) !important; }
+}
+
+/* 📑 TABLET LANDSCAPE */
+@media (min-width: 951px) and (max-width: 1366px) and (orientation: landscape) {
+  .hero-stack { padding-top: var(--t-l-stack-pt) !important; justify-content: flex-start !important; }
+  .hero-spice { display: block !important; max-height: var(--t-l-spice-h) !important; width: auto !important; height: auto !important; }
+ .hero-text-block {
+  transform: translateY(-10px) !important;
+}
+  .hero-title { font-size: var(--t-l-title-f) !important; }
+  .hero-sub { font-size: var(--t-l-sub-f) !important; }
+}
+/* 💻 LAPTOP ONLY: spice/video alignment fix */
+@media (min-width: 1367px) and (max-width: 1536px) and (orientation: landscape) {
+  .hero-spice-video {
+  top: 6% !important;
+  width: min(820px, 75vw) !important;
+  height: 330px !important;
+}
+
+ .hero-spice-video img {
+  transform: scale(1.02) !important;
+  transform-origin: center center !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+.hero-spice-video video {
+  transform: scale(0.95) translateY(3px) !important;
+  transform-origin: center center !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+ .hero-text-block {
+  transform: translateY(30px) !important;
+  max-width: 760px !important;
+  margin-inline: auto !important;
+}
+
+ .hero-title {
+  font-size: clamp(2.6rem, 3vw, 3.2rem) !important;
+  line-height: 1.02 !important;
+  margin-bottom: 0.45rem !important;
+  position: relative !important;
+  z-index: 60 !important;
+}
+
+  .hero-sub {
+  font-size: clamp(1rem, 1.15vw, 1.2rem) !important;
+  line-height: 1.4 !important;
+  margin-bottom: 1.4rem !important;
+  position: relative !important;
+  z-index: 60 !important;
+}
+
+  .hero-cta {
+    position: relative !important;
+    z-index: 60 !important;
+  }
+}
+/* ===== News Title (match MotionTitle speed) ===== */
+@keyframes newsTitleIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);   /* y={20} */
+    filter: blur(8px);             /* blur={8} */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.news-title-anim {
+  animation: newsTitleIn 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.03s both;
+  /* duration={0.95} + delay={0.03} */
+}
+
+/* ===== Yellow Arc ===== */
+@keyframes newsArcDraw {
+  from {
+    stroke-dashoffset: 260;
+    opacity: 0;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.news-arc-anim {
+  stroke-dasharray: 260;
+  stroke-dashoffset: 260;
+  animation: newsArcDraw 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.03s both;
+}
+/* =========================
+   A11y: Focus ring (keyboard only)
+   ========================= */
+:root{
+  --focus-ring: 250 204 21; /* نزدیک yellow-400 */
+}
+
+:where(a, button, input, textarea, select, [role="button"], [tabindex]):focus-visible {
+  outline: 3px solid rgb(var(--focus-ring) / 0.65);
+  outline-offset: 4px;
+}
+
+/* کارت‌های گرد (مثل rounded-3xl) */
+:where(.focus-card):focus-visible{
+  outline-offset: 6px;
+  border-radius: 24px;
+}
+/* =========================
+   UI Tokens: Cards (optional)
+   - هیچ چیزی رو تغییر نمی‌ده مگر اینکه خودت از کلاس‌ها استفاده کنی
+   ========================= */
+:root{
+  --card-bg: 255 255 255;
+  --card-border: 0 0 0;
+  --card-shadow: 0 22px 45px -30px rgba(0,0,0,0.70);
+  --card-shadow-hover: 0 35px 70px -45px rgba(0,0,0,0.85);
+  --card-accent: 250 204 21; /* yellow-400 */
+}
+
+.card-base{
+  background: rgb(var(--card-bg) / 0.95);
+  border: 1px solid rgb(var(--card-border) / 0.10);
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(16px);
+}
+
+.card-hover:hover{
+  box-shadow: var(--card-shadow-hover);
+}
+
+.card-round{
+  border-radius: 24px;
+}
+
+.card-accent-8{
+  border-bottom: 8px solid rgb(var(--card-accent));
+}
+
+.card-accent-12{
+  border-bottom: 12px solid rgb(var(--card-accent));
+}
+
+.card-no-accent{
+  border-bottom: none;
+}
+/* ===== Global Focus Ring (Professional) ===== */
+
+:focus-visible {
+  outline: none;
+}
+
+:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.55);
+  border-radius: 12px;
+}
+
+/* برای دکمه‌های گرد */
+button:focus-visible,
+a:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.55);
+}
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+section {
+  position: relative;
+  z-index: 1;
+}
+
+section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background: radial-gradient(
+    1200px 300px at 50% -200px,
+    rgba(0, 0, 0, 0.04),
+    transparent 70%
+  );
+
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+section:has(.group:hover)::before {
+  opacity: 1;
+}
+@keyframes alshafiGlow {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+    opacity: 0.18;
+  }
+  50% {
+    transform: translateX(-35%) translateY(-8px) scale(1.12);
+    opacity: 0.32;
+  }
+}
+@keyframes alshafiSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes alshafiOuterLamp {
+  0% {
+    left: 0%;
+    top: 0%;
+    transform: translate(-50%, -50%);
+  }
+  25% {
+    left: 100%;
+    top: 0%;
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    left: 100%;
+    top: 100%;
+    transform: translate(-50%, -50%);
+  }
+  75% {
+    left: 0%;
+    top: 100%;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    left: 0%;
+    top: 0%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes alshafiGlow {
+  0%, 100% {
+    opacity: 0.5;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateX(-50%) scale(1.15);
+  }
+}
+@keyframes alshafiBackGlow {
+  0%, 100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}

@@ -1,0 +1,448 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { usePathname, useRouter, useSearchParams, useParams } from "next/navigation";
+import { getBrandTheme } from "@/lib/brandTheme";
+
+export default function SiteHeader(props) {
+  const { lang, setLang, t } = props;
+  const manualActiveUntilRef = useRef(0);
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const params = useParams();
+
+  const brand = String(params?.brand || "").toLowerCase();
+   const theme = getBrandTheme(brand);
+  const isBrand = pathname?.startsWith("/brand/");
+   const isMiniBrand = isBrand && brand && brand !== "alen";
+  if (
+    pathname?.startsWith("/studio") ||
+    pathname?.startsWith("/admin") ||
+    pathname?.startsWith("/sanity")
+  ) {
+    return null;
+  }
+
+ const nav = isMiniBrand
+  ? [
+      { key: "home", href: "#home", label: t?.navHome || "Home" },
+      { key: "brands", href: "#brands", label: t?.navBrands || "Brands" },
+      { key: "products", href: "#products", label: t?.navProducts || "Products" },
+      { key: "video", href: "#video", label: t?.navVideo || "Video" },
+      { key: "news", href: "#news", label: t?.navNews || "News" },
+      { key: "about", href: "#about", label: t?.navAbout || "About" },
+      { key: "contact", href: "#contact", label: t?.navContact || "Contact" },
+    ]
+  : [
+      { key: "home", href: "#top", label: t?.navHome || "Home" },
+      { key: "brands", href: "#brands", label: t?.navBrands || "Brands" },
+      { key: "products", href: "#products", label: t?.navProducts || "Products" },
+      { key: "video", href: "#video", label: t?.navVideo || "Video" },
+      { key: "news", href: "#news", label: t?.navNews || "News" },
+      { key: "about", href: "/about", label: t?.navAbout || "About" },
+      { key: "contact", href: "/contact", label: t?.navContact || "Contact" },
+      { key: "catalog", href: "#catalog", label: t?.navCatalog || "Catalog" },
+    ];
+
+  const openedAtRef = useRef(0);
+  const [active, setActive] = useState("home");
+  const [onLight, setOnLight] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const moreRef = useRef(null);
+   const [brandLogoUrl, setBrandLogoUrl] = useState("");
+
+  // ✅ Auto-hide فقط برای موبایل/تبلت لمسی: هنگام اسکرول مخفی، بعد توقف ظاهر
+  const [hideOnTouchScroll, setHideOnTouchScroll] = useState(false);
+  const touchHideTimerRef = useRef(null);
+  const isTouchRef = useRef(false);
+
+  const isLightPage =
+    pathname?.includes("/news") || pathname?.includes("/videos") || pathname?.includes("/products");
+  const isAboutPage = pathname?.startsWith("/about");
+  const isContactPage = pathname?.startsWith("/contact");
+
+  const mobileMore = nav.filter((x) => x.key !== "home");
+
+useEffect(() => {
+  const logo =
+    document
+      .querySelector("[data-brand-logo]")
+      ?.getAttribute("data-brand-logo") || "";
+
+  setBrandLogoUrl(logo);
+}, [pathname]);
+
+   useEffect(() => {
+    if (isMiniBrand) {
+      setOnLight(true);
+      if (pathname?.includes("/news")) setActive("news");
+      else if (pathname?.includes("/videos")) setActive("video");
+      else if (pathname?.includes("/products")) setActive("products");
+      else setActive("home");
+      return;
+    }
+
+    if (isLightPage || isAboutPage || isContactPage) {
+      setOnLight(true);
+
+      if (pathname?.includes("/products")) setActive("products");
+      else if (pathname?.includes("/news")) setActive("news");
+      else if (pathname?.includes("/videos")) setActive("video");
+      else if (isAboutPage) setActive("about");
+      else if (isContactPage) setActive("contact");
+      else setActive("home");
+
+      return;
+    }
+
+    const handler = () => {
+      if (moreOpen) {
+        const dt = Date.now() - openedAtRef.current;
+        if (dt > 450) setMoreOpen(false);
+      }
+
+      const ids = ["top", "brands", "products", "video", "news", "catalog"];
+      let current = "top";
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= 150) current = id;
+      }
+      const isAtBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50;
+      if (isAtBottom) current = "catalog";
+      const nextActive = current === "top" ? "home" : current;
+
+// ✅ اگر تازه کلیک کردی، فعلاً active رو با اسکرول عوض نکن (نپره)
+if (Date.now() > manualActiveUntilRef.current) {
+  setActive(nextActive);
+}
+
+      const yellowBar = document.getElementById("brandsYellow");
+      if (yellowBar) {
+        const rect = yellowBar.getBoundingClientRect();
+        setOnLight(rect.top <= 80);
+      } else {
+        setOnLight(!(current === "top" || current === "brands"));
+      }
+    };
+
+    window.addEventListener("scroll", handler, { passive: true });
+    handler();
+    return () => window.removeEventListener("scroll", handler);
+  }, [isBrand, isLightPage, isAboutPage, isContactPage, pathname, moreOpen]);
+
+  useEffect(() => {
+    if (!moreOpen) return;
+    function onDocPointerDown(e) {
+      if (moreRef.current && !moreRef.current.contains(e.target)) {
+        setMoreOpen(false);
+      }
+    }
+    function onKeyDown(e) {
+      if (e.key === "Escape") setMoreOpen(false);
+    }
+    document.addEventListener("pointerdown", onDocPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onDocPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [moreOpen]);
+
+  // ✅ detect touch + autohide behavior
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mqTouch = window.matchMedia("(hover: none) and (pointer: coarse)");
+    const update = () => {
+      const tp = navigator?.maxTouchPoints ?? 0;
+      isTouchRef.current = (mqTouch?.matches ?? false) || tp > 0;
+      if (!isTouchRef.current) setHideOnTouchScroll(false);
+    };
+    update();
+
+    if (mqTouch.addEventListener) mqTouch.addEventListener("change", update);
+    else mqTouch.addListener(update);
+
+    let lastY = window.scrollY || 0;
+
+    const onScroll = () => {
+      if (!isTouchRef.current) return;
+      if (moreOpen) return;
+
+      const y = window.scrollY || 0;
+
+      // نزدیک top همیشه نشون بده
+      if (y < 10) {
+        setHideOnTouchScroll(false);
+        lastY = y;
+        return;
+      }
+
+      // اگر حرکت کرد -> مخفی
+      if (Math.abs(y - lastY) > 2) {
+        setHideOnTouchScroll(true);
+        lastY = y;
+      }
+
+      // بعد از توقف اسکرول -> نمایش
+      if (touchHideTimerRef.current) clearTimeout(touchHideTimerRef.current);
+      touchHideTimerRef.current = setTimeout(() => {
+        setHideOnTouchScroll(false);
+      }, 260);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (mqTouch.removeEventListener) mqTouch.removeEventListener("change", update);
+      else mqTouch.removeListener(update);
+      if (touchHideTimerRef.current) clearTimeout(touchHideTimerRef.current);
+    };
+  }, [moreOpen]);
+
+  const base =
+    "relative px-1.5 py-0.5 md:px-3 md:py-1.5 rounded-full text-[10px] md:text-[11px] font-black shadow-lg transition-all duration-300" +
+    " [@media(hover:none)_and_(pointer:coarse)]:px-3" +
+    " [@media(hover:none)_and_(pointer:coarse)]:py-1.5" +
+    " [@media(hover:none)_and_(pointer:coarse)]:text-[12px]" +
+    " [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)]:px-3.5" +
+    " [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)]:py-2" +
+    " [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)]:text-[13px]";
+
+const dark = onLight
+  ? "bg-zinc-200 hover:bg-zinc-300 border border-black/10 backdrop-blur-md"
+  : "bg-white/12 text-zinc-100 hover:bg-white/18 border border-white/15 backdrop-blur-md";
+const activePill = onLight
+  ? "bg-zinc-300 text-zinc-900 border border-black/15 backdrop-blur-md"
+  : "bg-white/18 text-white border border-white/25 backdrop-blur-md";
+
+  function PillGlow({ on }) {
+  if (!on) return null;
+  return (
+    <>
+      <span
+        className="pointer-events-none absolute -inset-2 rounded-full blur-xl"
+        style={{ backgroundColor: `${theme.accent}55` }}
+      />
+      <span
+        className="pointer-events-none absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full shadow"
+        style={{ backgroundColor: theme.accent }}
+      />
+    </>
+  );
+}
+
+  function buildUrlWithLang(nextLang, extraHash = "") {
+    const sp = new URLSearchParams(searchParams?.toString() || "");
+    sp.set("lang", nextLang);
+    return `${pathname}?${sp.toString()}${extraHash}`;
+  }
+
+  function homeWithLang() {
+    return lang ? `/?lang=${lang}` : "/";
+  }
+
+  function onChangeLang(nextLang) {
+    setLang(nextLang);
+    const hash = typeof window !== "undefined" ? window.location.hash : "";
+    router.replace(buildUrlWithLang(nextLang, hash), { scroll: false });
+  }
+
+  function navHref(href) {
+  const qs = lang ? `?lang=${lang}` : "";
+
+  if (href.startsWith("#")) {
+    if (isMiniBrand) return `/brand/${brand}${qs}${href}`;
+    return pathname === "/" ? href : `/${qs}${href}`;
+  }
+
+  return href.includes("?") ? href : `${href}${qs}`;
+}
+
+  return (
+   <header
+  dir="ltr"
+  className={[
+    "fixed left-0 right-0 z-[9999]",
+
+    // ✅ موبایل/تبلت: fixed top-0 (دیگه sticky نیست)
+    "top-0",
+
+    // ✅ دسکتاپ: همون مثل قبل top-6
+    "[@media(hover:hover)_and_(pointer:fine)]:top-6",
+
+    "transition-transform duration-300 ease-out",
+
+    // ✅ autohide فقط روی تاچ
+    hideOnTouchScroll ? "-translate-y-[85%]" : "translate-y-0",
+
+    // ✅ دسکتاپ همیشه نمایش
+    "[@media(hover:hover)_and_(pointer:fine)]:translate-y-0",
+  ].join(" ")}
+>
+      {/* ✅ نوار شیشه‌ای: روشن/تیره بر اساس onLight، فقط روی touch */}
+      <div
+        className={[
+          "w-full",
+          // موبایل/تبلت لمسی:
+          onLight
+            ? "[@media(hover:none)_and_(pointer:coarse)]:bg-white/72"
+            : "[@media(hover:none)_and_(pointer:coarse)]:bg-zinc-900/55",
+          "[@media(hover:none)_and_(pointer:coarse)]:backdrop-blur-xl",
+          "[@media(hover:none)_and_(pointer:coarse)]:border-b",
+          onLight
+            ? "[@media(hover:none)_and_(pointer:coarse)]:border-black/10"
+            : "[@media(hover:none)_and_(pointer:coarse)]:border-white/10",
+          "[@media(hover:none)_and_(pointer:coarse)]:shadow-[0_18px_40px_-30px_rgba(0,0,0,0.45)]",
+          // دسکتاپ خاموش
+          "[@media(hover:hover)_and_(pointer:fine)]:bg-transparent",
+          "[@media(hover:hover)_and_(pointer:fine)]:border-transparent",
+          "[@media(hover:hover)_and_(pointer:fine)]:shadow-none",
+        ].join(" ")}
+      >
+        <div className="flex flex-wrap items-center justify-between px-3 md:px-4 gap-y-3 landscape:pr-1 py-2">
+          <nav className="flex-1 min-w-0 pointer-events-auto">
+            {/* موبایل Portrait + موبایل Landscape: منوی کشویی */}
+            <div className="hidden [@media(max-width:639px)_and_(orientation:portrait)]:flex [@media(max-width:950px)_and_(orientation:landscape)]:flex items-center gap-1.5">
+              <div ref={moreRef} className="relative">
+                <button
+                  type="button"
+                  onPointerDown={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openedAtRef.current = Date.now();
+                    setMoreOpen((v) => !v);
+                    setActive("menu");
+                  }}
+                  className={[base, moreOpen ? activePill : dark].join(" ")}
+                >
+                  <PillGlow on={moreOpen} />
+                  <span className="relative">{t?.navMenu || "Menu"}</span>
+                </button>
+
+                {moreOpen && (
+                  <div
+                    className="absolute left-0 top-full mt-3 w-max max-w-[72vw] rounded-2xl border border-white/20 bg-zinc-700/90 backdrop-blur-xl p-1.5 shadow-2xl z-[10000]"
+                    onPointerDown={(e) => e.stopPropagation()}
+                  >
+                    {mobileMore.map((item) => (
+                      <a
+                        key={item.key}
+                        href={navHref(item.href)}
+                        onClick={() => {
+                        manualActiveUntilRef.current = Date.now() + 650; // ✅ 0.65s lock
+                          setActive(item.key);
+                          setMoreOpen(false);
+                        }}
+                        className="block rounded-xl px-3 py-2.5 text-[11px] font-black text-white hover:bg-white/10 active:bg-white/20"
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* تبلت + دسکتاپ: منوی کامل */}
+            <div className="flex items-center gap-2 [@media(max-width:639px)_and_(orientation:portrait)]:hidden [@media(max-width:950px)_and_(orientation:landscape)]:hidden">
+              {nav.map((item) => {
+                const isActive = active === item.key;
+                return (
+                  <a
+                    key={item.key}
+                    href={navHref(item.href)}
+onClick={(e) => {
+  manualActiveUntilRef.current = Date.now() + 650; // ✅ lock
+  setActive(item.key);
+
+  // ✅ فقط برای لینک‌های # داخل صفحه Home
+  if (!isMiniBrand && pathname === "/" && item.href?.startsWith("#")) {
+    e.preventDefault();
+
+    const id = item.href.slice(1);
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const rect = el.getBoundingClientRect();
+    const elTop = rect.top + window.scrollY;
+    const elCenter = elTop + rect.height / 2;
+
+    const headerOffset = 120;
+
+    const targetY = Math.max(0, elCenter - window.innerHeight / 2 + headerOffset / 2);
+
+    window.scrollTo({ top: targetY, behavior: "smooth" });
+  }
+}}   
+          className={[base, isActive ? activePill : dark].join(" ")}
+style={
+  isActive && theme.headerActiveBg
+    ? { backgroundColor: theme.headerActiveBg, color: theme.headerActiveText || "#070707" }
+    : !isActive && onLight && theme.headerOnLightText
+      ? { color: theme.headerOnLightText }
+      : undefined
+}                  >
+                    <PillGlow on={isActive} />
+                    <span className="relative">{item.label}</span>
+                  </a>
+                );
+              })}
+            </div>
+          </nav>
+
+          <div className="flex items-center gap-2 shrink-0 ml-auto pointer-events-auto">
+            <Link
+  href={homeWithLang()}
+  className="inline-flex items-center justify-center h-10 w-10 md:h-16 md:w-16"
+ style={theme.headerLogoGap ? { marginInlineEnd: theme.headerLogoGap } : undefined}
+>
+              <img
+ src={brandLogoUrl || "/logo.svg"}
+  alt={brand || "Alen Factory"}
+  className={`h-full w-full object-contain ${theme.headerLogoClassName || "scale-[1.3]"}`}
+/>
+            </Link>
+
+            {["en", "ar", "ku"].map((l) => (
+              <button
+                key={l}
+                onClick={() => onChangeLang(l)}
+                className={[
+                  base,
+                  lang === l ? activePill : dark,
+                  "[@media(max-width:950px)_and_(orientation:landscape)]:px-2",
+                  "[@media(max-width:950px)_and_(orientation:landscape)]:py-1",
+                  "[@media(max-width:950px)_and_(orientation:landscape)]:text-[11px]",
+                  "[@media(max-width:767px)_and_(orientation:portrait)]:px-2",
+                  "[@media(max-width:767px)_and_(orientation:portrait)]:py-1",
+                  "[@media(max-width:767px)_and_(orientation:portrait)]:text-[11px]",
+                ].join(" ")}
+              >
+                <PillGlow on={lang === l} />
+                <span className="relative">{l.toUpperCase()}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* ✅ یه “نوار زیر” خیلی نازک که وقتی hide میشه هنوز یه hint بمونه */}
+        <div
+          className={[
+            "h-[6px]",
+            "[@media(hover:none)_and_(pointer:coarse)]:block",
+            "[@media(hover:hover)_and_(pointer:fine)]:hidden",
+            onLight ? "bg-black/5" : "bg-white/10",
+          ].join(" ")}
+        />
+      </div>
+    </header>
+  );
+}
+
