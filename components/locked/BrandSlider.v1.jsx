@@ -29,7 +29,7 @@ export default function BrandSlider({ t, lang }) {
   const titleStagger = lang === "en" ? 0.085 : 0;
 
   return (
-    <section className="relative py-24 overflow-visible">
+    <section className="alen-brands-section relative py-24 overflow-visible">
       {/* Background layers */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-x-0 top-0 h-[55%] bg-zinc-600" />
@@ -45,7 +45,7 @@ export default function BrandSlider({ t, lang }) {
       <div className="relative z-10">
         {/* ✅ Title with SAME MotionText (NO ARC) */}
         <div
-          className={`text-center mb-16 text-zinc-200 ${uiFont}`}
+          className={`alen-brands-title text-center mb-16 text-zinc-200 ${uiFont}`}
           dir={isRTL ? "rtl" : "ltr"}
         >
           <MotionTitle
@@ -66,7 +66,7 @@ export default function BrandSlider({ t, lang }) {
           </MotionTitle>
         </div>
 
-        <div dir="ltr" className="max-w-[1100px] 2xl:max-w-[1400px] mx-auto px-6">
+        <div dir="ltr" className="alen-brands-wrap max-w-[1100px] 2xl:max-w-[1400px] mx-auto px-6">
           {/* ✅ MOBILE ONLY: 4 cards in ONE row (no scroll) */}
           <div className="md:hidden -mx-6 px-4">
             <div className="grid grid-cols-4 gap-2">
@@ -75,9 +75,9 @@ export default function BrandSlider({ t, lang }) {
                   <motion.div whileTap={{ scale: 0.98 }} className="relative">
                     <div
                       className="relative overflow-hidden rounded-3xl bg-white/95 backdrop-blur-xl border border-black/10
-           shadow-[0_22px_45px_-30px_rgba(0,0,0,0.7)]
-           transition duration-300 group-hover:shadow-[0_35px_70px_-45px_rgba(0,0,0,0.85)]
-           p-4 lg:p-5 2xl:p-6 text-center border-b-[8px] 2xl:border-b-[12px]
+shadow-[0_14px_28px_-22px_rgba(0,0,0,0.45)]
+transition duration-300 group-hover:shadow-[0_22px_40px_-28px_rgba(0,0,0,0.55)]  
+         p-4 lg:p-5 2xl:p-6 text-center border-b-[8px] 2xl:border-b-[12px]
            w-full aspect-[4/3] flex flex-col justify-center items-center"
                       style={{ borderBottomColor: brand.color }}
                     >
@@ -99,11 +99,11 @@ export default function BrandSlider({ t, lang }) {
           </div>
 
           {/* ✅ DESKTOP/TABLET (md+): EXACTLY your old grid, unchanged */}
-          <div className="hidden md:grid grid-cols-4 gap-4 lg:gap-6 2xl:gap-10 justify-items-center">
+          <div className="alen-brands-grid hidden md:grid grid-cols-4 gap-4 lg:gap-6 2xl:gap-10 justify-items-center">
             {brands.map((brand) => (
               <Link key={brand.slug} href={`/brand/${brand.slug}`} className="block w-full">
                 <motion.div
-                  whileHover={{ y: -12, scale: 1.05 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
                   whileTap={{ scale: 0.99 }}
                   transition={{ type: "spring", stiffness: 340, damping: 18 }}
                   className="relative group cursor-pointer"
@@ -117,8 +117,8 @@ export default function BrandSlider({ t, lang }) {
 
                   <div
                     className="relative overflow-hidden rounded-3xl bg-white/95 backdrop-blur-xl border border-black/10
-                               shadow-[0_22px_45px_-30px_rgba(0,0,0,0.7)]
-                               transition duration-300 group-hover:shadow-[0_35px_70px_-45px_rgba(0,0,0,0.85)]
+                               shadow-[0_14px_28px_-22px_rgba(0,0,0,0.45)]
+transition duration-300 group-hover:shadow-[0_22px_40px_-28px_rgba(0,0,0,0.55)]
                                p-6 text-center border-b-[12px]
                                w-full aspect-[4/3] flex flex-col justify-center items-center"
                     style={{ borderBottomColor: brand.color }}
@@ -135,7 +135,7 @@ export default function BrandSlider({ t, lang }) {
                     <img
                       src={brand.logo}
                       alt={brand.name}
-                      className="h-12 lg:h-14 2xl:h-20 w-auto max-w-[80%] mx-auto mb-3 2xl:mb-4 object-contain transition-transform duration-300 group-hover:scale-[1.06]"
+                      className="h-12 lg:h-14 2xl:h-20 w-auto max-w-[80%] mx-auto mb-3 2xl:mb-4 object-contain transition-transform duration-300 group-hover:scale-[1.02]"
                       draggable="false"
                     />
 

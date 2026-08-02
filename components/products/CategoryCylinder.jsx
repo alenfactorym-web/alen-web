@@ -152,7 +152,7 @@ export default function CategoryCylinder({
     const onWheel = (e) => {
   const el = boxRef.current;
   if (!el) return;
-
+if (!el.contains(e.target)) return;
   const r = el.getBoundingClientRect();
   const inside =
     e.clientX >= r.left &&
@@ -162,7 +162,12 @@ export default function CategoryCylinder({
 
   if (!inside) return;
 
-  e.preventDefault();
+    e.preventDefault();
+  e.stopPropagation();
+
+  if (typeof e.stopImmediatePropagation === "function") {
+    e.stopImmediatePropagation();
+  }
 
   if (wheelLockRef.current) return;
   if (snapRaf.current) return;
@@ -181,8 +186,8 @@ export default function CategoryCylinder({
   }, 300);
 };
 
-    window.addEventListener("wheel", onWheel, { passive: false });
-    return () => window.removeEventListener("wheel", onWheel);
+      window.addEventListener("wheel", onWheel, { passive: false, capture: true });
+    return () => window.removeEventListener("wheel", onWheel, { capture: true });
   }, [angle, count]); // اضافه شدن count به وابستگی‌ها
 
   // Drag

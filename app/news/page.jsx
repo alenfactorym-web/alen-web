@@ -85,13 +85,15 @@ export default async function NewsIndexPage({ searchParams }) {
   </svg>
 </div>
 
-        <div
+       <div
   className="
-    grid grid-cols-1 md:grid-cols-3
-    gap-4 md:gap-4 lg:gap-4 xl:gap-4
-    max-w-[1100px] 2xl:max-w-[1400px]
-    mx-auto
-  "
+  alen-laptop-grid-3
+  alen-news-grid
+  grid grid-cols-1 md:grid-cols-3
+  gap-4 md:gap-4 lg:gap-4 xl:gap-4
+  max-w-[1100px] 2xl:max-w-[1400px]
+  mx-auto
+"
 >
           {list.map((n) => (
             <Link
@@ -136,14 +138,15 @@ border-b-[8px] border-b-yellow-400 transition-transform duration-300 hover:-tran
 
         {/* ✅ دکمه‌های پایین: Back + Prev/Next (فقط صفحه‌ها) */}
         <div
-  className={`
-    mt-10
-    max-w-[1100px] 2xl:max-w-[1400px]
-    mx-auto
-    flex items-center justify-between gap-3
-    px-2 lg:px-0
-    ${uiFont}
-  `}
+ className={`
+  alen-laptop-wrap-1088
+  mt-10
+  max-w-[1100px] 2xl:max-w-[1400px]
+  mx-auto
+  flex items-center justify-between gap-3
+  px-2 lg:px-0
+  ${uiFont}
+`}
 >
           {/* Back → Home News section */}
           <Link

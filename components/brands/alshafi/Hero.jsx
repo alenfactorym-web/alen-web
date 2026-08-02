@@ -42,8 +42,8 @@ const brandTextFix = currentLang === "en" ? "" : "leading-[1.45] pb-2";
 
  return (
 <section className="relative min-h-screen overflow-visible flex items-center">
-<span data-alshafi-leaf data-speed="0.1" className="alshafi-leaf-1 group/leaf1 pointer-events-auto absolute right-[5vw] bottom-[28vh] z-[2] block w-[130px]">
-  <img
+<div className="alshafi-leaves-group pointer-events-none absolute inset-0 z-[2]">
+<span data-alshafi-leaf data-speed="0.1" className="alshafi-leaf-1 group/leaf1 pointer-events-auto absolute right-[5vw] bottom-[28vh] z-[2] block w-[130px]">  <img
     src="/lieaf-vector-001.webp"
     className="pointer-events-none w-full origin-center opacity-85 blur-[0.5px] will-change-transform transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/leaf1:translate-x-[14px] group-hover/leaf1:-translate-y-[10px] group-hover/leaf1:rotate-[12deg] group-hover/leaf1:scale-[1.15]"
   />
@@ -67,15 +67,49 @@ const brandTextFix = currentLang === "en" ? "" : "leading-[1.45] pb-2";
 </span>
 <span data-alshafi-leaf data-speed="0.25" className="group/leaf3 pointer-events-auto absolute right-[14vw] bottom-[12vh] z-[2] block w-[145px]">
   
-
 </span>
-
+</div>
 <style>{`
 @keyframes subtleShine {
   from { background-position: 200% center; }
   to { background-position: -200% center; }
 }
-.brand-text-shine {
+.alshafi-brand-hover {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+}
+
+.alshafi-brand-scale {
+  display: inline-block;
+  transform-origin: center;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.alshafi-brand-hover:hover .alshafi-brand-scale {
+  transform: scale(1.045);
+}
+
+.alshafi-brand-title {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 100%;
+  padding-top: 0.03em;
+  padding-bottom: 0.08em;
+}
+
+.alshafi-brand-title-ltr {
+  line-height: 1.08;
+}
+
+.alshafi-brand-title-rtl {
+  line-height: 1.35;
+  padding-bottom: 0.12em;
+}
+
+.alshafi-brand-title-metal {
   background: linear-gradient(
     110deg,
     #8f6823 0%,
@@ -86,36 +120,23 @@ const brandTextFix = currentLang === "en" ? "" : "leading-[1.45] pb-2";
   );
   background-size: 300% auto;
   background-position: 0% center;
-
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-
-  display: inline-block;
+  color: transparent;
 }
 
-.group:hover .brand-text-shine {
+.alshafi-brand-hover:hover .alshafi-brand-title-metal {
   animation: subtleShine 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-@media (min-width: 1080px) and (max-width: 1920px) {
+}@media (min-width: 1080px) and (max-width: 1920px) {
 
-  .alshafi-spice-main {
-    left: 6vw;
-    top: 4vh;
-    width: 520px;
-  }
-
-  .alshafi-hero-card {
-    width: 85%;
-    transform: translateX(-35%);
-  }
-
-  .alshafi-hero-card > div {
-    max-width: 680px;
-  }
-
-  .alshafi-hero-card a {
-  padding: 6px 20px !important;
+.alshafi-spice-main {
+  left: 5vw;
+  top: 2vh;
+  width: 560px;
+}  
+ .alshafi-hero-card a {
+  padding: 5px 20px !important;
   font-size: 13px !important;
 }
 
@@ -123,13 +144,16 @@ const brandTextFix = currentLang === "en" ? "" : "leading-[1.45] pb-2";
 .alshafi-hero-card a.ku-title {
   padding: 5px 18px !important;
   font-size: 11px !important;
+}                                                                                                                                                                              
+.alshafi-crafted-text {
+  font-size: 13px !important;
+  letter-spacing: 0.60em !important;
+  white-space: nowrap;
 }
 
-  .alshafi-crafted-text {
-    font-size: 13px !important;
-    letter-spacing: 0.60em !important;
-    white-space: nowrap;
-  }
+.alshafi-crafted-text.alshafi-crafted-rtl {
+  letter-spacing: 0.18em !important;
+}
 /* 🔥 PREMIUM QUALITY */
   .alshafi-hero-card .tracking-\[0\.9em\] {
     font-size: 6px !important;
@@ -154,31 +178,24 @@ const brandTextFix = currentLang === "en" ? "" : "leading-[1.45] pb-2";
   line-height: 1.2;
 }
 
-  /* 🔥 نور */
-  .alshafi-card-back-glow {
-    width: 150% !important;
-    height: 340px !important;
-    filter: blur(90px);
-    opacity: 0.65;
-  }
-
+ 
   /* 🔥 برگ‌ها (نزدیک کارت، نه پرت) */
  .alshafi-leaf-1 {
-  right: 5%;
-  bottom: 25%;
-  width: 90px;
+  right: 6%;
+  bottom: 22%;
+  width: 95px;
 }
 
 .alshafi-leaf-2 {
-  right: 4%;
-  bottom: 12%;
-  width: 120px;
+  right: 5%;
+  bottom: 10%;
+  width: 130px;
 }
 
 .alshafi-leaf-3 {
-  right: 14%;
-  bottom: 10%;
-  width: 100px;
+  right: 16%;
+  bottom: 8%;
+  width: 110px;
 }
 
 }`}
@@ -186,7 +203,7 @@ const brandTextFix = currentLang === "en" ? "" : "leading-[1.45] pb-2";
  <span
    data-alshafi-leaf
   data-speed="0.2"
-  className="alshafi-spice-main group/alen-spice pointer-events-auto absolute left-[9vw] top-[6vh] z-[0] block w-[420px] lg:w-[620px] 2xl:w-[840px]"
+  className="alshafi-spice-main group/alen-spice pointer-events-auto absolute left-[9vw] top-[6vh] z-[0] block  w-[420px] xl:w-[620px] 2xl:w-[840px]"
 >
  <img
   src="/Alshafi-spices-003.webp"
@@ -198,31 +215,28 @@ const brandTextFix = currentLang === "en" ? "" : "leading-[1.45] pb-2";
 
       <div className="pointer-events-none absolute right-0 top-0 h-full w-[98%] z-0 overflow-hidden">
           <img
-          src="/alshafi-hover.webp"
-          alt="spices"
-          
-className="h-full w-full object-cover object-right"
-
-        />
+  src="/alshafi-hover.webp"
+  alt="spices"
+  className="alshafi-bg-img absolute right-0 top-1/2 -translate-y-1/2 h-full w-auto object-contain"
+/>
       </div>
 
-      <div className="alshafi-hero-card relative z-10 isolate w-[92%] mx-auto px-4 translate-x-0 sm:w-[82%] md:w-[68%] lg:w-[58%] lg:mx-0 lg:px-[clamp(24px,5vw,90px)] lg:translate-x-[62%] xl:w-[52%] xl:translate-x-[80%] 2xl:w-[48%] 2xl:translate-x-[92%]">
+<div className="alshafi-hero-card relative z-10 isolate mini-card-root">    
+  {/* Glow System - کاملاً متصل به سیستم متغیرها */}
+  <div className="mini-card-glow-wrap">
+    <div className="alshafi-card-back-glow" />
+  </div>
 
-        <div className="pointer-events-none absolute inset-x-4 top-0 bottom-0 z-0 lg:inset-x-[clamp(24px,5vw,90px)]">
-        <div className="alshafi-card-back-glow absolute left-1/2 top-1/2 h-[300px] w-[140%] -translate-x-1/2 -translate-y-1/2 rounded-[56px] bg-gradient-to-r from-transparent via-[#c99a3a]/55 to-transparent blur-[360px] animate-[alshafiBackGlow_5s_ease-in-out_infinite] md:h-[380px] md:w-[150%] lg:h-[440px] lg:w-[160%] xl:h-[480px] xl:w-[170%] md:blur-[165px] lg:blur-[185px] xl:blur-[205px]" />
-        </div>
-
-        <div className="relative z-10 overflow-hidden rounded-[26px] p-[3px] md:rounded-[34px]">
-          <div className="pointer-events-none absolute -inset-8 z-0">
+  <div className="mini-card-scale relative z-10 overflow-hidden rounded-[26px] p-[3px] md:rounded-[34px]">
+    {/* ... باقی محتویات کارت ... */}          <div className="pointer-events-none absolute -inset-8 z-0">
             <div className="absolute h-60 w-60 rounded-full bg-[#c99a3a]/80 blur-[90px] animate-[alshafiOuterLamp_7s_linear_infinite] md:h-75 md:w-75 md:bg-[#c99a3a]/90 md:blur-[95px]" />
           </div>
 
-          <div className="relative z-10 rounded-[26px] bg-gradient-to-br from-[#0a0a0a]/70 via-[#050505]/60 to-[#020202]/80 backdrop-blur-xl border border-[#c99a3a]/20 px-6 py-6 md:rounded-[34px] md:px-10 md:py-8 shadow-[0_30px_90px_-30px_rgba(0,0,0,0.8)]">
-           
+<div className="alshafi-card-inner relative z-10 rounded-[26px] bg-gradient-to-br from-[#0a0a0a]/70 via-[#050505]/60 to-[#020202]/80 backdrop-blur-xl border border-[#c99a3a]/20 px-[clamp(22px,3vw,40px)] py-[22px] xl:py-[36px] 2xl:py-[48px] [@media(min-width:1080px)_and_(max-width:1536px)]:py-[20px] md:rounded-[34px] shadow-[0_30px_90px_-30px_rgba(0,0,0,0.8)]">           
  <div className="relative z-10" dir={isRtl ? "rtl" : "ltr"}>
             <h1 className={`leading-tight text-white ${langFont}`}>
   <div className="mb-0.5 flex flex-col items-center justify-center">
-  <span className="text-center tracking-[0.9em] text-[#c99a3a]/75 text-[9px] md:text-xs">
+  <span className="alshafi-badge-text text-center tracking-[0.9em] text-[#c99a3a]/75 text-[9px] md:text-xs">
     {copy.badge}
   </span>
 
@@ -239,30 +253,25 @@ className="h-full w-full object-cover object-right"
   </div>
 </div>
 
-<span className={`group ${brandFont} ${brandSize} block text-center tracking-[0.01em] drop-shadow-[0_10px_24px_rgba(0,0,0,0.75)]`}
-style={
-    currentLang === "en"
-      ? {
-          background: "linear-gradient(to top, #8f6823 0%, #c99a3a 45%, #f3d98a 100%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-        }
-    : {
-  color: "#d2a847",
-}
-  }
->
-<span className={`brand-text-shine ${brandTextFix} origin-center will-change-transform transform-gpu transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.045]`}>  {copy.brand.toLowerCase().replace(/^./, c => c.toUpperCase())}
-</span></span>
-  <span className="mx-auto mt-0.5 block w-fit text-[16px] sm:text-[20px] md:text-[26px] text-white/80 tracking-[0.3em]">
+<span className="alshafi-brand-hover block text-center tracking-[0.01em] drop-shadow-[0_10px_24px_rgba(0,0,0,0.75)]">
+  <span className="alshafi-brand-scale">
+    <span
+      className={`alshafi-brand-title alshafi-brand-title-metal ${
+        isRtl ? "alshafi-brand-title-rtl" : "alshafi-brand-title-ltr"
+      } ${brandFont} ${brandSize} ${brandTextFix}`}
+    >
+      {currentLang === "en" ? "Alshafi" : copy.brand}
+    </span>
+  </span>
+</span>  <span className="alshafi-spices-text mx-auto mt-0.5 block w-fit text-[16px] sm:text-[20px] md:text-[26px] text-white/80 tracking-[0.3em]">
     {copy.spices}
   </span>
 
 
 <div className="relative mt-1 flex flex-col items-center">
-  <span className="alshafi-crafted-text block text-center text-[11px] sm:text-[13px] md:text-[16px] text-[#c99a3a]/70 tracking-[0.9em]">
-    {copy.crafted}
-  </span>
+<span className={`alshafi-crafted-text ${isRtl ? "alshafi-crafted-rtl tracking-[0.35em]" : "tracking-[0.9em]"} block text-center text-[11px] sm:text-[13px] md:text-[16px] text-[#c99a3a]/70`}> 
+ {copy.crafted}
+</span>
 
   {/* glow */}
   <div className="pointer-events-none absolute top-full mt-3 flex items-center justify-center">
@@ -272,14 +281,14 @@ style={
  <div className="h-[2px] w-105 bg-gradient-to-r from-transparent via-[#c99a3a]/70 to-transparent" />
 
   {/* center glow */}
-  <div className="absolute h-[0.5px] w-10 rounded-full bg-[#c99a3a]/80 blur-[2px]" />
- <div className="absolute h-[1px] w-45 rounded-full bg-[#c99a3a]/80 blur-[3px]" />
+ 
+<div className="absolute h-[1px] w-45 rounded-full bg-[#c99a3a]/80 blur-[3px]" />
 <div className="absolute h-[1.5px] w-30 rounded-full bg-[#c99a3a]/80 blur-[4px]" />
 </div>
 </div></h1>
 
               
-             <div className="mt-6 md:mt-9 flex justify-center">
+             <div className="alshafi-hero-button-wrap mt-6 md:mt-9 flex justify-center">
  <a
   href={`?lang=${currentLang}#products`}
   className={`group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-[#c99a3a]/60 px-7 py-2.5 text-sm text-[#e6c37a] shadow-[0_0_0_rgba(201,154,58,0)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[1px] hover:border-[#f0cf7a] hover:text-[#f7d98b] hover:shadow-[0_10px_28px_-18px_rgba(240,207,122,0.75)] ${langFont}`}

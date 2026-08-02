@@ -1,0 +1,715 @@
+.grid {
+position: relative;
+isolation: isolate;
+overflow: visible;  
+display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+  width: min(1280px, 94vw);
+  margin: 48px auto 0;
+}
+.grid::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  width: min(1320px, 96vw);
+  height: 680px;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 999px;
+
+  background:
+    radial-gradient(
+      ellipse at 22% 42%,
+      rgba(201, 154, 58, 0.18) 0%,
+      rgba(201, 154, 58, 0.09) 24%,
+      transparent 54%
+    ),
+    radial-gradient(
+      ellipse at 78% 48%,
+      rgba(201, 154, 58, 0.14) 0%,
+      rgba(201, 154, 58, 0.07) 24%,
+      transparent 56%
+    ),
+    radial-gradient(
+      ellipse at 50% 82%,
+      rgba(143, 104, 35, 0.12) 0%,
+      transparent 62%
+    );
+
+  filter: blur(42px);
+  opacity: 0.58;
+  animation: galleryAmbientFloat 10s ease-in-out infinite;
+}.card {
+  position: relative;
+  isolation: isolate;
+z-index: 1;  
+min-height: 315px;
+  overflow: visible;
+  border-radius: 25px;
+  border: 1px solid transparent;
+  background:
+  radial-gradient(circle at 50% 100%, rgba(143, 104, 35, 0.11), transparent 48%),
+  linear-gradient(180deg, #14120d 0%, #080808 58%, #030303 100%);
+  background-clip: padding-box;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -24px 36px rgba(0, 0, 0, 0.46),
+    0 32px 72px -54px rgba(0, 0, 0, 0.95);
+
+  cursor: pointer;
+  transition:
+    transform 360ms ease,
+    border-color 360ms ease,
+    box-shadow 360ms ease;
+}
+.card::before {
+  content: "";
+  position: absolute;
+top: -4px;
+right: -4px;
+  width: 88%;
+height: 85%;
+height: 85%;  z-index: -1;
+  pointer-events: none;
+
+ border-top: 4px solid rgba(201, 154, 58, 0.68);
+border-right: 4px solid rgba(201, 154, 58, 0.68);
+  border-radius: 0 33px 0 0;
+
+  opacity: 1;
+
+  mask-image:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.18) 18%,
+      rgba(0, 0, 0, 0.65) 44%,
+      #000 70%,
+      #000 100%
+    ),
+    linear-gradient(
+      180deg,
+      #000 0%,
+      #000 54%,
+      rgba(0, 0, 0, 0.58) 76%,
+      rgba(0, 0, 0, 0.16) 92%,
+      transparent 100%
+    );
+
+  -webkit-mask-image:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.18) 18%,
+      rgba(0, 0, 0, 0.65) 44%,
+      #000 70%,
+      #000 100%
+    ),
+    linear-gradient(
+      180deg,
+      #000 0%,
+      #000 54%,
+      rgba(0, 0, 0, 0.58) 76%,
+      rgba(0, 0, 0, 0.16) 92%,
+      transparent 100%
+    );
+
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+
+  transition:
+    opacity 360ms ease,
+    transform 360ms ease;
+}
+
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: transparent;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -20px 36px rgba(201, 154, 58, 0.055),
+    0 42px 90px -58px rgba(201, 154, 58, 0.56),
+    0 0 42px -24px rgba(201, 154, 58, 0.42);
+}.card:hover::before {
+  opacity: 1;
+  transform: translate(1px, -1px);
+}
+
+.imageWrap {
+  position: absolute;
+  inset: 0;
+  padding: 34px 28px 82px;
+  z-index: 3;
+  border-radius: inherit;
+  overflow: hidden;
+}
+/* multi-layer studio light behind product */
+.imageWrap::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 80%;
+  height: 60%;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      ellipse at 50% 52%,
+      rgba(255, 221, 130, 0.82) 0%,
+      rgba(201, 154, 58, 0.66) 10%,
+      rgba(201, 154, 58, 0.38) 22%,
+      rgba(143, 104, 35, 0.18) 36%,
+      transparent 54%
+    ),
+    radial-gradient(
+      ellipse at 50% 52%,
+      rgba(201, 154, 58, 0.54) 0%,
+      rgba(201, 154, 58, 0.34) 28%,
+      rgba(143, 104, 35, 0.16) 54%,
+      transparent 82%
+    ),
+    radial-gradient(
+      ellipse at 50% 54%,
+      rgba(201, 154, 58, 0.30) 0%,
+      rgba(143, 104, 35, 0.18) 44%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 50% 48%,
+      rgba(255, 240, 190, 0.52) 0%,
+      rgba(255, 220, 135, 0.34) 5%,
+      rgba(201, 154, 58, 0.20) 11%,
+      transparent 20%
+    ),
+    radial-gradient(
+      ellipse at 50% 74%,
+      rgba(255, 222, 138, 0.32) 0%,
+      rgba(201, 154, 58, 0.22) 20%,
+      rgba(143, 104, 35, 0.10) 48%,
+      transparent 76%
+    );
+  filter: blur(18px);
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+  transition:
+    opacity 520ms ease,
+    transform 620ms ease,
+    filter 620ms ease;
+}
+/* soft dark bottom haze over product */
+.imageWrap::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 58px;
+  width: 76%;
+  height: 34%;
+  transform: translateX(-50%);
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 999px;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 100%,
+      rgba(0, 0, 0, 0.54) 0%,
+      rgba(0, 0, 0, 0.34) 28%,
+      rgba(0, 0, 0, 0.16) 56%,
+      transparent 82%
+    );
+
+  filter: blur(14px);
+  opacity: 0.68;
+
+  transition:
+    opacity 520ms ease,
+    transform 620ms ease;
+}
+.card:hover .imageWrap::before {
+  opacity: 1;
+  filter: blur(16px);
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.card:hover .imageWrap::after {
+  opacity: 0.86;
+  transform: translateX(-50%) scaleX(1.12);
+}
+
+.image {
+  object-fit: contain;
+  object-position: center center;
+  transform: scale(0.80);
+  transition: transform 620ms ease;
+  position: relative;
+  z-index: 1;
+}
+
+.card:hover .image {
+  transform: scale(0.84);
+}
+
+/* dark fade, depth and subtle premium surface */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 6%, rgba(201, 154, 58, 0.08), transparent 28%),
+    linear-gradient(180deg, transparent 48%, rgba(0, 0, 0, 0.54) 90%, rgba(0, 0, 0, 0.92) 100%),
+    radial-gradient(circle at 50% 96%, rgba(201, 154, 58, 0.15), transparent 38%);
+  pointer-events: none;
+}
+.cardContent {
+  position: absolute;
+  z-index: 5;
+  left: 22px;
+  right: 22px;
+  bottom: 17px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+/* decorative horizontal line behind title plaque */
+.cardContent::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 50%;
+  height: 1px;
+  transform: translateY(-50%);
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(201, 154, 58, 0.34),
+      rgba(201, 154, 58, 0.10) 42%,
+      transparent 50%,
+      rgba(201, 154, 58, 0.10) 58%,
+      rgba(201, 154, 58, 0.34),
+      transparent
+    );
+  opacity: 0.66;
+  pointer-events: none;
+}
+
+.cardContent h3 {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 212px);
+  min-height: 25px;
+  padding: 0 15px;
+  border-radius: 0 clamp(14px, 1.4vw, 20px) 0 clamp(14px, 1.4vw, 20px);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(201, 154, 58, 0.14), transparent 42%),
+    linear-gradient(180deg, rgba(58, 41, 16, 0.86), rgba(23, 17, 9, 0.92));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    inset 0 -8px 14px rgba(0, 0, 0, 0.34),
+    0 10px 20px -16px rgba(0, 0, 0, 0.96),
+    0 0 16px -12px rgba(201, 154, 58, 0.62);
+  color: rgba(201, 154, 58, 0.96);
+  font-size: clamp(9.5px, 0.72vw, 11.5px);
+  font-weight: 950;
+  line-height: 1.05;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+/* small center diamond like the concept, but subtle */
+
+.empty {
+  max-width: 620px;
+  margin: 48px auto 0;
+  padding: 24px;
+  border: 1px solid rgba(201, 154, 58, 0.22);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.72);
+  text-align: center;
+  font-weight: 800;
+}
+
+/* =========================
+   BASIC RESPONSIVE
+   ========================= */
+
+@media (max-width: 1180px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    width: min(100%, calc(100vw - 32px));
+    margin-top: 34px;
+  }
+
+  .card {
+    min-height: 220px;
+    border-radius: 20px;
+  }
+
+  .imageWrap {
+    padding: 24px 18px 66px;
+  }
+
+  .cardContent {
+    left: 14px;
+    right: 14px;
+    bottom: 15px;
+  }
+
+  .cardContent h3 {
+    font-size: 12px;
+  }
+}
+
+/* =========================
+   ALSHAFI PRODUCT GALLERY - 1024x1024 IMAGE FINAL
+   all product images are square webp
+   ========================= */
+
+/* Large Monitor */
+@media (min-width: 1280px) and (min-height: 900px) and (orientation: landscape) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 22px !important;
+    width: min(1280px, 94vw) !important;
+    margin-top: 48px !important;
+  }
+
+  .card {
+    min-height: 315px !important;
+  }
+
+  .imageWrap {
+    padding: 34px 28px 82px !important;
+  }
+
+  .image {
+    object-position: center center !important;
+    transform: scale(0.80) !important;
+  }
+
+  .card:hover .image {
+    transform: scale(0.84) !important;
+  }
+}
+
+/* Laptop */
+@media (min-width: 1024px) and (max-height: 899px) and (orientation: landscape) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+    width: min(1160px, 88vw) !important;
+    margin-top: 38px !important;
+  }
+
+  .card {
+    min-height: 285px !important;
+    border-radius: 24px !important;
+  }
+
+  .imageWrap {
+    padding: 30px 24px 76px !important;
+  }
+
+  .image {
+    object-position: center center !important;
+    transform: scale(0.78) !important;
+  }
+
+  .card:hover .image {
+    transform: scale(0.82) !important;
+  }
+
+  .cardContent {
+    bottom: 16px !important;
+  }
+
+  .cardContent h3 {
+    width: min(100%, 184px) !important;
+    min-height: 28px !important;
+    padding: 0 12px !important;
+    font-size: 9.7px !important;
+    
+  }
+}
+
+/* Tablet Landscape */
+@media (min-width: 768px) and (max-width: 1180px) and (min-height: 551px) and (orientation: landscape) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+    width: min(980px, 90vw) !important;
+    margin-top: 34px !important;
+  }
+
+  .card {
+    min-height: 250px !important;
+    border-radius: 22px !important;
+  }
+
+  .imageWrap {
+    padding: 28px 20px 70px !important;
+  }
+
+  .image {
+    object-position: center center !important;
+    transform: scale(0.76) !important;
+  }
+
+  .card:hover .image {
+    transform: scale(0.80) !important;
+  }
+
+  .cardContent {
+    left: 14px !important;
+    right: 14px !important;
+    bottom: 14px !important;
+  }
+
+  .cardContent h3 {
+    width: min(100%, 158px) !important;
+    min-height: 27px !important;
+    padding: 0 9px !important;
+    font-size: 8.7px !important;
+    
+  }
+}
+
+/* Tablet Portrait */
+@media (min-width: 601px) and (max-width: 1180px) and (orientation: portrait) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+    width: min(860px, 92vw) !important;
+    margin-top: 38px !important;
+  }
+
+  .card {
+    min-height: 285px !important;
+    border-radius: 24px !important;
+  }
+
+  .imageWrap {
+    padding: 30px 22px 76px !important;
+  }
+
+  .image {
+    object-position: center center !important;
+    transform: scale(0.90) !important;
+  }
+
+  .card:hover .image {
+    transform: scale(0.94) !important;
+  }
+
+  .cardContent h3 {
+    width: min(100%, 180px) !important;
+    min-height: 29px !important;
+    padding: 0 12px !important;
+    font-size: 9.7px !important;
+    
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 600px) and (orientation: portrait) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    width: calc(100vw - 32px) !important;
+    margin-top: 34px !important;
+  }
+
+  .card {
+    min-height: 220px !important;
+    border-radius: 20px !important;
+  }
+
+  .imageWrap {
+    padding: 24px 16px 66px !important;
+  }
+
+  .image {
+    object-position: center center !important;
+    transform: scale(0.78) !important;
+  }
+
+  .card:hover .image {
+    transform: scale(0.82) !important;
+  }
+
+  .cardContent {
+    left: 10px !important;
+    right: 10px !important;
+    bottom: 12px !important;
+  }
+
+  .cardContent::before {
+    left: 4px !important;
+    right: 4px !important;
+  }
+
+  .cardContent h3 {
+    width: min(100%, 140px) !important;
+    min-height: 27px !important;
+    padding: 0 9px !important;
+    font-size: 8.8px !important;
+    
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 932px) and (max-height: 550px) and (orientation: landscape) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    width: min(760px, 86vw) !important;
+    margin-top: 28px !important;
+  }
+
+  .card {
+    min-height: 190px !important;
+    border-radius: 18px !important;
+  }
+
+  .imageWrap {
+    padding: 20px 12px 56px !important;
+  }
+
+  .image {
+    object-position: center center !important;
+    transform: scale(0.70) !important;
+  }
+
+  .card:hover .image {
+    transform: scale(0.74) !important;
+  }
+
+  .cardContent {
+    left: 10px !important;
+    right: 10px !important;
+    bottom: 10px !important;
+  }
+
+  .cardContent h3 {
+    width: min(100%, 120px) !important;
+    min-height: 25px !important;
+    padding: 0 8px !important;
+    font-size: 7.7px !important;
+    line-height: 1.05 !important;
+    
+  }
+}
+@keyframes galleryAmbientFloat {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.50;
+  }
+
+  50% {
+    transform: translate(-50%, -52%) scale(1.04);
+    opacity: 0.66;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.50;
+  }
+}
+.card:hover .cardContent h3 {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(243, 217, 138, 0.18), transparent 44%),
+    linear-gradient(180deg, rgba(70, 50, 18, 0.90), rgba(24, 18, 9, 0.94));
+  color: rgba(243, 217, 138, 0.96);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -8px 14px rgba(0, 0, 0, 0.34),
+    0 12px 24px -18px rgba(0, 0, 0, 0.96),
+    0 0 20px -12px rgba(201, 154, 58, 0.72);
+}
+/* =========================
+   ALSHAFI PRODUCT GALLERY
+   CENTER INCOMPLETE ROWS
+   ========================= */
+
+.grid {
+  direction: ltr !important;
+  justify-content: center !important;
+  justify-items: center !important;
+}
+
+.card {
+  width: 100% !important;
+}
+
+/* 1 item */
+.grid[data-count="1"] {
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  width: min(315px, 92vw) !important;
+}
+
+/* 2 items */
+.grid[data-count="2"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  width: min(650px, 92vw) !important;
+}
+
+/* 3 items */
+.grid[data-count="3"] {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  width: min(980px, 92vw) !important;
+}
+
+/* Mobile portrait */
+@media (max-width: 600px) and (orientation: portrait) {
+  .grid[data-count="1"] {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    width: min(220px, calc(100vw - 32px)) !important;
+  }
+
+  .grid[data-count="2"],
+  .grid[data-count="3"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    width: calc(100vw - 32px) !important;
+  }
+}
+
+/* Mobile landscape */
+@media (max-width: 932px) and (max-height: 550px) and (orientation: landscape) {
+  .grid[data-count="1"] {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    width: min(190px, 86vw) !important;
+  }
+
+  .grid[data-count="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    width: min(390px, 86vw) !important;
+  }
+
+  .grid[data-count="3"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    width: min(590px, 86vw) !important;
+  }
+}

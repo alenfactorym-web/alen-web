@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Instagram, Facebook, Youtube, MessageCircle, X } from "lucide-react";
 
@@ -17,14 +18,28 @@ function TikTokIcon({ className = "", strokeWidth = 1.8 }) {
   );
 }
 
-// ✅ لینک‌های سوشیال
-const socials = [
+// ✅ لینک‌های سوشیال پیش‌فرض ALEN
+const defaultSocials = [
   { name: "Instagram", href: "https://www.instagram.com/alen_factory", icon: Instagram },
   { name: "Facebook", href: "https://www.facebook.com/AlenGroup", icon: Facebook },
   { name: "YouTube", href: "https://www.youtube.com/@alenfactory", icon: Youtube },
   { name: "TikTok", href: "https://www.tiktok.com/@alenfactory", icon: TikTokIcon },
 ];
 
+// ✅ فقط برای مینی‌سایت‌ها این ۴ لینک عوض می‌شوند
+const brandSocials = {
+  alshafi: [
+    { name: "Instagram", href: "https://www.instagram.com/alshafi.group", icon: Instagram },
+    { name: "Facebook", href: "https://www.facebook.com/share/18sfVCCsGC", icon: Facebook },
+    { name: "YouTube", href: "https://www.youtube.com/@Alshafibrand", icon: Youtube },
+    { name: "TikTok", href: "https://www.tiktok.com/@alshafi_group", icon: TikTokIcon },
+  ],
+
+  // بعداً برای برندهای بعدی همین‌جا اضافه می‌کنیم:
+  // "goly-rozh": [...],
+  // "goli-alen": [...],
+  // "alen-plus": [...],
+};
 const whatsappLinks = [
   {
     name: "Customer Service / Korek",
@@ -137,6 +152,10 @@ function WhatsAppIconSingle({ compact = false }) {
 }
 
 export default function SocialBarV1() {
+  const params = useParams();
+  const brand = String(params?.brand || "").toLowerCase();
+  const activeSocials = brandSocials[brand] || defaultSocials;
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileRef = useRef(null);
 
@@ -202,10 +221,10 @@ export default function SocialBarV1() {
   ].join(" ")}
 >
 
-        {socials.map((s) => {
-          const Icon = s.icon;
-          return <SocialIcon key={s.name} name={s.name} href={s.href} Icon={Icon} />;
-        })}
+      {activeSocials.map((s) => {
+  const Icon = s.icon;
+  return <SocialIcon key={s.name} name={s.name} href={s.href} Icon={Icon} />;
+})}
         <WhatsAppIconSingle />
       </div>
 
@@ -235,18 +254,18 @@ export default function SocialBarV1() {
           <div className="mt-3 w-[min(320px,85vw)] rounded-2xl border border-black/10 bg-white/85 backdrop-blur-xl shadow-2xl p-3">
             {/* ✅ آیکن‌ها فقط یک بار (compact) */}
             <div className="flex items-center gap-2 flex-wrap">
-              {socials.map((s) => {
-                const Icon = s.icon;
-                return (
-                  <SocialIcon
-                    key={s.name}
-                    name={s.name}
-                    href={s.href}
-                    Icon={Icon}
-                    compact
-                  />
-                );
-              })}
+              {activeSocials.map((s) => {
+  const Icon = s.icon;
+  return (
+    <SocialIcon
+      key={s.name}
+      name={s.name}
+      href={s.href}
+      Icon={Icon}
+      compact
+    />
+  );
+})}
               <WhatsAppIconSingle compact />
             </div>
 

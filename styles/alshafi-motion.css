@@ -1,0 +1,91 @@
+/* =========================
+   ALSHAFI MOTIONS
+   ========================= */
+
+.mini-site-alshafi #products .alshafi-letter-wave {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  color: inherit !important;
+}
+
+.mini-site-alshafi #products .alshafi-letter {
+  display: inline-block;
+  transform-origin: center;
+  animation: alshafiLetterWave 3.5s ease-in-out infinite;
+  will-change: transform;
+  color: inherit !important;
+}
+
+.mini-site-alshafi #products aside h2 > span:last-child,
+.mini-site-alshafi #products aside h2 > span:last-child .alshafi-letter-wave,
+.mini-site-alshafi #products aside h2 > span:last-child .alshafi-letter {
+  color: #c99a3a !important;
+}
+
+@keyframes alshafiLetterWave {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  10% {
+    transform: scale(1.15) translateY(-2px);
+  }
+
+  20% {
+    transform: scale(1);
+  }
+}
+.mini-site-alshafi .alshafi-video-title-shine {
+  display: inline;
+  color: #c99a3a;
+
+  background-image: linear-gradient(
+    110deg,
+    #c99a3a 0%,
+    #c99a3a 38%,
+    #fff3c4 48%,
+    #c99a3a 58%,
+    #c99a3a 100%
+  );
+
+  background-size: 260% 100%;
+  background-position: 120% 0;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  transition: background-position 0.9s ease;
+}
+
+.mini-site-alshafi .group:hover .alshafi-video-title-shine {
+  background-position: -120% 0;
+}
+.mini-site-alshafi .alshafi-video-title-shine {
+  display: inline-block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  background-image: linear-gradient(
+    110deg,
+    #c99a3a 0%,
+    #c99a3a 38%,
+    #fff3c4 48%,
+    #c99a3a 58%,
+    #c99a3a 100%
+  );
+
+  background-size: 260% 100%;
+  background-position: 120% 0;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  transition: background-position 0.9s ease;
+}

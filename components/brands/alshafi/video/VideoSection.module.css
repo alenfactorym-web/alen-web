@@ -1,0 +1,557 @@
+/* =========================
+   ALSHAFI VIDEO SECTION
+   copied from mini-sites.css without changing values
+   ========================= */
+
+.videoSection :global(.alshafi-video-layout) {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 56px !important;
+}
+
+.videoSection :global(.alshafi-video-heading) {
+  width: 300px !important;
+  flex: 0 0 300px !important;
+  transform: translateX(-40px) translateY(40px) !important;
+}
+
+.videoSection :global(.alshafi-video-content) {
+  flex: 1 !important;
+  transform: translateX(40px) !important;
+}
+
+.videoSection :global(.alshafi-video-icon) {
+  width: 90px !important;
+  height: auto !important;
+  opacity: 0.9 !important;
+}
+
+.videoSection :global(.alshafi-video-content > div),
+.videoSection :global(.alshafi-video-content > div > div) {
+  max-width: none !important;
+  width: 100% !important;
+}
+
+.videoSection :global(.alshafi-video-content .grid) {
+  max-width: none !important;
+  width: 100% !important;
+}
+
+.videoSection :global(.alshafi-video-heading .alshafi-heading-line) {
+  width: 260px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+/* =========================
+   ALSHAFI VIDEO WATERMARK ICON
+   YouTube / Play icon like products vector
+   ========================= */
+
+.videoSection :global(.alshafi-section-watermark) {
+  position: absolute !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+
+  width: 240px !important;
+  height: 240px !important;
+
+  color: #c99a3a !important;
+  opacity: 0.075 !important;
+
+  filter: blur(0.2px) drop-shadow(0 0 32px rgba(201, 154, 58, 0.22)) !important;
+}
+
+.videoSection :global(.alshafi-section-watermark svg) {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.videoSection :global(.alshafi-video-watermark) {
+  left: -95px !important;
+  top: 105px !important;
+  transform: rotate(-8deg) scale(1) !important;
+}
+/* =========================
+   ALSHAFI VIDEO - LARGE MONITOR
+   ========================= */
+
+@media (min-width: 1280px) and (min-height: 900px) and (orientation: landscape) {
+    .videoSection :global(.alshafi-video-heading-wrap) {
+    transform: translateY(135px) !important;
+  }
+
+.videoSection :global(.alshafi-video-heading) {
+    transform: translateX(-420px) translateY(160px) !important;
+  }
+
+  .videoSection :global(.alshafi-video-content) {
+    transform: translateX(0px) !important;
+  }
+
+  .videoSection :global(.alshafi-video-layout) {
+    width: min(1900px, 96vw) !important;
+    max-width: none !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading) {
+    width: 320px !important;
+    flex: 0 0 260px !important;
+    transform: translateX(-220px) translateY(-40px) !important;
+  }
+
+  .videoSection :global(.alshafi-video-content) {
+    flex: 0 0 1580px !important;
+    max-width: 1580px !important;
+    transform: translateX(70px) !important;
+  }
+
+  .videoSection :global(.alshafi-video-content > div:first-child > div:first-child) {
+    height: 600px !important;
+  }
+.videoSection :global(.alshafi-heading-features) {
+  margin-top: 510px !important;
+}
+  .videoSection :global(.alshafi-video-watermark) {
+    left: -160px !important;
+    top: 480px !important;
+    width: 300px !important;
+    height: 300px !important;
+    opacity: 0.15 !important;
+    transform: rotate(-8deg) scale(0.8) !important;
+  }
+}
+
+
+/* =========================
+   ALSHAFI VIDEO - LAPTOP
+   ========================= */
+
+@media (min-width: 1024px) and (max-height: 899px) and (orientation: landscape) {
+    .videoSection :global(.alshafi-video-heading-wrap) {
+    transform: translateY(-40px) !important;
+  }
+
+  .videoSection :global(.alshafi-video-content > div:first-child > div:first-child) {
+    height: 320px !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading h2) {
+    line-height: 0.45 !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading h2 > span:first-child) {
+    font-size: 46px !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading h2 > span:last-child) {
+    font-size: 38px !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading > p:first-of-type) {
+    font-size: 12px !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading > p:nth-of-type(2)) {
+    max-width: 210px !important;
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading .alshafi-heading-line) {
+    width: 220px !important;
+  }
+
+  .videoSection :global(.alshafi-video-content) {
+    transform: translateX(40px) scale(0.985) !important;
+    transform-origin: top left !important;
+  }
+
+  .videoSection :global(.alshafi-heading-features) {
+    margin-top: 200px !important;
+    max-width: 220px !important;
+  }
+
+  .videoSection :global(.alshafi-heading-features h3) {
+    font-size: 14px !important;
+  }
+
+  .videoSection :global(.alshafi-heading-features p) {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+  .videoSection :global(.alshafi-video-watermark) {
+    left: 60px !important;
+    top: 220px !important;
+    width: 220px !important;
+    height: 220px !important;
+    opacity: 0.15 !important;
+    transform: rotate(-8deg) scale(0.7) !important;
+  }
+}
+
+/* =========================
+   ALSHAFI VIDEO - TABLET LANDSCAPE
+   ========================= */
+
+@media (min-width: 768px) and (max-width: 1180px) and (orientation: landscape) {
+  .videoSection :global(.alshafi-video-heading) {
+    transform: translateX(-60px) translateY(-30px) scale(0.92) !important;
+  }
+
+  .videoSection :global(.alshafi-video-content) {
+    transform: translateX(-60px) scale(1.1) !important;
+    transform-origin: top left !important;
+  }
+
+  .videoSection :global(.alshafi-video-content > div:first-child > div:first-child) {
+    height: 280px !important;
+  }
+  .videoSection :global(.alshafi-video-watermark) {
+    left: 30px !important;
+    top: 180px !important;
+    width: 190px !important;
+    height: 190px !important;
+    opacity: 0.15 !important;
+    transform: rotate(-8deg) scale(0.7) !important;
+  }
+}
+
+/* =========================
+   ALSHAFI VIDEO - TABLET / MOBILE PORTRAIT
+   ========================= */
+
+@media (orientation: portrait) {
+  .videoSection :global(.alshafi-video-layout) {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading-wrap),
+  .videoSection :global(.alshafi-video-content) {
+    width: 100% !important;
+    max-width: 720px !important;
+    flex: none !important;
+    margin-inline: auto !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading) {
+    transform: translateX(40px) translateY(-70px) scale(0.8) !important;
+  }
+
+  .videoSection :global(.alshafi-video-content) {
+    transform: translateX(0px) translateY(-80px) scale(0.85) !important;
+    transform-origin: top center !important;
+  }
+
+  .videoSection :global(.alshafi-video-content > div:first-child > div:first-child) {
+    height: 340px !important;
+  }
+
+  .videoSection :global(.alshafi-section-top-title) {
+    color: rgba(255, 255, 255, 0.88) !important;
+  }
+
+  .videoSection :global(.alshafi-section-bottom-title) {
+    color: #c99a3a !important;
+  }
+
+  .videoSection :global(.alshafi-section-desc) {
+    max-width: 260px !important;
+    color: rgba(255, 255, 255, 0.62) !important;
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+    text-align: center !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading h2 span:first-child) {
+    font-size: 46px !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading h2 span:last-child) {
+    font-size: 42px !important;
+  }
+
+  .videoSection :global(.alshafi-heading-line) {
+    width: 260px !important;
+  }
+}
+
+@media (orientation: portrait) and (max-width: 1366px) {
+  .videoSection :global(.alshafi-video-layout) {
+    transform: translateY(60px) !important;
+  }
+}
+
+@media (orientation: portrait) {
+  .videoSection :global(.alshafi-section-top-title) {
+    color: rgba(255, 255, 255, 0.92) !important;
+  }
+
+  .videoSection :global(.alshafi-section-bottom-title) {
+    color: #c99a3a !important;
+  }
+
+  .videoSection :global(.alshafi-section-desc) {
+    max-width: 260px !important;
+    color: rgba(255, 255, 255, 0.62) !important;
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+    text-align: center !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading h2 span:last-child) {
+    font-size: 38px !important;
+  }
+
+  .videoSection :global(.alshafi-heading-line) {
+    width: 180px !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading h2) {
+    line-height: 0.45 !important;
+  }
+  
+}
+
+/* =========================
+   ALSHAFI VIDEO - MOBILE LANDSCAPE
+   ========================= */
+
+@media (max-width: 932px) and (max-height: 550px) and (orientation: landscape) {
+  .videoSection :global(.alshafi-video-layout) {
+    width: 100vw !important;
+    max-width: none !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    gap: 18px !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading-wrap) {
+    flex: 0 0 245px !important;
+    width: 245px !important;
+    transform: translateY(20px) !important;
+  }
+
+  .videoSection :global(.alshafi-video-content) {
+    flex: 1 1 auto !important;
+    max-width: none !important;
+    transform: translateX(-10px) scale(1.08) !important;
+    transform-origin: top left !important;
+  }
+
+  .videoSection :global(.alshafi-video-content .grid) {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+  }
+
+  .videoSection :global(.alshafi-video-content .grid button) {
+    border-radius: 24px !important;
+  }
+
+  .videoSection :global(.alshafi-video-content .grid button > div:first-child) {
+    aspect-ratio: 16 / 9 !important;
+  }
+
+  .videoSection :global(.alshafi-video-content .grid button > div:last-child) {
+    padding: 12px 14px !important;
+  }
+
+  .videoSection :global(.alshafi-video-title-shine) {
+    font-size: 13px !important;
+    line-height: 1.15 !important;
+  }
+  .videoSection :global(.alshafi-video-watermark) {
+    left: -58px !important;
+    top: 72px !important;
+    width: 150px !important;
+    height: 150px !important;
+    opacity: 0.065 !important;
+    transform: rotate(-8deg) scale(1) !important;
+  }
+}
+
+/* =========================
+   MOBILE LANDSCAPE FINAL
+   ========================= */
+
+@media (max-width: 932px) and (max-height: 550px) and (orientation: landscape) {
+  .videoSection :global(.alshafi-video-layout) {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+
+    width: 100vw !important;
+    max-width: none !important;
+
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+
+    gap: 10px !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading-wrap) {
+    width: 245px !important;
+    flex: 0 0 245px !important;
+
+    transform: translateX(-50px) translateY(-20px) scale(0.9) !important;
+    transform-origin: top center !important;
+
+    z-index: 5 !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading) {
+    width: 245px !important;
+    max-width: 245px !important;
+
+    transform: none !important;
+  }
+
+  .videoSection :global(.alshafi-section-eyebrow) {
+    font-size: 9px !important;
+    letter-spacing: 0.45em !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading h2) {
+    line-height: 0.48 !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading h2 span:first-child) {
+    font-size: 34px !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading h2 span:last-child) {
+    font-size: 30px !important;
+  }
+
+  .videoSection :global(.alshafi-heading-line) {
+    width: 170px !important;
+  }
+
+  .videoSection :global(.alshafi-section-desc) {
+    max-width: 190px !important;
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+  }
+
+  .videoSection :global(.alshafi-video-content) {
+    flex: 1 1 auto !important;
+    max-width: none !important;
+
+    transform: translateX(-16px) translateY(0px) scale(1.04) !important;
+    transform-origin: top left !important;
+  }
+
+  .videoSection :global(.alshafi-video-content .grid) {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+
+  .videoSection :global(.alshafi-video-content .grid button > div:last-child) {
+    padding: 9px 12px !important;
+  }
+
+  .videoSection :global(.alshafi-video-title-shine) {
+    font-size: 12px !important;
+    line-height: 1.1 !important;
+  }
+  .videoSection :global(.alshafi-video-watermark) {
+    left: 20px !important;
+    top: 120px !important;
+    width: 150px !important;
+    height: 150px !important;
+    opacity: 0.15 !important;
+    transform: rotate(-8deg) scale(0.7) !important;
+  }
+}
+
+/* =========================
+   MOBILE PORTRAIT FINAL
+   ========================= */
+
+@media (max-width: 767px) and (orientation: portrait) {
+  .videoSection {
+    min-height: auto !important;
+    padding-top: 60px !important;
+    padding-bottom: 28px !important;
+  }
+
+  .videoSection :global(.alshafi-video-layout) {
+    transform: none !important;
+    min-height: auto !important;
+    padding-bottom: 0 !important;
+  }
+
+  .videoSection :global(.alshafi-video-content) {
+    transform: translateX(0px) translateY(-80px) scale(0.85) !important;
+    transform-origin: top center !important;
+    padding-bottom: 0 !important;
+    margin-bottom: -320px !important;
+  }
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+  .videoSection {
+    padding-top: 105px !important;
+    padding-bottom: 28px !important;
+  }
+
+  .videoSection :global(.alshafi-video-layout) {
+    transform: translateY(55px) !important;
+    transform-origin: top center !important;
+  }
+
+  .videoSection :global(.alshafi-video-heading-wrap) {
+    transform: none !important;
+  }
+
+  .videoSection :global(.alshafi-video-content) {
+    transform: translateX(0px) translateY(-40px) scale(0.85) !important;
+    transform-origin: top center !important;
+    margin-bottom: -300px !important;
+  }
+}
+@media (max-width: 767px) and (orientation: portrait) {
+  .videoSection {
+    position: relative !important;
+    z-index: 50 !important;
+    isolation: isolate !important;
+  }
+
+  .videoSection :global(.alshafi-video-layout),
+  .videoSection :global(.alshafi-video-content),
+  .videoSection :global(.alshafi-video-more-wrap),
+  .videoSection :global(.alshafi-video-more-wrap a) {
+    position: relative !important;
+    z-index: 60 !important;
+    pointer-events: auto !important;
+  }
+  
+}
+/* Mobile Portrait watermark */
+@media (max-width: 767px) and (max-height: 899px) and (orientation: portrait) {
+  .videoSection :global(.alshafi-video-watermark) {
+    left: 90px !important;
+    top: -100px !important;
+    width: 210px !important;
+    height: 210px !important;
+    opacity: 0.3 !important;
+    z-index: 55 !important;
+    transform: translateX(-50%) rotate(-8deg) scale(0.45) !important;
+  }
+}
+
+/* Tablet Portrait watermark - same viewport width, taller screen */
+@media (max-width: 767px) and (min-height: 900px) and (orientation: portrait) {
+  .videoSection :global(.alshafi-video-watermark) {
+    left: 235px !important;
+    top: -100px !important;
+    width: 210px !important;
+    height: 210px !important;
+    opacity: 0.3 !important;
+    z-index: 55 !important;
+    transform: translateX(-50%) rotate(-8deg) scale(0.5) !important;
+  }
+}

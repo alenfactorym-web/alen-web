@@ -128,8 +128,10 @@ function VideoCard({ item, lang, onOpen }) {
           <img
   src={thumbUrl}
   alt={item?.title || "Video"}
-  className="absolute inset-0 w-full h-full object-cover scale-[1.12]"
+  /* 🛠️ فقط اضافه شدن transform-gpu و data-visualsearch */
+  className="absolute inset-0 w-full h-full object-cover scale-[1.12] transform-gpu"
   draggable="false"
+  data-visualsearch="false"
 />
         ) : (
           <div className="absolute inset-0 bg-zinc-300" />
@@ -281,12 +283,14 @@ useEffect(() => {
 </div>
 
         <div
-  className="
-    grid grid-cols-1 md:grid-cols-3
-    gap-4 md:gap-4 lg:gap-4 xl:gap-4
-    max-w-[1100px] 2xl:max-w-[1400px]
-    mx-auto
-  "
+ className="
+  alen-laptop-grid-3
+  grid grid-cols-1 md:grid-cols-3
+  gap-4 md:gap-4 lg:gap-4 xl:gap-4
+  max-w-[1100px] 2xl:max-w-[1400px]
+  mx-auto
+"
+
 >
           {stableList.map((v, i) => (
             <VideoCard
@@ -300,15 +304,15 @@ useEffect(() => {
 
         {/* ✅ دکمه‌های پایین */}
         <div
-  className={`
-    mt-10
-    max-w-[1100px] 2xl:max-w-[1400px]
-    mx-auto
-    flex items-center justify-between gap-3
-    px-2 lg:px-0
-    ${uiFont}
-  `}
->
+className={`
+  alen-laptop-wrap-1088
+  mt-10
+  max-w-[1100px] 2xl:max-w-[1400px]
+  mx-auto
+  flex items-center justify-between gap-3
+  px-2 lg:px-0
+  ${uiFont}
+`}>
           <Link
             href={`/?lang=${lang}#video`}
             className="rounded-full border bg-white/90 px-6 py-3 text-sm font-bold text-zinc-500 hover:bg-white shadow-sm transition-transform active:scale-95"
@@ -350,7 +354,7 @@ useEffect(() => {
       <AnimatePresence>
         {openItem && (
          <motion.div
-  className="fixed inset-0 z-[999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+  className="fixed inset-0 z-[999] bg-black/60 backdrop-blur-sm flex items-center justify-center pt-28 pb-4 px-4"
   role="dialog"
   aria-modal="true"
   aria-label={openItem?.title ? `Video: ${openItem.title}` : "Video dialog"}

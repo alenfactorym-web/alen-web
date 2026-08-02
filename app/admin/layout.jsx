@@ -364,7 +364,9 @@ export default function AdminLayout({ children }) {
               style={dynamicPanelStyle}
             >
               <Sidebar brand={brand} accentColor={accentColor} />
-              <div className="min-w-0 flex-1 pl-7">{children}</div>
+              <div className="min-w-0 flex-1 pl-7" data-lenis-prevent>
+  {children}
+</div>
             </div>
           </div>
 

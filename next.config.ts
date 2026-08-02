@@ -1,25 +1,26 @@
 import type { NextConfig } from 'next'
 
 export default {
-	images: {
-		dangerouslyAllowSVG: true,
-		remotePatterns: [
-			{
-				protocol: 'https',
-				hostname: 'cdn.sanity.io',
-			},
-			{
-				protocol: 'https',
-				hostname: 'avatars.githubusercontent.com',
-			},
-		],
-	},
+  images: {
+    unoptimized: true,
+    dangerouslyAllowSVG: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
+    ],
+  },
 
-	async redirects() {
-		return []
-	},
+  async redirects() {
+    return []
+  },
 
-	env: {
-		SC_DISABLE_SPEEDY: 'false',
-	},
+  env: {
+    SC_DISABLE_SPEEDY: 'false',
+  },
 } satisfies NextConfig

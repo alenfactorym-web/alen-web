@@ -41,7 +41,7 @@ export default function SectionHeader({
   };
 
   return (
-    <div className="text-center mb-10">
+    <div className="text-center mb-2">
       {/* ✅ دیگه سایز رو قفل نمی‌کنیم؛ با titleClassName کنترل میشه */}
       <div className={titleClassName}>{title}</div>
 

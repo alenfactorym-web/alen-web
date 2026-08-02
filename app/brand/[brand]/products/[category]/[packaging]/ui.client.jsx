@@ -413,7 +413,7 @@ useEffect(() => {
         open ? "pointer-events-none" : ""
       }`}
     >
-        <div className="w-[min(1320px,96vw)] mx-auto px-4">
+        <div className="alen-laptop-wrap-1100 w-[min(1320px,96vw)] mx-auto px-4">
         <SectionHeader
   resetKey={resetKey}
   titleClassName="text-4xl md:text-5xl lg:text-6xl font-extrabold text-zinc-600 group-hover:text-black transition-colors"
@@ -515,7 +515,7 @@ useEffect(() => {
   dir="ltr"
   className={
     isGroupLandingPage
-      ? "grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 lg:gap-4 xl:gap-4 max-w-[1100px] 2xl:max-w-[1400px] mx-auto mt-8"
+  ? "alen-laptop-grid-3 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 lg:gap-4 xl:gap-4 max-w-[1100px] 2xl:max-w-[1400px] mx-auto mt-8"
       : `
     flex flex-wrap justify-center
     gap-3 md:gap-4 lg:gap-4 xl:gap-4
@@ -618,44 +618,31 @@ useEffect(() => {
 ) : null}
 </div>
 
-               <div className={isGroupLandingPage ? "px-5 py-4 lg:px-4 lg:py-3" : "p-3 md:p-4"}>
-  <div
-  className={`flex items-start justify-between gap-2 md:gap-3 ${
-    isRTL ? "flex-row-reverse" : ""
-  }`}
->
-  <div
-    className="
-      min-w-0 flex-1
-      font-black text-zinc-600 text-[11px] sm:text-[12px] md:text-[13px]
-      leading-tight
-      h-[34px]
-      line-clamp-2
-      group-hover:text-black transition-colors
-    "
-  >
-    {getItemLabel(item)}
+<div className={isGroupLandingPage ? "px-5 py-4 lg:px-4 lg:py-3" : "p-3 md:p-4"}>
+  <div className="flex items-center justify-center">
+    <div
+      className="
+        min-w-0 w-full
+        font-black text-zinc-600 text-[11px] sm:text-[12px] md:text-[13px]
+        leading-tight
+        h-[20px]
+        line-clamp-2
+        text-center
+        group-hover:text-black transition-colors
+      "
+    >
+      {getItemLabel(item)}
+    </div>
   </div>
+</div>
 
- {!isGroupLandingPage ? (
-  <div className="shrink-0 min-w-[44px] sm:min-w-[52px] md:min-w-[104px] text-center rounded-full border border-black/10 bg-white/90 px-1.5 sm:px-2 md:px-3 py-1 text-[9px] sm:text-[10px] md:text-[11px] font-black whitespace-nowrap">
-    <span className="hidden lg:inline">
-      {getCartonText(item, safeLang, cartonQty)} / {cartonWord(safeLang)}
-    </span>
-    <span className="lg:hidden">
-      {getCartonText(item, safeLang, cartonQty, true)}
-    </span>
-  </div>
-) : null}
-</div>
-</div>
-              </motion.button>
+ </motion.button>
                         );
           })}
           </div>
 
           {/* Navigation */}
-<div className="mt-10 max-w-[1100px] 2xl:max-w-[1400px] mx-auto grid grid-cols-3 items-center">
+<div className="alen-laptop-wrap-1100 mt-10 max-w-[1100px] 2xl:max-w-[1400px] mx-auto grid grid-cols-3 items-center">
 
   {/* Back - Left */}
   <div className="flex justify-start">

@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { client } from "@/sanity/lib/client";
 import PackagingGalleryClient from "./ui.client";
+import ProductGroupPageClient from "@/components/brands/alshafi/products/product-group/ProductGroupPageClient";
 
 const PER_PAGE = 12;
 
@@ -22,6 +23,133 @@ const page = Math.max(1, parseInt(sp?.page || "1", 10) || 1);
 const start = (page - 1) * PER_PAGE;
 const end = start + PER_PAGE;
 
+/* =========================================================
+   ALSHAFI DIRECT PRODUCTS — FAST PATH
+   One Sanity request instead of running the full page queries
+   ========================================================= */
+
+if (brand === "alshafi" && isDirectProducts) {
+  const directData = await client.fetch(
+    `{
+      "list": *[
+        _type=="product" &&
+        brand->slug.current==$brand &&
+        category->slug.current==$category &&
+        !defined(productGroup) &&
+        !defined(packaging) &&
+        coalesce(isActive,true)==true
+      ]
+      | order(coalesce(order,999999) asc, _createdAt asc)
+      [$start...$end]{
+        _id,
+        "id": coalesce(sku,_id),
+        "image": coalesce(
+          coverImage.asset->url,
+          images[0].asset->url
+        ),
+        "name": title,
+        unitsPerPack,
+        packsPerCarton,
+
+        "productGroup": productGroup->{
+          title,
+          "slug": slug.current
+        },
+
+        "productGroupTitle": productGroup->title,
+        "productGroupSlug": productGroup->slug.current
+      },
+
+      "total": count(*[
+        _type=="product" &&
+        brand->slug.current==$brand &&
+        category->slug.current==$category &&
+        !defined(productGroup) &&
+        !defined(packaging) &&
+        coalesce(isActive,true)==true
+      ]),
+
+      "categories": *[
+        _type=="category" &&
+        brand->slug.current==$brand &&
+        coalesce(isActive,true)==true
+      ]
+      | order(coalesce(order,999999) asc, _createdAt asc){
+        _id,
+        "slug": slug.current,
+        title,
+
+        "hasProductGroups": count(*[
+          _type=="productGroup" &&
+          brand->slug.current==$brand &&
+          category._ref==^._id &&
+          coalesce(isActive,true)==true
+        ]) > 0,
+
+        "hasPackaging": count(*[
+          _type=="packaging" &&
+          brand->slug.current==$brand &&
+          category._ref==^._id &&
+          coalesce(isActive,true)==true
+        ]) > 0,
+
+        "hasDirectProducts": count(*[
+          _type=="product" &&
+          brand->slug.current==$brand &&
+          category._ref==^._id &&
+          !defined(productGroup) &&
+          !defined(packaging) &&
+          coalesce(isActive,true)==true
+        ]) > 0
+      }
+    }`,
+    {
+      brand,
+      category,
+      start,
+      end,
+    }
+  );
+
+const currentDirectCategory =
+  Array.isArray(directData?.categories)
+    ? directData.categories.find(
+        (item) =>
+          String(item?.slug || "").toLowerCase() === category
+      )
+    : null;
+
+  return (
+    <ProductGroupPageClient
+      brand={brand}
+      category={category}
+      group="direct"
+      lang={lang}
+      serverItems={
+        Array.isArray(directData?.list)
+          ? directData.list
+          : []
+      }
+    serverPackTitle={
+  currentDirectCategory?.title ?? {
+    en: category.replace(/-/g, " "),
+    ar: "",
+    ku: "",
+  }
+}
+      serverProductGroupsList={[]}
+      allCategories={
+        Array.isArray(directData?.categories)
+          ? directData.categories
+          : []
+      }
+      page={page}
+      perPage={PER_PAGE}
+      total={Number(directData?.total || 0)}
+    />
+  );
+}
+
 const [groupExists, currentPackagingMeta] = await Promise.all([
   isDirectProducts
     ? 0
@@ -35,6 +163,7 @@ const [groupExists, currentPackagingMeta] = await Promise.all([
         ])`,
         { brand, category, slug }
       ),
+
   isDirectProducts
     ? null
     : client.fetch(
@@ -99,7 +228,7 @@ const packQuery =
     : (isGroupPage || isPackagingUnderGroup)
     ? groupPackagingQuery
     : defaultPackagingQuery;  
-  const totalQuery = isDirectProducts
+const totalQuery = isDirectProducts
   ? `
     count(*[
       _type=="product" &&
@@ -111,22 +240,34 @@ const packQuery =
     ])
   `
   : isGroupPage
-  ? `
-    count(*[
-      _type=="product" &&
-      brand->slug.current==$brand &&
-      category->slug.current==$category &&
-      productGroup->slug.current==$slug &&
-      !defined(packaging) &&
-      coalesce(isActive,true)==true
-    ]) + count(*[
-      _type=="product" &&
-      brand->slug.current==$brand &&
-      category->slug.current==$category &&
-      packaging->productGroup->slug.current==$slug &&
-      coalesce(isActive,true)==true
-    ])
-  `
+  ? 
+brand === "alshafi"
+    ? `
+      count(*[
+        _type=="product" &&
+        brand->slug.current==$brand &&
+        category->slug.current==$category &&
+        productGroup->slug.current==$slug &&
+        coalesce(isActive,true)==true
+      ]
+)
+    `
+    : `
+      count(*[
+        _type=="product" &&
+        brand->slug.current==$brand &&
+        category->slug.current==$category &&
+        productGroup->slug.current==$slug &&
+        !defined(packaging) &&
+        coalesce(isActive,true)==true
+      ]) + count(*[
+        _type=="product" &&
+        brand->slug.current==$brand &&
+        category->slug.current==$category &&
+        packaging->productGroup->slug.current==$slug &&
+        coalesce(isActive,true)==true
+      ])
+    `
   : `
     count(*[
       _type=="product" &&
@@ -149,41 +290,75 @@ const productsQuery = isDirectProducts
     ]
     | order(coalesce(order, 999999) asc, _createdAt asc)
     [ $start...$end ]
-    {
-      _id,
-      "id": coalesce(sku, _id),
-      "image": coalesce(coverImage.asset->url, images[0].asset->url),
-      "name": title,
-      "unitsPerPack": unitsPerPack,
-      "packsPerCarton": packsPerCarton
-    }
+   {
+  _id,
+  "id": coalesce(sku, _id),
+  "image": coalesce(coverImage.asset->url, images[0].asset->url),
+  "name": title,
+  "unitsPerPack": unitsPerPack,
+  "packsPerCarton": packsPerCarton,
+
+  "productGroup": productGroup->{
+    title,
+    "slug": slug.current
+  },
+  "productGroupTitle": productGroup->title,
+  "productGroupSlug": productGroup->slug.current
+}
   `
   : isGroupPage
-  ? `
-    *[
-      _type=="product" &&
-      brand->slug.current==$brand &&
-      category->slug.current==$category &&
-      (
+  ? 
+brand === "alshafi"
+    ? `
+      *[
+        _type=="product" &&
+        brand->slug.current==$brand &&
+        category->slug.current==$category &&
+        productGroup->slug.current==$slug &&
+        coalesce(isActive,true)==true
+      ]
+      | order(coalesce(order, 999999) asc, _createdAt asc)
+      [ $start...$end ]
+      {
+        _id,
+        "id": coalesce(sku, _id),
+        "image": coalesce(coverImage.asset->url, images[0].asset->url),
+        "name": title,
+        "unitsPerPack": unitsPerPack,
+        "packsPerCarton": packsPerCarton,
+
+        "productGroup": productGroup->{
+          title,
+          "slug": slug.current
+        },
+        "productGroupTitle": productGroup->title,
+        "productGroupSlug": productGroup->slug.current
+      }
+    `    : `
+      *[
+        _type=="product" &&
+        brand->slug.current==$brand &&
+        category->slug.current==$category &&
         (
-          productGroup->slug.current==$slug &&
-          !defined(packaging)
-        ) ||
-        packaging->productGroup->slug.current==$slug
-      ) &&
-      coalesce(isActive,true)==true
-    ]
-    | order(coalesce(order, 999999) asc, _createdAt asc)
-    [ $start...$end ]
-    {
-      _id,
-      "id": coalesce(sku, _id),
-      "image": coalesce(coverImage.asset->url, images[0].asset->url),
-      "name": title,
-      "unitsPerPack": unitsPerPack,
-      "packsPerCarton": packsPerCarton
-    }
-  `
+          (
+            productGroup->slug.current==$slug &&
+            !defined(packaging)
+          ) ||
+          packaging->productGroup->slug.current==$slug
+        ) &&
+        coalesce(isActive,true)==true
+      ]
+      | order(coalesce(order, 999999) asc, _createdAt asc)
+      [ $start...$end ]
+      {
+        _id,
+        "id": coalesce(sku, _id),
+        "image": coalesce(coverImage.asset->url, images[0].asset->url),
+        "name": title,
+        "unitsPerPack": unitsPerPack,
+        "packsPerCarton": packsPerCarton
+      }
+    `
   : `
     *[
       _type=="product" &&
@@ -202,19 +377,47 @@ const productsQuery = isDirectProducts
       "unitsPerPack": unitsPerPack,
       "packsPerCarton": packsPerCarton
     }
-  `; 
+  `;
  const [packagingList, total, list, categories, currentProductGroup, productGroupsList] = await Promise.all([
   client.fetch(packQuery, { brand, category, slug, activeProductGroupSlug }),
   client.fetch(totalQuery, { brand, category, slug }),
   client.fetch(productsQuery, { brand, category, slug, start, end }),
   client.fetch(
-    `*[_type=="category" && brand->slug.current==$brand]
-     | order(coalesce(order, 999999) asc, _createdAt asc){
-       "slug": slug.current,
-       title
-     }`,
-    { brand }
-  ),
+  `*[
+    _type=="category" &&
+    brand->slug.current==$brand &&
+    coalesce(isActive,true)==true
+  ]
+  | order(coalesce(order, 999999) asc, _createdAt asc){
+    _id,
+    "slug": slug.current,
+    title,
+
+    "hasProductGroups": count(*[
+      _type=="productGroup" &&
+      brand->slug.current==$brand &&
+      category._ref==^._id &&
+      coalesce(isActive,true)==true
+    ]) > 0,
+
+    "hasPackaging": count(*[
+      _type=="packaging" &&
+      brand->slug.current==$brand &&
+      category._ref==^._id &&
+      coalesce(isActive,true)==true
+    ]) > 0,
+
+    "hasDirectProducts": count(*[
+      _type=="product" &&
+      brand->slug.current==$brand &&
+      category._ref==^._id &&
+      !defined(productGroup) &&
+      !defined(packaging) &&
+      coalesce(isActive,true)==true
+    ]) > 0
+  }`,
+  { brand }
+),
 isDirectProducts
   ? null
   : client.fetch(
@@ -301,21 +504,46 @@ const serverBackHref = isDirectProducts
   ? `/brand/${brand}/products/${category}/${activeProductGroupSlug}?lang=${lang}`
   : `/brand/${brand}/products/${category}?lang=${lang}`;
 
-return (
-<PackagingGalleryClient  brand={brand}
-  category={category}
-  packaging={slug}
-  lang={lang}
-  serverItems={serverItems}
-  serverCartonQty={serverCartonQty}
-  serverPackTitle={serverPackTitle}
-   serverPackagingList={serverPackagingList}
-  serverProductGroupsList={Array.isArray(productGroupsList) ? productGroupsList : []}
-  serverBackHref={serverBackHref}
-  isGroupLandingPage={isGroupLandingPage}
-  page={page}
-  perPage={PER_PAGE}
-  total={Number(total || 0)}
-  allCategories={Array.isArray(categories) ? categories : []}
-/>);
+if (
+brand === "alshafi") {
+  return (
+    <ProductGroupPageClient
+      brand={brand}
+      category={category}
+      group={slug}
+      lang={lang}
+      serverItems={Array.isArray(list) ? list : []}
+      serverPackTitle={
+        currentProductGroup?.title ?? {
+          en: "",
+          ar: "",
+          ku: "",
+        }
+      }
+      serverProductGroupsList={Array.isArray(productGroupsList) ? productGroupsList : []}
+      allCategories={Array.isArray(categories) ? categories : []}
+      page={page}
+      perPage={PER_PAGE}
+      total={Number(total || 0)}
+    />
+  );
 }
+return (
+  <PackagingGalleryClient
+    brand={brand}
+    category={category}
+    packaging={slug}
+    lang={lang}
+    serverItems={serverItems}
+    serverCartonQty={serverCartonQty}
+    serverPackTitle={serverPackTitle}
+    serverPackagingList={serverPackagingList}
+    serverProductGroupsList={Array.isArray(productGroupsList) ? productGroupsList : []}
+    serverBackHref={serverBackHref}
+    isGroupLandingPage={isGroupLandingPage}
+    page={page}
+    perPage={PER_PAGE}
+    total={Number(total || 0)}
+    allCategories={Array.isArray(categories) ? categories : []}
+  />
+);}

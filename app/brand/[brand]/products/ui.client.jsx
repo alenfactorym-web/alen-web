@@ -7,6 +7,7 @@ import { useLanguage } from "@/components/providers/LanguageProvider";
 import { motion, useReducedMotion } from "framer-motion";
 import { MotionTitle, MotionSubtitle } from "@/components/ui/MotionText";
 import { getBrandTheme } from "@/lib/brandTheme";
+import AlshafiProductsClient from "@/components/brands/alshafi/AlshafiProductsClient";
 
 function pickLang(obj, lang) {
   if (!obj) return "";
@@ -81,16 +82,9 @@ function CategoryCard({
   ref={registerRef}
   onMouseEnter={() => onHoverCard?.(cat.slug)}
   onFocus={() => onHoverCard?.(cat.slug)}
-  whileHover={prefersReducedMotion ? { y: -6 } : { y: -6, scale: 1.015 }}
+  whileHover={prefersReducedMotion ? { y: -6 } : { y: -6, scale: 1 }}
   whileTap={{ scale: 0.985 }}
-  onClick={() => {
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem(
-        `products-scroll-${brand}`,
-        String(window.scrollY)
-      );
-    }
-  }}
+onClick={() => {}}
   animate={{
   scale: isActive ? [1, 1.12, 1.08] : 1,
   y: 0,
@@ -126,19 +120,27 @@ function CategoryCard({
     <div className="relative h-[190px] sm:h-[220px] md:h-[260px] overflow-hidden">
   <div className="absolute inset-0 p-4 lg:p-3 xl:p-4">
     <div className="relative w-full h-full rounded-2xl overflow-hidden">
-<Image
-  src={cat?.image || "/fallback.png"}
+{cat?.image ? (
+ <Image
+  src={cat.image}
   alt={label}
-  fill
-  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-  className="
-    object-contain
-    scale-[1.1] lg:scale-[0.9] xl:scale-[1.1]
-    transition-transform duration-700 ease-out
-    group-hover:scale-[1.15] lg:group-hover:scale-[1] xl:group-hover:scale-[1.15]
-  "
-  draggable={false}
-/>    </div>
+  fill  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+className="
+  object-contain
+  scale-[1.1] lg:scale-[0.9] xl:scale-[1.1]
+  transition-transform duration-700 ease-out
+  group-hover:scale-[1.15] lg:group-hover:scale-[1] xl:group-hover:scale-[1.15]
+  transform-gpu
+"
+   draggable={false}
+   data-visualsearch="false"
+/>
+) : (
+  <div className="flex h-full w-full items-center justify-center bg-zinc-100 text-center text-xs font-bold text-zinc-500">
+    NO IMAGE
+  </div>
+)}
+  </div>
   </div>
 
   <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[34%] bg-gradient-to-t from-white/95 via-white/92 to-transparent" />
@@ -168,6 +170,15 @@ export default function BrandProductsClient({
   brand = "alen",
   initialCategories = [],
 }) {
+  if (brand === "alshafi") {
+    return (
+      <AlshafiProductsClient
+        brand={brand}
+        initialCategories={initialCategories}
+      />
+    );
+  }
+
   const { lang } = useLanguage();
   const isRTL = lang === "ar" || lang === "ku";
   const uiFont = lang === "ar" ? "font-ar-title" : lang === "ku" ? "ku-title" : "";
@@ -237,7 +248,7 @@ export default function BrandProductsClient({
   return (
    <main className="min-h-screen">
 
-      <section className="relative pt-36 md:pt-40 pb-24 bg-transparent overflow-hidden isolate">
+      <section className="alen-products-section relative pt-36 md:pt-40 pb-24 bg-transparent overflow-hidden isolate">
 
         <div
           className={`relative z-10 w-[min(1500px,96vw)] mx-auto px-[clamp(16px,3vw,56px)] ${uiFont}`}
@@ -382,14 +393,14 @@ export default function BrandProductsClient({
                   {pickLang(slogan, lang)}
                 </MotionSubtitle>
 
-                <p
-                  className={`
-                    mt-3 text-sm md:text-[20px] leading-2 text-zinc-500
-                    ${lang === "ar" ? "font-ar-body !text-[13px] md:!text-[19px]" : ""}
-                    ${lang === "ku" ? "ku-title" : ""}
-                  `}
-                  dir={isRTL ? "rtl" : "ltr"}
-                >
+               <p
+  className={`
+    mt-3 text-sm md:text-[20px] leading-2 text-zinc-500
+    ${lang === "ar" ? "font-ar-body !text-[13px] md:!text-[19px]" : ""}
+    ${lang === "ku" ? "ku-title !text-[13px] md:!text-[17px]" : ""}
+  `}
+  dir={isRTL ? "rtl" : "ltr"}
+>
                   {theme.products?.description
   ? pickLang(theme.products.description, lang)
   : lang === "ar"
@@ -400,10 +411,10 @@ export default function BrandProductsClient({
                 </p>
               </div>
 
-              <div
-                dir="ltr"
-                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-7 lg:gap-8 xl:max-w-[1100px] 2xl:max-w-[1500px] mx-auto"
-              >
+             <div
+  dir="ltr"
+  className="alen-products-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-7 lg:gap-8 xl:max-w-[1100px] 2xl:max-w-[1500px] mx-auto"
+>
                 {categories.map((cat) => {
                   const isActive = activeSlug === cat.slug;
 

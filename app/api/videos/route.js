@@ -31,8 +31,9 @@ export async function GET(req) {
   const url = new URL(req.url);
 
   const langRaw = (url.searchParams.get("lang") || "en").toString().toLowerCase();
-  const lang = ["en", "ar", "ku"].includes(langRaw) ? langRaw : "en";
-  const brandRaw = String(url.searchParams.get("brand") || "").trim().toLowerCase();
+const lang = ["en", "ar", "ku"].includes(langRaw) ? langRaw : "en";
+
+const brand = (url.searchParams.get("brand") || "alen").toString().toLowerCase();
 
   const featuredQuery = /* groq */ `
     *[_type=="videoSettings"][0]{
@@ -49,16 +50,11 @@ export async function GET(req) {
     }
   `;
 
-  const listQuery = /* groq */ `
-    *[
-      _type == "video" &&
-      (
-        !defined($brand) ||
-        $brand == "" ||
-        brand->slug.current == $brand
-      )
-    ] | order(coalesce(date, _createdAt) desc){
-      _id,
+const listQuery = /* groq */ `
+  *[
+    _type == "video" &&
+    brand->slug.current == $brand
+  ] | order(coalesce(date, _createdAt) desc){      _id,
       "title": coalesce(title[$lang], title.en),
       brand,
       source,
@@ -69,34 +65,32 @@ export async function GET(req) {
     }
   `;
 
- const [featuredWrap, list] = await Promise.all([
-  client.fetch(featuredQuery, { lang }),
-  client.fetch(listQuery, { lang, brand: brandRaw || "" }),
-]);
+  const [featuredWrap, list] = await Promise.all([
+    client.fetch(featuredQuery, { lang }),
+    client.fetch(listQuery, { lang, brand }),
+  ]);
 
   const featuredRaw = featuredWrap?.featuredVideo || null;
 
   const featured = featuredRaw
-  ? {
-      ...featuredRaw,
-      videoUrl: featuredRaw.fileUrl || null,
-      resolvedVideoUrl:
-        featuredRaw.fileUrl ||
-        featuredRaw.youtubeUrl ||
-        null,
-      image:
-        featuredRaw.image ||
-        (featuredRaw.youtubeUrl ? getYouTubeThumb(featuredRaw.youtubeUrl) : null),
-    }
-  : null;
+    ? {
+        ...featuredRaw,
+        videoUrl: featuredRaw.fileUrl || null,
+        resolvedVideoUrl: featuredRaw.fileUrl || featuredRaw.youtubeUrl || null,
+        image:
+          featuredRaw.image ||
+          (featuredRaw.youtubeUrl ? getYouTubeThumb(featuredRaw.youtubeUrl) : null),
+      }
+    : null;
 
- const normalizedList = (list || []).map((v) => ({
-  ...v,
-  videoUrl: v.fileUrl || null,
-  resolvedVideoUrl: v.source === "upload" ? v.fileUrl : v.youtubeUrl,
-  image: v.image || null,
-  youtubeThumb: v.youtubeUrl ? getYouTubeThumb(v.youtubeUrl) : null,
-}));
+  const normalizedList = (list || []).map((v) => ({
+    ...v,
+    videoUrl: v.fileUrl || null,
+    resolvedVideoUrl: v.source === "upload" ? v.fileUrl : v.youtubeUrl,
+    image: v.image || null,
+    youtubeThumb: v.youtubeUrl ? getYouTubeThumb(v.youtubeUrl) : null,
+  }));
+
   const filteredList =
     featured?._id ? normalizedList.filter((v) => v._id !== featured._id) : normalizedList;
 
@@ -105,4 +99,3 @@ export async function GET(req) {
     list: filteredList,
   });
 }
-

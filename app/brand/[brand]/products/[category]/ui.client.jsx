@@ -8,6 +8,7 @@ import CategoryCylinder from "@/components/products/CategoryCylinder";
 import { motion } from "framer-motion";
 import { MotionTitle, MotionSubtitle } from "@/components/ui/MotionText";
 import CategoryBlurBar from "@/components/products/CategoryBlurBar";
+import CategoryPageClient from "@/components/brands/alshafi/products/category/CategoryPageClient";
 function pickLang(obj, lang) {
   if (!obj) return "";
   if (lang === "ar") return obj.ar || obj.en || "";
@@ -59,7 +60,22 @@ export default function BrandCategoryClient({
   initialProductGroups = [],
   initialPackaging = [],
   allCategories = []
-}) {  const router = useRouter();
+}) {
+
+  if (brand === "alshafi") {
+    return (
+      <CategoryPageClient
+        brand={brand}
+        category={category}
+        lang={lang}
+        initialProductGroups={initialProductGroups}
+        initialPackaging={initialPackaging}
+        allCategories={allCategories}
+      />
+    );
+  }
+
+  const router = useRouter();
 
   const isRTL = lang === "ar" || lang === "ku";
   const uiFont = lang === "ar" ? "font-ar-title" : lang === "ku" ? "ku-title" : "";
@@ -318,7 +334,7 @@ useEffect(() => {
   lang={lang}
 />
 
-          <div className="max-w-[1100px] 2xl:max-w-[1400px] mx-auto mt-4 mb-5 px-1 md:px-0 touch-pan-x overscroll-x-contain">
+          <div className="alen-laptop-wrap-1100 max-w-[1100px] 2xl:max-w-[1400px] mx-auto mt-4 mb-5 px-1 md:px-0 touch-pan-x overscroll-x-contain">
   <div className="flex flex-col md:flex-row md:items-center gap-3">
 {showTopBack || isMobileView ? (
   <>
@@ -376,12 +392,12 @@ useEffect(() => {
 </div>
 </div>
 
-          <div
+         <div
   dir="ltr"
   className={`grid grid-cols-1 ${
     items.length === 2
       ? "md:flex md:justify-center"
-      : "md:grid-cols-3 max-w-[1100px] 2xl:max-w-[1400px]"
+      : "alen-laptop-grid-3 md:grid-cols-3 max-w-[1100px] 2xl:max-w-[1400px]"
   } gap-3 md:gap-4 lg:gap-4 xl:gap-4 mx-auto`}
 >
             {items.map((p) => {
@@ -457,7 +473,7 @@ useEffect(() => {
             })}
           </div>
 
-          <div className="mt-10 max-w-[1100px] 2xl:max-w-[1400px] mx-auto flex justify-start">
+          <div className="alen-laptop-wrap-1100 mt-10 max-w-[1100px] 2xl:max-w-[1400px] mx-auto flex justify-start">
             <Link
               href={
                 brand === "alen"

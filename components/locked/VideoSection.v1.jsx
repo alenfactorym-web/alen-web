@@ -97,13 +97,15 @@ function VideoCard({ item, lang, onOpen }) {
       />
       <div className="relative w-full aspect-[16/10] bg-zinc-200 overflow-hidden">
         {thumbUrl ? (
-        <motion.img
+      <motion.img
   src={thumbUrl}
   alt={item?.title || "Video"}
-  className="absolute inset-0 w-full h-full object-cover scale-[1.12]"
+  /* 🛠️ فقط اضافه شدن transform-gpu و data-visualsearch به انتهای خطوط بعدی */
+  className="absolute inset-0 w-full h-full object-cover scale-[1.12] transform-gpu"
   whileHover={{ scale: 1.04 }}
   transition={{ duration: 0.35 }}
   draggable="false"
+  data-visualsearch="false"
 />
         ) : (
           <div className="absolute inset-0 bg-zinc-300" />
@@ -187,7 +189,33 @@ export default function VideoSectionV1({ lang }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [openItem, setOpenItem] = useState(null);
+useEffect(() => {
+  if (!openItem) return;
 
+  const scrollY = window.scrollY;
+
+  const originalHtmlOverflow = document.documentElement.style.overflow;
+  const originalBodyOverflow = document.body.style.overflow;
+  const originalBodyPosition = document.body.style.position;
+  const originalBodyTop = document.body.style.top;
+  const originalBodyWidth = document.body.style.width;
+
+  document.documentElement.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.width = "100%";
+
+  return () => {
+    document.documentElement.style.overflow = originalHtmlOverflow;
+    document.body.style.overflow = originalBodyOverflow;
+    document.body.style.position = originalBodyPosition;
+    document.body.style.top = originalBodyTop;
+    document.body.style.width = originalBodyWidth;
+
+    window.scrollTo(0, scrollY);
+  };
+}, [openItem]);
   useEffect(() => {
     let ignore = false;
     setLoading(true);
@@ -289,8 +317,9 @@ export default function VideoSectionV1({ lang }) {
   className="space-y-8"
 >
           {/* Featured */}
-          <div
+         <div
   className="
+    alen-video-featured
     relative overflow-hidden rounded-3xl
     bg-white/95 backdrop-blur-xl
     border border-black/10
@@ -300,7 +329,7 @@ export default function VideoSectionV1({ lang }) {
     max-w-[1100px] 2xl:max-w-[1400px] mx-auto
   "
 >
-            <div className="relative w-full aspect-video md:aspect-auto md:h-[360px] 2xl:md:h-[420px] bg-black overflow-hidden">
+            <div className="alen-video-featured-frame relative w-full aspect-video md:aspect-auto md:h-[360px] 2xl:md:h-[540px] bg-black overflow-hidden">
               {loading ? (
                 <div className="absolute inset-0 grid place-items-center text-zinc-500 text-sm font-black">
                   Loading...
@@ -364,17 +393,20 @@ export default function VideoSectionV1({ lang }) {
           </div>
 <div
   className="
+    alen-video-grid
     grid grid-cols-1 md:grid-cols-3
     gap-4 md:gap-4 lg:gap-4 xl:gap-4
-    max-w-[1100px] 2xl:max-w-[1400px]
+    max-w-[1100px] 2xl:max-w-[1700px]
     mx-auto
   "
 >
   {list.map((v, i) => (
     <VideoCard key={getUid(v) || i} item={v} lang={lang} onOpen={setOpenItem} />
   ))}
-</div><div
+</div>
+<div
   className={`
+    alen-video-more-wrap
     mt-10
     max-w-[1100px] 2xl:max-w-[1400px]
     mx-auto
@@ -382,8 +414,7 @@ export default function VideoSectionV1({ lang }) {
     ${isRTL ? "justify-start" : "justify-end"}
     px-2 lg:px-0
   `}
->
-            <GlassButton href={`/videos?lang=${lang}`} label={lang === "ar" ? "المزيد" : lang === "ku" ? "زیاتر" : "More"} />
+>            <GlassButton href={`/videos?lang=${lang}`} label={lang === "ar" ? "المزيد" : lang === "ku" ? "زیاتر" : "More"} />
           </div>
         </motion.div>
       </div>
@@ -391,7 +422,7 @@ export default function VideoSectionV1({ lang }) {
       <AnimatePresence>
         {openItem && (
           <motion.div
-            className="fixed inset-0 z-[999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+            className="fixed inset-0 z-[999] bg-black/60 backdrop-blur-sm flex items-center justify-center pt-28 pb-4 px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

@@ -80,22 +80,30 @@ export default function AboutSectionV1({ lang = "en" }) {
       ? "ئێمە لە بنەماڵەی ئالين باشترین کەسانی پسپۆڕ لە وڵاتانی دیکەوە ڕادەکێشین و باشترین کەرەستەی خاو لە جیهان بەکاردەهێنین..."
       : "We in the Alen family attract the best experts from other countries and use the best raw materials in the world...");
 
-    const mainImage = aboutData?.mainImage || "/about/main.webp";
+   function getImageUrl(image) {
+  if (!image) return "";
+  if (typeof image === "string") return image;
+  if (typeof image?.url === "string") return image.url;
+  if (typeof image?.asset?.url === "string") return image.asset.url;
+  return "";
+}
 
-   const cards = [
-    {
-      img: aboutData?.qualityImage || "/about/quality.webp",
-      imgSquare: aboutData?.qualityImageSquare || "/about/quality-square.webp",
-    },
-    {
-      img: aboutData?.productionImage || "/about/production.webp",
-      imgSquare: aboutData?.productionImageSquare || "/about/production-square.webp",
-    },
-    {
-      img: aboutData?.distributionImage || "/about/distribution.webp",
-      imgSquare: aboutData?.distributionImageSquare || "/about/distribution-square.webp",
-    },
-  ];
+const mainImage = getImageUrl(aboutData?.mainImage);
+
+const cards = [
+  {
+    img: getImageUrl(aboutData?.qualityImage),
+    imgSquare: getImageUrl(aboutData?.qualityImageSquare),
+  },
+  {
+    img: getImageUrl(aboutData?.productionImage),
+    imgSquare: getImageUrl(aboutData?.productionImageSquare),
+  },
+  {
+    img: getImageUrl(aboutData?.distributionImage),
+    imgSquare: getImageUrl(aboutData?.distributionImageSquare),
+  },
+].filter((card) => card.img || card.imgSquare);
 
   function ThemeCard({ children, className = "" }) {
     return (
@@ -163,20 +171,23 @@ export default function AboutSectionV1({ lang = "en" }) {
         />
 
         {/* Hero Image */}
-        <ThemeCard className="max-w-[1100px] 2xl:max-w-[1400px] mx-auto">
+        <ThemeCard className="alen-about-hero-card max-w-[1100px] 2xl:max-w-[1400px] mx-auto">
           <div className="relative h-[200px] sm:h-[280px] md:h-[340px] lg:h-[380px] 2xl:h-[450px] bg-zinc-200 overflow-hidden">
-            <img
-              src={mainImage}
-              alt="Main"
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              draggable="false"
-            />
+{mainImage ? (
+  <img
+    src={mainImage}
+    alt="Main"
+    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+    draggable="false"
+  />
+) : null}
           </div>
         </ThemeCard>
 
         {/* Grid Cards */}
         <div
-  className="
+ className="
+    alen-about-grid
     mt-6
     grid grid-cols-1 sm:grid-cols-3
     gap-4 md:gap-4 lg:gap-4 xl:gap-4
@@ -188,25 +199,28 @@ export default function AboutSectionV1({ lang = "en" }) {
           {cards.map((c, i) => (
             <ThemeCard key={i}>
              <div className="relative h-[150px] sm:h-[170px] md:h-[180px] 2xl:h-[200px] bg-zinc-100 overflow-hidden">
-                <picture>
-                  {/* ✅ Tablet Portrait: مربع */}
-                  <source
-                    media="(orientation: portrait) and (min-width: 768px) and (max-width: 1023px)"
-                    srcSet={c.imgSquare}
-                  />
-                  {/* ✅ Mobile/Tablet Landscape */}
-                  <source media="(orientation: landscape) and (max-width: 1023px)" srcSet={c.imgSquare} />
-                  {/* ✅ Small phones */}
-                  <source media="(max-width: 420px)" srcSet={c.imgSquare} />
+               <picture>
+  {c.imgSquare ? (
+    <>
+      <source
+        media="(orientation: portrait) and (min-width: 768px) and (max-width: 1023px)"
+        srcSet={c.imgSquare}
+      />
+      <source
+        media="(orientation: landscape) and (max-width: 1023px)"
+        srcSet={c.imgSquare}
+      />
+      <source media="(max-width: 420px)" srcSet={c.imgSquare} />
+    </>
+  ) : null}
 
-                  {/* ✅ Default */}
-                  <img
-                    src={c.img}
-                    alt=""
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    draggable="false"
-                  />
-                </picture>
+  <img
+    src={c.img || c.imgSquare}
+    alt=""
+    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+    draggable="false"
+  />
+</picture>
               </div>
             </ThemeCard>
           ))}
@@ -214,7 +228,8 @@ export default function AboutSectionV1({ lang = "en" }) {
 
         {/* Text Content */}
         <div
-  className={`
+ className={`
+    alen-about-text
     mt-10
     max-w-[1100px] 2xl:max-w-[1400px]
     mx-auto
@@ -227,7 +242,7 @@ export default function AboutSectionV1({ lang = "en" }) {
         </div>
 
         {/* Back Button */}
-        <div className="mt-10 max-w-[1100px] 2xl:max-w-[1400px] mx-auto px-2 lg:px-0">
+        <div className="alen-about-back mt-10 max-w-[1100px] 2xl:max-w-[1400px] mx-auto px-2 lg:px-0">
           <Link
             href={`/?lang=${safeLang}`}
             className="inline-block rounded-full border bg-white/90 px-8 py-3 text-sm font-bold text-zinc-500 hover:bg-white shadow-md transition-all active:scale-95"

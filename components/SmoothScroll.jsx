@@ -5,11 +5,19 @@ import Lenis from "lenis";
 
 export default function SmoothScroll({ children }) {
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      smoothWheel: true,
-      smoothTouch: false,
-    });
+  const lenis = new Lenis({
+  duration: 1.2,
+  smoothWheel: true,
+  smoothTouch: false,
+  prevent: (node) => {
+    return (
+      node.closest("[data-lenis-prevent]") ||
+      node.closest("#sanity") ||
+      node.closest("[data-ui='Pane']") ||
+      node.closest("[role='dialog']")
+    );
+  },
+});
 
     lenis.on("scroll", ({ scroll }) => {
      document.querySelectorAll("[data-alshafi-leaf]").forEach((leaf) => {

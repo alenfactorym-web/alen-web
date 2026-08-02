@@ -184,11 +184,13 @@ export default function ProductsSectionV1({ t, lang }) {
                   {/* Image */}
                   <div className="h-40 relative overflow-hidden bg-zinc-200">
                     <img
-                      src={cat.image}
-                      alt={label}
-                      className="absolute inset-0 w-full h-full object-cover"
-                      draggable="false"
-                    />
+  src={cat.image}
+  alt={label}
+  /* 🛠️ فقط اضافه شدن transform-gpu و data-visualsearch */
+  className="absolute inset-0 w-full h-full object-cover transform-gpu"
+  draggable="false"
+  data-visualsearch="false"
+/>
                     <div className="absolute inset-0 bg-black/10" />
                   </div>
 

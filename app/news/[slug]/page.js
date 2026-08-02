@@ -68,7 +68,7 @@ export default async function NewsArticlePage({ params, searchParams }) {
     className="relative min-h-screen py-20 bg-transparent overflow-hidden isolate"
       dir={isRTL ? "rtl" : "ltr"}
          >
-      <article className="w-[min(1500px,96vw)] mx-auto px-[clamp(16px,3vw,56px)] relative z-10">
+      <article className="alen-laptop-wrap-1100 w-[min(1500px,96vw)] mx-auto px-[clamp(16px,3vw,56px)] relative z-10">
         
         {/* تصویر شاخص */}
         <div className="group relative aspect-video mt-8 rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white/50">
@@ -117,7 +117,7 @@ export default async function NewsArticlePage({ params, searchParams }) {
         )}
 
         {/* دکمه‌های ناوبری */}
-        <div className={`mt-10 flex items-center justify-between gap-3 ${getTitleClass()}`}>
+        <div className={`alen-laptop-wrap-1088 mt-10 flex items-center justify-between gap-3 ${getTitleClass()}`}>
           <Link
             href={`/news?lang=${lang}`}
             className="rounded-full border bg-white/90 px-6 py-3 text-sm font-bold text-zinc-500 hover:bg-white shadow-sm transition-transform active:scale-95"

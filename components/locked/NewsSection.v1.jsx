@@ -110,25 +110,18 @@ export default function NewsSectionV1({ lang }) {
   }}
   variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
   className="
-    grid grid-cols-1 md:grid-cols-3
-    gap-4 md:gap-4 lg:gap-4 xl:gap-4
-    max-w-[1100px] 2xl:max-w-[1400px]
-    mx-auto
-  "
+  alen-news-grid
+  grid grid-cols-1 md:grid-cols-3
+  gap-4 md:gap-4 lg:gap-4 xl:gap-4
+  max-w-[1100px] 2xl:max-w-[1400px]
+  mx-auto
+"
 >            {list.map((n) => (
-              <motion.a
-                key={n._id || n.slug}
-                href={`/news/${n.slug}?lang=${lang}`}
-                variants={{
-  hidden: { opacity: 0, y: 24 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4 }
-  }
-}}
-          whileHover={{ y: -5, scale: 1.015 }}
-whileTap={{ scale: 0.985 }}
+             <motion.a
+  key={n._id || n.slug}
+  href={`/news/${n.slug}?lang=${lang}`}
+  whileHover={{ y: -6, scale: 1.02 }}
+whileTap={{ scale: 0.98 }}
 transition={{ duration: 0.35 }}
            className="
   group block relative overflow-hidden rounded-3xl transition-all duration-300
@@ -145,7 +138,7 @@ transition={{ duration: 0.35 }}
   src={n.image}
   alt={n.title}
   className="absolute inset-0 w-full h-full object-cover"
-  whileHover={{ scale: 1.05 }}
+  whileHover={{ scale: 1.04 }}
   transition={{ duration: 0.35 }}
 />
                   ) : (
@@ -167,8 +160,9 @@ transition={{ duration: 0.35 }}
           </motion.div>
         )}
 
-        <div
+       <div
   className={`
+    alen-news-more-wrap
     mt-10
     max-w-[1100px] 2xl:max-w-[1400px]
     mx-auto

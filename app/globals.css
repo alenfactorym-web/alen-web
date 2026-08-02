@@ -173,7 +173,24 @@ body{
   object-fit: contain !important;
   object-position: center center !important;
 }
+.hero-spice-video {
+  overflow: hidden !important;
+}
 
+.hero-spice-video video {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 70%,
+    transparent 100%
+  ) !important;
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 70%,
+    transparent 100%
+  ) !important;
+}
  .hero-text-block {
   transform: translateY(30px) !important;
   max-width: 760px !important;
@@ -403,4 +420,128 @@ section:has(.group:hover)::before {
   50% {
     opacity: 0.75;
   }
+}
+/* =========================
+   ALEN LAPTOP SYSTEM
+   ========================= */
+
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) and (max-height: 899px) and (orientation: landscape) {
+  .alen-laptop-grid-3,
+  .alen-video-grid,
+  .alen-news-grid {
+    grid-template-columns: repeat(3, 352px) !important;
+    justify-content: center !important;
+    gap: 16px !important;
+    max-width: 1100px !important;
+  }
+
+  .alen-laptop-grid-3 > *,
+  .alen-video-grid > button,
+  .alen-news-grid > a,
+  .alen-about-grid > div {
+    width: 352px !important;
+  }
+
+  .alen-laptop-wrap-1088,
+  .alen-video-more-wrap,
+  .alen-news-more-wrap {
+    width: 1088px !important;
+    max-width: 1088px !important;
+  }
+
+  .alen-laptop-wrap-1100,
+  .alen-video-featured,
+  .alen-about-hero-card,
+  .alen-about-grid,
+  .alen-about-text,
+  .alen-about-back,
+  .alen-contact-map,
+  .alen-contact-info,
+  .alen-contact-text,
+  .alen-contact-back {
+    width: 1100px !important;
+    max-width: 1100px !important;
+  }
+
+  .alen-brands-wrap {
+    max-width: 980px !important;
+  }
+
+  .alen-brands-grid {
+    grid-template-columns: repeat(4, 220px) !important;
+    justify-content: center !important;
+    gap: 28px !important;
+  }
+
+  .alen-brands-grid > a,
+  .alen-brands-grid > a > div > div:nth-of-type(2) {
+    width: 220px !important;
+  }
+
+  .alen-brands-grid > a > div > div:nth-of-type(2) {
+    height: 165px !important;
+    aspect-ratio: auto !important;
+  }
+
+  .alen-brands-grid > a > div > div:first-child {
+    inset: -6px !important;
+    border-radius: 24px !important;
+    filter: blur(10px) !important;
+  }
+
+  .alen-brands-grid img {
+    height: 54px !important;
+    max-width: 82% !important;
+  }
+
+  .alen-products-section {
+    padding-top: 120px !important;
+    padding-bottom: 70px !important;
+  }
+
+  .alen-products-grid {
+    grid-template-columns: repeat(4, 275px) !important;
+    justify-content: center !important;
+    gap: 14px !important;
+    max-width: 1180px !important;
+  }
+
+  .alen-products-grid > a {
+    width: 275px !important;
+  }
+
+  .alen-video-featured-frame {
+    height: 360px !important;
+  }
+
+  .alen-catalog-grid {
+    grid-template-columns: repeat(5, 200px) !important;
+    justify-content: center !important;
+    gap: 16px !important;
+    max-width: 1064px !important;
+  }
+
+  .alen-catalog-grid > div {
+    width: 200px !important;
+    max-width: 200px !important;
+  }
+
+  .alen-about-grid {
+    grid-template-columns: repeat(3, 352px) !important;
+    justify-content: center !important;
+    gap: 16px !important;
+  }
+}
+
+/* =========================
+   ALEN GLOBAL FIXES
+   ========================= */
+
+.alen-products-grid > a {
+  backface-visibility: hidden !important;
+  will-change: transform;
+}
+
+img {
+  pointer-events: none !important;
 }

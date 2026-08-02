@@ -1,47 +1,72 @@
-"use client";
+export const dynamic = "force-dynamic";
 
-import { useParams } from "next/navigation";
-import SectionHeader from "@/components/products/SectionHeader";
-import { useLanguage } from "@/components/providers/LanguageProvider";
+import { notFound } from "next/navigation";
+import { client } from "@/sanity/lib/client";
+import VideosClient from "./VideosClient";
+import AlshafiVideosClient from "@/components/brands/alshafi/video/AlshafiVideosClient";
 
-export default function BrandVideosPage() {
-  const params = useParams();
-  const brand = String(params?.brand || "").toLowerCase();
+export default async function BrandVideosPage({ params, searchParams }) {
+  const p = await Promise.resolve(params);
+  const sp = await Promise.resolve(searchParams);
 
-  const { lang } = useLanguage();
-  const isRTL = lang === "ar" || lang === "ku";
-  const uiFont = lang === "ar" ? "font-ar-title" : lang === "ku" ? "ku-title" : "";
+  const brand = String(p?.brand || "").toLowerCase();
 
-  const title =
-    lang === "ar" ? "الفيديو" : lang === "ku" ? "ڤیدیۆکان" : "Videos";
+  const langRaw = (sp?.lang || "en").toString().toLowerCase();
+  const lang = ["en", "ar", "ku"].includes(langRaw) ? langRaw : "en";
 
-  const subtitle =
-    lang === "ar"
-      ? "شاهد فيديوهاتنا الرسمية"
-      : lang === "ku"
-      ? "ڤیدیۆ فەرمییەکانمان ببینە"
-      : `Watch ${brand.toUpperCase()} official videos.`;
+  const pageRaw = (sp?.page || "1").toString();
+  const page = Math.max(1, parseInt(pageRaw, 10) || 1);
 
-  return (
-    <main className="min-h-screen">
-      <section className={`relative py-24 bg-transparent overflow-hidden isolate ${uiFont}`}>
-        <div
-          className="relative z-10 max-w-7xl mx-auto px-6"
-          dir={isRTL ? "rtl" : "ltr"}
-        >
-          <SectionHeader title={title} subtitle={subtitle} />
+  const PER_PAGE = 9;
 
-          {/* محتوای تستی – بعداً ویدئوهای یوتیوب اینجا میاد */}
-          <div className="mt-10 rounded-3xl bg-white/70 backdrop-blur-xl border border-black/10 p-6 text-zinc-600">
-            <div className="text-sm font-bold">
-              Brand: <span className="font-black">{brand}</span>
-            </div>
-            <div className="mt-2 text-sm opacity-80">
-              Path: /brand/{brand}/videos
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
+  const totalQuery = /* groq */ `
+    count(*[
+      _type=="video" &&
+      brand->slug.current == $brand
+    ])
+  `;
+
+  const total = await client.fetch(totalQuery, { brand });
+
+  const totalPages = Math.max(1, Math.ceil((total || 0) / PER_PAGE));
+  const safePage = Math.min(page, totalPages);
+
+  const safeStart = (safePage - 1) * PER_PAGE;
+  const safeEnd = safeStart + PER_PAGE;
+
+  const listQuery = /* groq */ `
+    *[
+      _type=="video" &&
+      brand->slug.current == $brand
+    ]
+      | order(coalesce(publishDate, publishedAt, date, _createdAt) desc)
+      [${safeStart}...${safeEnd}]{
+        _id,
+        "title": coalesce(title[$lang], title.en, title),
+        "image": coalesce(coverImage.asset->url, thumbnail.asset->url),
+        "date": coalesce(publishDate, publishedAt, date, _createdAt),
+        source,
+        youtubeUrl,
+        "videoUrl": videoFile.asset->url
+      }
+  `;
+
+  const list = await client.fetch(listQuery, { lang, brand });
+
+  const props = {
+    list: list || [],
+    lang,
+    page: safePage,
+    totalPages,
+  };
+
+  if (brand === "alshafi") {
+    return <AlshafiVideosClient {...props} />;
+  }
+
+  if (brand === "alen") {
+    return <VideosClient {...props} />;
+  }
+
+  notFound();
 }

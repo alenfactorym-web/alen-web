@@ -25,33 +25,37 @@ export default function SiteHeader(props) {
     return null;
   }
 
- const nav = isMiniBrand
-  ? [
-      { key: "home", href: "#home", label: t?.navHome || "Home" },
-      { key: "brands", href: "#brands", label: t?.navBrands || "Brands" },
-      { key: "products", href: "#products", label: t?.navProducts || "Products" },
-      { key: "video", href: "#video", label: t?.navVideo || "Video" },
-      { key: "news", href: "#news", label: t?.navNews || "News" },
-      { key: "about", href: "#about", label: t?.navAbout || "About" },
-      { key: "contact", href: "#contact", label: t?.navContact || "Contact" },
-    ]
-  : [
-      { key: "home", href: "#top", label: t?.navHome || "Home" },
-      { key: "brands", href: "#brands", label: t?.navBrands || "Brands" },
-      { key: "products", href: "#products", label: t?.navProducts || "Products" },
-      { key: "video", href: "#video", label: t?.navVideo || "Video" },
-      { key: "news", href: "#news", label: t?.navNews || "News" },
-      { key: "about", href: "/about", label: t?.navAbout || "About" },
-      { key: "contact", href: "/contact", label: t?.navContact || "Contact" },
-      { key: "catalog", href: "#catalog", label: t?.navCatalog || "Catalog" },
-    ];
+const nav = (
+  isMiniBrand
+    ? [
+        { key: "home", href: "#home", label: t?.navHome || "Home" },
+        { key: "brands", href: "#brands", label: t?.navBrands || "Brands" },
+        { key: "products", href: "#products", label: t?.navProducts || "Products" },
+        { key: "video", href: "#video", label: t?.navVideo || "Video" },
 
+        // خاموش موقت؛ بعداً فقط enabled را true کن
+        { key: "news", href: "#news", label: t?.navNews || "News", enabled: false },
+
+        { key: "about", href: "#about", label: t?.navAbout || "About" },
+        { key: "contact", href: "#contact", label: t?.navContact || "Contact" },
+      ]
+    : [
+        { key: "home", href: "#top", label: t?.navHome || "Home" },
+        { key: "brands", href: "#brands", label: t?.navBrands || "Brands" },
+        { key: "products", href: "#products", label: t?.navProducts || "Products" },
+        { key: "video", href: "#video", label: t?.navVideo || "Video" },
+        { key: "news", href: "#news", label: t?.navNews || "News" },
+        { key: "about", href: "/about", label: t?.navAbout || "About" },
+        { key: "contact", href: "/contact", label: t?.navContact || "Contact" },
+        { key: "catalog", href: "#catalog", label: t?.navCatalog || "Catalog" },
+      ]
+).filter((item) => item.enabled !== false);
   const openedAtRef = useRef(0);
   const [active, setActive] = useState("home");
   const [onLight, setOnLight] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef(null);
-   const [brandLogoUrl, setBrandLogoUrl] = useState("");
+const [brandLogoUrl, setBrandLogoUrl] = useState(null);
 
   // ✅ Auto-hide فقط برای موبایل/تبلت لمسی: هنگام اسکرول مخفی، بعد توقف ظاهر
   const [hideOnTouchScroll, setHideOnTouchScroll] = useState(false);
@@ -75,16 +79,81 @@ useEffect(() => {
 }, [pathname]);
 
    useEffect(() => {
-    if (isMiniBrand) {
-      setOnLight(true);
-      if (pathname?.includes("/news")) setActive("news");
-      else if (pathname?.includes("/videos")) setActive("video");
-      else if (pathname?.includes("/products")) setActive("products");
-      else setActive("home");
+  if (isMiniBrand) {
+    setOnLight(true);
+
+    if (pathname?.includes("/news")) {
+      setActive("news");
       return;
     }
 
-    if (isLightPage || isAboutPage || isContactPage) {
+    if (pathname?.includes("/videos")) {
+      setActive("video");
+      return;
+    }
+
+    if (pathname?.includes("/products")) {
+      setActive("products");
+      return;
+    }
+
+    const handler = () => {
+      if (moreOpen) {
+        const dt = Date.now() - openedAtRef.current;
+
+        if (dt > 450) {
+          setMoreOpen(false);
+        }
+      }
+
+      const ids = [
+        "home",
+        "brands",
+        "products",
+        "video",
+        "about",
+        "contact",
+      ];
+
+      let current = "home";
+
+      for (const id of ids) {
+        const el = document.getElementById(id);
+
+        if (!el) continue;
+
+        const rect = el.getBoundingClientRect();
+
+        if (rect.top <= 180) {
+          current = id;
+        }
+      }
+
+      const isAtBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 50;
+
+      if (isAtBottom) {
+        current = "contact";
+      }
+
+      if (Date.now() > manualActiveUntilRef.current) {
+        setActive(current);
+      }
+    };
+
+    window.addEventListener("scroll", handler, {
+      passive: true,
+    });
+
+    handler();
+
+    return () => {
+      window.removeEventListener("scroll", handler);
+    };
+  }
+
+  if (isLightPage || isAboutPage || isContactPage) {
       setOnLight(true);
 
       if (pathname?.includes("/products")) setActive("products");
@@ -206,23 +275,33 @@ if (Date.now() > manualActiveUntilRef.current) {
     };
   }, [moreOpen]);
 
-  const base =
-    "relative px-1.5 py-0.5 md:px-3 md:py-1.5 rounded-full text-[10px] md:text-[11px] font-black shadow-lg transition-all duration-300" +
-    " [@media(hover:none)_and_(pointer:coarse)]:px-3" +
-    " [@media(hover:none)_and_(pointer:coarse)]:py-1.5" +
-    " [@media(hover:none)_and_(pointer:coarse)]:text-[12px]" +
-    " [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)]:px-3.5" +
-    " [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)]:py-2" +
-    " [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)]:text-[13px]";
+const base =
+  "relative px-1.5 py-0.5 md:px-3 md:py-1.5 rounded-full text-[10px] md:text-[11px] font-black shadow-lg transition-all duration-300" +
+  " [@media(hover:none)_and_(pointer:coarse)]:px-3" +
+  " [@media(hover:none)_and_(pointer:coarse)]:py-1.5" +
+  " [@media(hover:none)_and_(pointer:coarse)]:text-[12px]" +
+  " [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)_and_(orientation:landscape)]:px-3.5" +
+  " [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)_and_(orientation:landscape)]:py-2" +
+  " [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)_and_(orientation:landscape)]:text-[13px]" +
+  
+  // 🌟 قفل کردن آیتم‌های منو در تبلت عمودی
+  " [@media(max-width:1024px)_and_(orientation:portrait)]:!px-1.5" +
+  " [@media(max-width:1024px)_and_(orientation:portrait)]:!py-0.5" +
+  " [@media(max-width:1024px)_and_(orientation:portrait)]:!text-[10px]";const chip = theme?.headerChip;
 
-const dark = onLight
-  ? "bg-zinc-200 hover:bg-zinc-300 border border-black/10 backdrop-blur-md"
-  : "bg-white/12 text-zinc-100 hover:bg-white/18 border border-white/15 backdrop-blur-md";
-const activePill = onLight
-  ? "bg-zinc-300 text-zinc-900 border border-black/15 backdrop-blur-md"
-  : "bg-white/18 text-white border border-white/25 backdrop-blur-md";
+const dark = chip
+  ? `${chip.bg} ${chip.text} ${chip.border} ${chip.hover} backdrop-blur-md`
+  : onLight
+    ? "bg-zinc-200 hover:bg-zinc-300 border border-black/10 backdrop-blur-md"
+    : "bg-white/12 text-zinc-100 hover:bg-white/18 border border-white/15 backdrop-blur-md";
 
-  function PillGlow({ on }) {
+const activePill = chip
+  ? `${chip.activeBg} ${chip.activeText} ${chip.activeBorder || chip.border} backdrop-blur-md`
+  : onLight
+    ? "bg-zinc-300 text-zinc-900 border border-black/15 backdrop-blur-md"
+    : "bg-white/18 text-white border border-white/25 backdrop-blur-md";
+
+function PillGlow({ on }) {
   if (!on) return null;
   return (
     <>
@@ -237,7 +316,6 @@ const activePill = onLight
     </>
   );
 }
-
   function buildUrlWithLang(nextLang, extraHash = "") {
     const sp = new URLSearchParams(searchParams?.toString() || "");
     sp.set("lang", nextLang);
@@ -275,7 +353,9 @@ const activePill = onLight
     "top-0",
 
     // ✅ دسکتاپ: همون مثل قبل top-6
-    "[@media(hover:hover)_and_(pointer:fine)]:top-6",
+    brand === "alshafi"
+  ? "[@media(hover:hover)_and_(pointer:fine)]:top-3"
+  : "[@media(hover:hover)_and_(pointer:fine)]:top-6",
 
     "transition-transform duration-300 ease-out",
 
@@ -289,22 +369,30 @@ const activePill = onLight
       {/* ✅ نوار شیشه‌ای: روشن/تیره بر اساس onLight، فقط روی touch */}
       <div
         className={[
-          "w-full",
-          // موبایل/تبلت لمسی:
-          onLight
-            ? "[@media(hover:none)_and_(pointer:coarse)]:bg-white/72"
-            : "[@media(hover:none)_and_(pointer:coarse)]:bg-zinc-900/55",
-          "[@media(hover:none)_and_(pointer:coarse)]:backdrop-blur-xl",
-          "[@media(hover:none)_and_(pointer:coarse)]:border-b",
-          onLight
-            ? "[@media(hover:none)_and_(pointer:coarse)]:border-black/10"
-            : "[@media(hover:none)_and_(pointer:coarse)]:border-white/10",
-          "[@media(hover:none)_and_(pointer:coarse)]:shadow-[0_18px_40px_-30px_rgba(0,0,0,0.45)]",
-          // دسکتاپ خاموش
-          "[@media(hover:hover)_and_(pointer:fine)]:bg-transparent",
-          "[@media(hover:hover)_and_(pointer:fine)]:border-transparent",
-          "[@media(hover:hover)_and_(pointer:fine)]:shadow-none",
-        ].join(" ")}
+  "w-full",
+
+  isMiniBrand
+    ? "[@media(hover:none)_and_(pointer:coarse)]:bg-transparent"
+    : onLight
+      ? "[@media(hover:none)_and_(pointer:coarse)]:bg-white/72"
+      : "[@media(hover:none)_and_(pointer:coarse)]:bg-zinc-900/55",
+
+  isMiniBrand
+    ? "[@media(hover:none)_and_(pointer:coarse)]:backdrop-blur-0"
+    : "[@media(hover:none)_and_(pointer:coarse)]:backdrop-blur-xl",
+
+  isMiniBrand
+    ? "[@media(hover:none)_and_(pointer:coarse)]:border-transparent"
+    : "[@media(hover:none)_and_(pointer:coarse)]:border-b",
+
+  isMiniBrand
+    ? "[@media(hover:none)_and_(pointer:coarse)]:shadow-none"
+    : "[@media(hover:none)_and_(pointer:coarse)]:shadow-[0_18px_40px_-30px_rgba(0,0,0,0.45)]",
+
+  "[@media(hover:hover)_and_(pointer:fine)]:bg-transparent",
+  "[@media(hover:hover)_and_(pointer:fine)]:border-transparent",
+  "[@media(hover:hover)_and_(pointer:fine)]:shadow-none",
+].join(" ")}
       >
         <div className="flex flex-wrap items-center justify-between px-3 md:px-4 gap-y-3 landscape:pr-1 py-2">
           <nav className="flex-1 min-w-0 pointer-events-auto">
@@ -351,7 +439,7 @@ const activePill = onLight
             </div>
 
             {/* تبلت + دسکتاپ: منوی کامل */}
-            <div className="flex items-center gap-2 [@media(max-width:639px)_and_(orientation:portrait)]:hidden [@media(max-width:950px)_and_(orientation:landscape)]:hidden">
+            <div className="alen-header-nav-full flex items-center gap-2 [@media(max-width:639px)_and_(orientation:portrait)]:hidden [@media(max-width:950px)_and_(orientation:landscape)]:hidden">
               {nav.map((item) => {
                 const isActive = active === item.key;
                 return (
@@ -370,15 +458,22 @@ onClick={(e) => {
     const el = document.getElementById(id);
     if (!el) return;
 
-    const rect = el.getBoundingClientRect();
-    const elTop = rect.top + window.scrollY;
-    const elCenter = elTop + rect.height / 2;
+   const rect = el.getBoundingClientRect();
+const elTop = rect.top + window.scrollY;
 
-    const headerOffset = 120;
+const headerOffset =
+  id === "products"
+    ? -50
+    : id === "video"
+      ? -150
+      : 120;
 
-    const targetY = Math.max(0, elCenter - window.innerHeight / 2 + headerOffset / 2);
+const targetY =
+  id === "products" || id === "video"
+    ? Math.max(0, elTop - headerOffset)
+    : Math.max(0, elTop + rect.height / 2 - window.innerHeight / 2 + headerOffset / 2);
 
-    window.scrollTo({ top: targetY, behavior: "smooth" });
+window.scrollTo({ top: targetY, behavior: "smooth" });
   }
 }}   
           className={[base, isActive ? activePill : dark].join(" ")}
@@ -397,50 +492,59 @@ style={
             </div>
           </nav>
 
-          <div className="flex items-center gap-2 shrink-0 ml-auto pointer-events-auto">
+          <div className="alen-header-tools flex items-center gap-2 shrink-0 ml-auto pointer-events-auto">
             <Link
   href={homeWithLang()}
   className="inline-flex items-center justify-center h-10 w-10 md:h-16 md:w-16"
  style={theme.headerLogoGap ? { marginInlineEnd: theme.headerLogoGap } : undefined}
 >
-              <img
- src={brandLogoUrl || "/logo.svg"}
-  alt={brand || "Alen Factory"}
-  className={`h-full w-full object-contain ${theme.headerLogoClassName || "scale-[1.3]"}`}
-/>
+             {(!isMiniBrand || brandLogoUrl) && (
+  <img
+    src={brandLogoUrl || "/logo.svg"}
+    alt={brand || "Alen Factory"}
+    className={`h-full w-full object-contain ${theme.headerLogoClassName || "scale-[1.3]"}`}
+  />
+)}
             </Link>
 
             {["en", "ar", "ku"].map((l) => (
-              <button
-                key={l}
-                onClick={() => onChangeLang(l)}
-                className={[
-                  base,
-                  lang === l ? activePill : dark,
-                  "[@media(max-width:950px)_and_(orientation:landscape)]:px-2",
-                  "[@media(max-width:950px)_and_(orientation:landscape)]:py-1",
-                  "[@media(max-width:950px)_and_(orientation:landscape)]:text-[11px]",
-                  "[@media(max-width:767px)_and_(orientation:portrait)]:px-2",
-                  "[@media(max-width:767px)_and_(orientation:portrait)]:py-1",
-                  "[@media(max-width:767px)_and_(orientation:portrait)]:text-[11px]",
-                ].join(" ")}
-              >
-                <PillGlow on={lang === l} />
-                <span className="relative">{l.toUpperCase()}</span>
-              </button>
-            ))}
+  <button
+    key={l}
+    onClick={() => onChangeLang(l)}
+    className={[
+      base,
+      lang === l ? activePill : dark,
+      "[@media(max-width:950px)_and_(orientation:landscape)]:px-2",
+      "[@media(max-width:950px)_and_(orientation:landscape)]:py-1",
+      "[@media(max-width:950px)_and_(orientation:landscape)]:text-[11px]",
+      "[@media(max-width:767px)_and_(orientation:portrait)]:px-2",
+      "[@media(max-width:767px)_and_(orientation:portrait)]:py-1",
+      "[@media(max-width:767px)_and_(orientation:portrait)]:text-[11px]",
+      
+      // 🌟 اضافه کردن شرط تبلت عمودی (تا عرض ۱۰۲۴ پیکسل پورتریت) با علامت ! برای دکمه‌های زبان
+      "[@media(max-width:1024px)_and_(orientation:portrait)]:!px-1.5",
+      "[@media(max-width:1024px)_and_(orientation:portrait)]:!py-0.5",
+      "[@media(max-width:1024px)_and_(orientation:portrait)]:!text-[10px]",
+    ].join(" ")}
+  >
+    <PillGlow on={lang === l} />
+    <span className="relative">{l.toUpperCase()}</span>
+  </button>
+))}
           </div>
         </div>
 
         {/* ✅ یه “نوار زیر” خیلی نازک که وقتی hide میشه هنوز یه hint بمونه */}
-        <div
-          className={[
-            "h-[6px]",
-            "[@media(hover:none)_and_(pointer:coarse)]:block",
-            "[@media(hover:hover)_and_(pointer:fine)]:hidden",
-            onLight ? "bg-black/5" : "bg-white/10",
-          ].join(" ")}
-        />
+      {!isMiniBrand && (
+  <div
+    className={[
+      "h-[6px]",
+      "[@media(hover:none)_and_(pointer:coarse)]:block",
+      "[@media(hover:hover)_and_(pointer:fine)]:hidden",
+      onLight ? "bg-black/5" : "bg-white/10",
+    ].join(" ")}
+  />
+)}
       </div>
     </header>
   );

@@ -1,0 +1,814 @@
+/* =========================
+   MINI-SITES SCREEN SYSTEM
+   ALEN main site is not affected
+   ========================= */
+
+/* =========================
+   BASE
+   ========================= */
+
+.mini-site {
+  --mini-device: "default";
+
+  --mini-card-w: 92%;
+  --mini-card-max: 640px;
+  --mini-card-x: 0px;
+  --mini-card-y: 0px;
+  --mini-card-outer-px: 16px;
+}
+
+.mini-site .mini-card-root {
+  width: var(--mini-card-w);
+  max-width: var(--mini-card-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--mini-card-outer-px);
+  padding-right: var(--mini-card-outer-px);
+  transform: translate(var(--mini-card-x), var(--mini-card-y));
+}
+
+/* =========================
+   SCREEN DETECTION
+   ========================= */
+
+@media (max-width: 767px) and (orientation: portrait) {
+  .mini-site {
+    --mini-device: "mobile-portrait";
+  }
+}
+
+@media (max-width: 932px) and (max-height: 550px) and (orientation: landscape) {
+  .mini-site {
+    --mini-device: "mobile-landscape";
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1180px) and (min-height: 900px) and (orientation: portrait) {
+  .mini-site {
+    --mini-device: "tablet-portrait";
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1366px) and (min-height: 900px) and (orientation: landscape) {
+  .mini-site {
+    --mini-device: "tablet-landscape";
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 899px) and (orientation: landscape) {
+  .mini-site {
+    --mini-device: "laptop";
+  }
+}
+
+@media (min-width: 1280px) and (min-height: 900px) and (orientation: landscape) {
+  .mini-site {
+    --mini-device: "large-monitor";
+  }
+}
+
+/* =========================
+   ALSHAFI - BASE
+   ========================= */
+
+.mini-site-alshafi {
+  --mini-card-max: 620px;
+}
+
+/* =========================
+   ALSHAFI - LARGE MONITOR
+   Hero + Brand switcher only
+   ========================= */
+
+@media (min-width: 1280px) and (min-height: 900px) and (orientation: landscape) {
+  .mini-site-alshafi {
+    --mini-card-w: 100%;
+    --mini-card-max: 1200px;
+    --mini-card-x: 18vw;
+    --mini-card-y: 0px;
+    --mini-card-outer-px: 64px;
+  }
+
+  .mini-site-alshafi .alshafi-crafted-rtl {
+    letter-spacing: 0.4em !important;
+  }
+
+  .mini-site-alshafi .brand-switcher-inner {
+    transform: translate(-5px, 30px) scale(0.9);
+  }
+
+  .mini-site-alshafi .alshafi-bg-img {
+    height: 59%;
+    width: auto;
+    transform: translateY(-2%) translateX(-10%);
+  }
+}
+
+/* =========================
+   ALSHAFI - LAPTOP
+   Hero + Brand switcher only
+   ========================= */
+
+@media (min-width: 1024px) and (max-height: 899px) and (orientation: landscape) {
+  .mini-site-alshafi {
+    --mini-card-w: 100%;
+    --mini-card-max: 740px;
+    --mini-card-x: 14vw;
+    --mini-card-y: 0px;
+    --mini-card-outer-px: 40px;
+  }
+
+  .mini-site-alshafi .tracking-\[0\.9em\] {
+    letter-spacing: 0.8em !important;
+    font-size: 10px !important;
+  }
+
+  .mini-site-alshafi .h-\[1px\].w-28 {
+    width: 80px !important;
+  }
+
+  .mini-site-alshafi svg {
+    width: 26px !important;
+  }
+
+  .mini-site-alshafi .brand-switcher-inner {
+    transform: translate(-120px, 30px) scale(0.85);
+  }
+
+  .mini-site-alshafi .alshafi-bg-img {
+    height: 65%;
+    width: auto;
+    transform: translateY(-3%) translateX(-15%) scaleX(1) scaleY(1.2);
+    transform-origin: center;
+  }
+}
+
+/* =========================
+   ALSHAFI - TABLET PORTRAIT
+   Hero + Brand switcher only
+   ========================= */
+
+@media (orientation: portrait) {
+  .mini-site-alshafi {
+    --mini-card-w: 72%;
+    --mini-card-max: 560px;
+    --mini-card-x: 16vw;
+    --mini-card-y: 40px;
+    --mini-card-outer-px: 18px;
+  }
+
+  .mini-site-alshafi .alshafi-card-inner {
+    padding-top: 8px !important;
+    padding-bottom: 12px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .tracking-\[0\.9em\] {
+    font-size: 6px !important;
+    letter-spacing: 0.4em !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .h-\[1px\].w-28 {
+    width: 58px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card svg {
+    width: 35px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .font-alshafi-logo {
+    font-size: 58px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .font-ar-title,
+  .mini-site-alshafi .alshafi-hero-card .ku-title {
+    font-size: 48px !important;
+    line-height: 1.15 !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-crafted-text {
+    font-size: 9px !important;
+    letter-spacing: 0.45em !important;
+    white-space: nowrap;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-crafted-rtl {
+    letter-spacing: 0.14em !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card a {
+    padding: 5px 18px !important;
+    font-size: 11px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card h1 {
+    transform: scale(0.82);
+    transform-origin: top center;
+  }
+
+  .mini-site-alshafi .alshafi-hero-button-wrap {
+    margin-top: 4px !important;
+  }
+}
+
+/* =========================
+   ALSHAFI - TABLET LANDSCAPE
+   Hero + Brand switcher only
+   ========================= */
+
+@media (min-width: 768px) and (max-width: 1180px) and (orientation: landscape) {
+  .mini-site-alshafi {
+    --mini-card-w: 56%;
+    --mini-card-max: 580px;
+    --mini-card-h: 260px;
+    --mini-card-x: 15vw;
+    --mini-card-y: -10px;
+    --mini-card-scale: 0.82;
+    --mini-glow-extra-x: 140px;
+    --mini-glow-extra-y: 90px;
+    --mini-glow-blur: 120px;
+    --mini-glow-opacity: 0.72;
+  }
+
+  .mini-site-alshafi .brand-switcher-inner {
+    transform: translate(-105px, 30px) scale(0.7);
+  }
+
+  .mini-site-alshafi .alshafi-card-inner {
+    padding-top: 20px !important;
+    padding-bottom: 15px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card h1 {
+    transform: scale(0.85);
+    transform-origin: top center;
+  }
+
+  .mini-site-alshafi .alshafi-hero-button-wrap {
+    margin-top: 4px !important;
+  }
+
+  .mini-site-alshafi .alshafi-spice-main {
+    width: 420px;
+    left: 6vw;
+    top: 8vh;
+  }
+
+  .mini-site-alshafi .alshafi-bg-img {
+    height: 54%;
+    width: auto;
+    transform: translateY(-3%) translateX(-12%) scaleX(1) scaleY(1.2);
+    transform-origin: center;
+  }
+
+  .mini-site-alshafi .alshafi-leaves-group {
+    transform: translateY(30px);
+  }
+}
+
+/* =========================
+   ALSHAFI - MOBILE LANDSCAPE
+   Hero + Brand switcher only
+   ========================= */
+
+@media (max-width: 932px) and (max-height: 550px) and (orientation: landscape) {
+  .mini-site-alshafi {
+    --mini-card-w: 58%;
+    --mini-card-max: 500px;
+    --mini-card-x: 28vw;
+    --mini-card-y: -10px;
+    --mini-card-outer-px: 12px;
+  }
+
+  .mini-site-alshafi .brand-switcher-inner {
+    transform: translate(-70px, 10px) scale(0.59);
+  }
+
+  .mini-site-alshafi .alshafi-hero-card {
+    width: 520px !important;
+    max-width: 520px !important;
+    height: 245px !important;
+    transform: translateX(40px) translateY(-20px) scale(0.73) !important;
+    transform-origin: center right !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-badge-text {
+    font-size: 18px !important;
+    letter-spacing: 0.08em !important;
+    line-height: 1 !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-card-inner {
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-brand-title {
+    font-size: 90px !important;
+    line-height: 1 !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-spices-text {
+    font-size: 30px !important;
+    transform: translateY(4px) !important;
+    letter-spacing: 0.06em !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-crafted-text {
+    font-size: 20px !important;
+    letter-spacing: 0.09em !important;
+  }
+
+  .mini-site-alshafi .alshafi-bg-img {
+    height: 58% !important;
+    width: auto !important;
+    transform: translateX(-80px) translateY(0px) scaleX(1.08) scaleY(1.4) !important;
+    transform-origin: center right !important;
+  }
+
+  .mini-site-alshafi .alshafi-spice-main img {
+    transform: translateX(-80px) translateY(-140px) scale(0.8) !important;
+  }
+
+  .mini-site-alshafi .alshafi-leaf-1 img {
+    transform: translateX(-5px) translateY(-10px) scale(0.58) !important;
+  }
+
+  .mini-site-alshafi .alshafi-leaf-2 img {
+    transform: translateX(30px) translateY(30px) scale(0.62) !important;
+  }
+
+  .mini-site-alshafi .alshafi-leaf-3 img {
+    transform: translateX(-70px) translateY(-6px) scale(0.72) !important;
+  }
+}
+
+/* =========================
+   ALSHAFI CARD BACK GLOW
+   Hero only
+   ========================= */
+
+.mini-site-alshafi .mini-card-glow-wrap {
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: -1 !important;
+  pointer-events: none;
+}
+
+.mini-site-alshafi .alshafi-card-back-glow {
+  position: absolute !important;
+  width: calc(100% + var(--mini-glow-extra-x, 150px)) !important;
+  height: calc(100% + var(--mini-glow-extra-y, 100px)) !important;
+  background: radial-gradient(
+    circle,
+    rgba(201, 154, 58, 0.55) 0%,
+    rgba(201, 154, 58, 0.15) 55%,
+    transparent 100%
+  ) !important;
+  filter: blur(var(--mini-glow-blur, 140px)) !important;
+  animation: alshafiBackGlow 3s ease-in-out infinite !important;
+}
+
+@keyframes alshafiBackGlow {
+  0%,
+  100% {
+    opacity: var(--mini-glow-opacity, 0.72);
+    transform: scale(var(--mini-card-scale, 1));
+  }
+
+  50% {
+    opacity: calc(var(--mini-glow-opacity, 0.72) * 1.2);
+    transform: scale(calc(var(--mini-card-scale, 1) * 1.1));
+  }
+}
+
+/* =========================
+   ALSHAFI - TABLET PORTRAIT DIRECT CONTROL
+   Hero only
+   ========================= */
+
+@media (min-width: 768px) and (orientation: portrait) {
+  .mini-site-alshafi .alshafi-hero-card {
+    width: 360px !important;
+    max-width: 360px !important;
+    height: 460px !important;
+    transform: translateX(200px) translateY(-90px) scale(1.2) !important;
+    transform-origin: center right !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .mini-card-scale {
+    height: 100% !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-card-inner {
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-top: 65px !important;
+    padding-bottom: 65px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-card-inner > div {
+    width: 100% !important;
+    transform: translateX(0px) translateY(-20px) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card h1 {
+    transform: none !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-badge-text {
+    font-size: 18px !important;
+    display: block !important;
+    line-height: 1.2 !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .font-alshafi-logo,
+  .mini-site-alshafi .alshafi-hero-card .font-ar-title,
+  .mini-site-alshafi .alshafi-hero-card .ku-title {
+    font-size: 110px !important;
+    line-height: 1 !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .brand-text-shine {
+    font-size: inherit !important;
+    transform: translateX(0px) translateY(0px) scale(1) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-crafted-text.tracking-\[0\.9em\],
+  .mini-site-alshafi .alshafi-hero-card .alshafi-crafted-text.tracking-\[0\.35em\] {
+    display: block !important;
+    font-size: 18px !important;
+    line-height: 1.01 !important;
+    letter-spacing: 0.1em !important;
+    white-space: normal !important;
+    max-width: 320px !important;
+    margin-inline: auto !important;
+    transform: translateX(0px) translateY(20px) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .w-105 {
+    width: 180px !important;
+    transform: translateX(0px) translateY(35px) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .w-45 {
+    width: 80px !important;
+    transform: translateX(0px) translateY(35px) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .w-30 {
+    width: 55px !important;
+    transform: translateX(0px) translateY(35px) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-hero-button-wrap {
+    margin-top: 45px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-hero-button-wrap a {
+    padding: 8px 26px !important;
+    font-size: 14px !important;
+    transform: translateX(0px) translateY(50px) scale(1.15) !important;
+  }
+
+  .mini-site-alshafi .alshafi-bg-img {
+    height: 60% !important;
+    width: auto !important;
+    transform: translateX(-320px) translateY(290px) rotate(90deg) scaleX(0.8) scaleY(1.1) !important;
+    transform-origin: center right !important;
+  }
+
+  .mini-site-alshafi .alshafi-spice-main img {
+    transform: translateX(-60px) translateY(230px) scale(1.7) !important;
+    transform-origin: center;
+  }
+
+  .mini-site-alshafi .alshafi-leaf-1 img {
+    transform: translateX(0px) translateY(-30px) scale(1.3) !important;
+    transform-origin: center;
+  }
+
+  .mini-site-alshafi .alshafi-leaf-2 img {
+    transform: translateX(0px) translateY(0px) scale(1.3) !important;
+    transform-origin: center;
+  }
+
+  .mini-site-alshafi .alshafi-leaf-3 img {
+    transform: translateX(-120px) translateY(0px) scale(1.2) !important;
+    transform-origin: center;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-badge-text.tracking-\[0\.9em\] {
+    font-size: 14px !important;
+    letter-spacing: 0.2em !important;
+    line-height: 1 !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-hero-button-wrap .font-ar-title,
+  .mini-site-alshafi .alshafi-hero-card .alshafi-hero-button-wrap .ku-title {
+    font-size: 14px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-brand-title {
+    font-size: 70px !important;
+    line-height: 1.5 !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-spices-text {
+    font-size: 26px !important;
+    transform: translateY(15px) !important;
+  }
+}
+
+/* =========================
+   ALSHAFI - MOBILE PORTRAIT DIRECT CONTROL
+   Hero + Brand switcher only
+   ========================= */
+
+@media (max-width: 767px) and (orientation: portrait) {
+  .mini-site-alshafi .alshafi-hero-card {
+    width: 320px !important;
+    max-width: 320px !important;
+    height: 360px !important;
+    min-height: 360px !important;
+    transform: translateX(50px) translateY(-40px) scale(0.8) !important;
+    transform-origin: center right !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .mini-card-scale {
+    height: 100% !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-card-inner {
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-top: 52px !important;
+    padding-bottom: 52px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-card-inner > div {
+    width: 100% !important;
+    transform: translateX(0px) translateY(-12px) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-badge-text {
+    font-size: 13px !important;
+    letter-spacing: 0.1em !important;
+    line-height: 1 !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .font-alshafi-logo,
+  .mini-site-alshafi .alshafi-hero-card .font-ar-title,
+  .mini-site-alshafi .alshafi-hero-card .ku-title {
+    font-size: 60px !important;
+    line-height: 0.8 !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-spices-text {
+    font-size: 22px !important;
+    letter-spacing: 0.08em !important;
+    transform: translateY(10px) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-crafted-text.tracking-\[0\.9em\],
+  .mini-site-alshafi .alshafi-hero-card .alshafi-crafted-text.tracking-\[0\.35em\] {
+    font-size: 14px !important;
+    line-height: 1.15 !important;
+    letter-spacing: 0.08em !important;
+    white-space: normal !important;
+    max-width: 240px !important;
+    margin-inline: auto !important;
+    transform: translateY(16px) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .w-105 {
+    width: 200px !important;
+    transform: translateY(24px) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .w-45 {
+    width: 60px !important;
+    transform: translateY(24px) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .w-30 {
+    width: 10px !important;
+    transform: translateY(24px) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .h-\[1px\].w-28 {
+    width: 50px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card svg {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-hero-button-wrap {
+    margin-top: 28px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-hero-button-wrap a {
+    padding: 7px 22px !important;
+    font-size: 12px !important;
+    transform: translateY(32px) scale(1.05) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-hero-button-wrap .font-ar-title,
+  .mini-site-alshafi .alshafi-hero-card .alshafi-hero-button-wrap .ku-title {
+    font-size: 11px !important;
+  }
+
+  .mini-site-alshafi .alshafi-bg-img {
+    height: 54% !important;
+    width: auto !important;
+    transform: translateX(-140px) translateY(180px) rotate(90deg) scaleX(1.05) scaleY(1.5) !important;
+    transform-origin: center right !important;
+  }
+
+  .mini-site-alshafi .alshafi-spice-main img {
+    transform: translateX(-160px) translateY(-70px) scale(0.8) !important;
+    transform-origin: center;
+  }
+
+  .mini-site-alshafi .alshafi-leaf-1 img {
+    transform: translateX(-45px) translateY(20px) scale(0.5) !important;
+  }
+
+  .mini-site-alshafi .alshafi-leaf-2 img {
+    transform: translateX(15px) translateY(30px) scale(0.6) !important;
+  }
+
+  .mini-site-alshafi .alshafi-leaf-3 img {
+    transform: translateX(-90px) translateY(-10px) scale(0.7) !important;
+  }
+
+  .mini-site-alshafi .brand-switcher-inner {
+    transform: translate(-30px, -50px) scale(1) !important;
+  }
+
+  .mini-site-alshafi #brands .relative.mx-auto.mt-4.w-\[78\%\] {
+    transform: translateX(-70px) translateY(-20px) scale(0.6) !important;
+  }
+
+  .mini-site-alshafi #brands .mx-auto.mt-4.h-px.w-\[78\%\] {
+    transform: translateX(-60px) translateY(-12px) scaleX(0.7) !important;
+  }
+
+  .mini-site-alshafi #brands .flex.items-center.justify-center {
+    display: grid !important;
+    grid-template-columns: repeat(2, 90px) !important;
+    gap: 0px 12px !important;
+    justify-content: center !important;
+    justify-items: center !important;
+    align-items: center !important;
+  }
+
+  .mini-site-alshafi #brands .flex.items-center.justify-center > a {
+    width: 90px !important;
+    height: 64px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .mini-site-alshafi #brands img {
+    max-height: 58px !important;
+    max-width: 82px !important;
+    width: auto !important;
+  }
+}
+
+/* iPhone / narrow mobile portrait */
+@media (max-width: 430px) and (orientation: portrait) {
+  .mini-site-alshafi .alshafi-hero-card {
+    width: 360px !important;
+    max-width: 320px !important;
+    height: 460px !important;
+    transform: translateX(30px) translateY(-30px) scale(0.8) !important;
+    transform-origin: center right !important;
+  }
+}
+
+/* =========================
+   ALSHAFI HERO - TABLET REAL PORTRAIT FIX
+   only hero, no products/video
+   ========================= */
+
+@media (min-width: 430px) and (max-width: 767px) and (orientation: portrait) {
+  .mini-site-alshafi .alshafi-hero-card {
+    width: 360px !important;
+    max-width: 360px !important;
+    height: 460px !important;
+    min-height: 460px !important;
+    transform: translateX(85px) translateY(-35px) scale(0.92) !important;
+    transform-origin: center right !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .mini-card-scale {
+    height: 100% !important;
+    min-height: 100% !important;
+    transform: none !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-card-inner {
+    height: 100% !important;
+    min-height: 100% !important;
+    transform: none !important;
+    padding-top: 52px !important;
+    padding-bottom: 52px !important;
+  }
+
+  .mini-site-alshafi .alshafi-bg-img {
+    height: 64% !important;
+    width: auto !important;
+    transform: translateX(-230px) translateY(230px) rotate(90deg) scaleX(0.8) scaleY(1.2) !important;
+    transform-origin: center right !important;
+  }
+
+  .mini-site-alshafi .alshafi-spice-main img {
+    transform: translateX(-130px) translateY(20px) scale(1.3) !important;
+    transform-origin: center;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-badge-text {
+    font-size: 15px !important;
+    letter-spacing: 0.14em !important;
+    line-height: 1.1 !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-brand-title {
+    font-size: 78px !important;
+    line-height: 1.05 !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-spices-text {
+    font-size: 28px !important;
+    letter-spacing: 0.12em !important;
+    transform: translateY(10px) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-crafted-text {
+    font-size: 16px !important;
+    letter-spacing: 0.09em !important;
+    line-height: 1.1 !important;
+    max-width: 280px !important;
+    transform: translateY(18px) !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-hero-button-wrap {
+    margin-top: 34px !important;
+  }
+
+  .mini-site-alshafi .alshafi-hero-card .alshafi-hero-button-wrap a {
+    padding: 8px 24px !important;
+    font-size: 13px !important;
+    transform: translateY(36px) scale(1.08) !important;
+  }
+}
+
+/* =========================
+   ALSHAFI SHARED SECTION HEADING
+   Used by products/video/about/contact components
+   ========================= */
+
+.mini-site-alshafi .alshafi-letter-wave {
+  display: inline-flex;
+  justify-content: center;
+  align-items: baseline;
+  width: 100%;
+}
+
+.mini-site-alshafi .alshafi-letter {
+  display: inline-block;
+  animation: alshafiLetterWave 3.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes alshafiLetterWave {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.mini-site-alshafi .alshafi-section-bottom-title {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.mini-site-alshafi .alshafi-heading-line {
+  transform: translateX(0px) !important;
+}

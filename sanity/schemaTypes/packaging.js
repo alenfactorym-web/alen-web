@@ -41,13 +41,44 @@ export default {
 },
   },
 },
-    {
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      options: { source: "title.en" },
-      validation: (Rule) => Rule.required(),
+   {
+  name: "slug",
+  title: "Slug",
+  type: "slug",
+  options: {
+    source: "title.en",
+    isUnique: async (slug, context) => {
+      const { document, getClient } = context;
+      const client = getClient({ apiVersion: "2026-01-26" });
+
+      const id = (document._id || "").replace(/^drafts\./, "");
+      const brandId = document.brand?._ref;
+
+      if (!brandId) return true;
+
+      const params = {
+        draft: `drafts.${id}`,
+        published: id,
+        slug,
+        brandId,
+      };
+
+      const query = `
+        !defined(
+          *[
+            _type == "packaging" &&
+            !(_id in [$draft, $published]) &&
+            slug.current == $slug &&
+            brand._ref == $brandId
+          ][0]._id
+        )
+      `;
+
+      return client.fetch(query, params);
     },
+  },
+  validation: (Rule) => Rule.required(),
+},
     {
       name: "title",
       title: "Title",

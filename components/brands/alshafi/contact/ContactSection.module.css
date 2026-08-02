@@ -1,0 +1,1202 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+  padding: 96px 0;
+  background: transparent;
+}
+
+.layout {
+  position: relative;
+  z-index: 10;
+  width: min(1500px, 96vw);
+  margin: 80px auto 96px;
+  padding-inline: clamp(16px, 3vw, 56px);
+}
+
+.contentGrid {
+  display: flex;
+  align-items: flex-start;
+  gap: 56px;
+}
+
+.mediaColumn {
+  flex: 1;
+  min-width: 0;
+  max-width: 1100px;
+}
+
+.contactPanel {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+/* =========================
+   ALSHAFI CONTACT WATERMARK ICON
+   same system as About / Video
+   ========================= */
+
+.section :global(.alshafi-section-watermark) {
+  position: absolute !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+
+  width: 240px !important;
+  height: 240px !important;
+
+  color: #c99a3a !important;
+  opacity: 0.075 !important;
+
+  filter: blur(0.2px) drop-shadow(0 0 32px rgba(201, 154, 58, 0.22)) !important;
+}
+
+.section :global(.alshafi-section-watermark svg) {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.section :global(.alshafi-contact-watermark) {
+  left: -95px !important;
+  top: 105px !important;
+  transform: rotate(-8deg) scale(1) !important;
+}
+/* =========================
+   Main Contact Blocks
+   ========================= */
+
+.mapCard {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+
+  height: 420px;
+  margin-bottom: 18px;
+
+  border-radius: 28px;
+  border: 1px solid rgba(201, 154, 58, 0.28);
+  border-bottom: 6px solid #c99a3a;
+
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+}
+
+.mapFrame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: saturate(0.9) contrast(1.05);
+  pointer-events: none;
+  user-select: none;
+}
+.infoPanel {
+  position: relative;
+  z-index: 2;
+
+  margin-top: 18px;
+  padding: 26px 28px;
+
+  display: grid;
+  grid-template-columns: 1.2fr 1fr auto;
+  align-items: center;
+  gap: 28px;
+
+  border-radius: 28px;
+  border: 1px solid rgba(201, 154, 58, 0.34);
+  border-bottom: 6px solid #c99a3a;
+
+  background:
+    radial-gradient(circle at 0% 0%, rgba(201, 154, 58, 0.22), transparent 38%),
+    linear-gradient(135deg, rgba(21, 20, 17, 0.96), rgba(7, 7, 7, 0.96));
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 22px 65px rgba(0, 0, 0, 0.32);
+}
+.addressBlock {
+  min-width: 0;
+}
+
+.infoLabel {
+  margin: 0 0 10px;
+  color: #c99a3a;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.addressLine {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.addressLine svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: #c99a3a;
+}
+
+.addressLine p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 600;
+}
+.contactRows {
+  display: grid;
+  gap: 12px;
+}
+
+.contactRows a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 16px;
+  line-height: 1.35;
+  font-weight: 800;
+  text-decoration: none;
+}
+.contactRows svg {
+  flex: 0 0 auto;
+  color: #c99a3a;
+}
+
+.contactRows a:hover {
+  color: #f3d98a;
+}
+
+.actionsRow {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-width: 170px;
+  height: 46px;
+  padding: 0 20px;
+
+  border-radius: 999px;
+  border: 1px solid rgba(201, 154, 58, 0.42);
+
+  background: rgba(201, 154, 58, 0.16);
+  color: #c99a3a;
+
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 900;
+  text-decoration: none;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.actionButton:hover {
+  transform: translateY(-2px);
+  background: rgba(201, 154, 58, 0.26);
+  border-color: rgba(243, 217, 138, 0.65);
+  color: #f3d98a;
+}
+
+.footerText {
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+
+  width: 100%;
+  max-width: none;
+  margin: 24px 0 0;
+  padding: 0;
+
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 10px;
+  line-height: 1.65;
+  text-align: left;
+}
+.footerText p {
+  margin: 0;
+  max-width: 100%;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: 500;
+}
+
+.footerText[dir="rtl"],
+.footerText[dir="rtl"] p {
+  text-align: right;
+  letter-spacing: 0;
+}
+
+.footerText[data-lang="ar"] {
+  font-size: 9.2px;
+  line-height: 1.8;
+}
+
+.footerText[data-lang="ku"] {
+  font-size: 8.8px;
+  line-height: 1.85;
+}.latinText {
+  font-family: Arial, Helvetica, sans-serif !important;
+  unicode-bidi: isolate;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+/* =========================
+   Large Monitor
+   ========================= */
+
+@media (min-width: 1280px) and (min-height: 900px) and (orientation: landscape) {
+  .layout {
+    width: min(1900px, 96vw);
+    max-width: none;
+    margin-top: 110px;
+  }
+
+  .contentGrid {
+    gap: 48px;
+  }
+
+  .contentGrid > aside {
+    transform: translateX(-220px) translateY(-50px) scale(1);
+    transform-origin: top left;
+  }
+
+  .mediaColumn {
+    flex: none;
+    width: calc(100vw - 560px);
+    max-width: 1550px;
+    transform: translateX(-20px) translateY(30px) scale(1.15);
+    transform-origin: top left;
+  }
+
+  .contactPanel {
+    max-width: 1320px;
+  }
+
+  .mapCard {
+    height: 480px;
+  }
+
+ .footerText {
+  width: 100%;
+  max-width: none;
+}
+  .section :global(.alshafi-contact-watermark) {
+    left: -160px !important;
+    top: 320px !important;
+    width: 300px !important;
+    height: 300px !important;
+    opacity: 0.15 !important;
+    transform: rotate(-8deg) scale(0.8) !important;
+  }
+}
+
+/* =========================
+   Laptop
+   ========================= */
+
+@media (min-width: 1024px) and (max-height: 899px) and (orientation: landscape) {
+  .section {
+    padding-top: 80px;
+    padding-bottom: 40px;
+  }
+
+  .layout {
+    width: min(1500px, 96vw);
+    margin-top: 70px;
+  }
+
+  .contentGrid {
+    gap: 40px;
+  }
+
+  .contentGrid > aside {
+    transform: translateX(10px) translateY(-70px) scale(1);
+    transform-origin: top left;
+  }
+
+  .mediaColumn {
+    flex: none;
+    width: calc(100vw - 430px);
+    max-width: 1060px;
+    transform: translateX(70px) translateY(-60px) scale(0.95);
+    transform-origin: top left;
+  }
+
+  .mapCard {
+    height: 360px;
+  }
+
+  .infoPanel {
+    padding: 22px 24px;
+    gap: 22px;
+  }
+
+  .infoLabel {
+    font-size: 13px;
+  }
+
+  .addressLine p,
+  .contactRows a {
+    font-size: 15px;
+  }
+
+  .actionButton {
+    min-width: 150px;
+    height: 42px;
+    font-size: 12px;
+  }
+  .section :global(.alshafi-contact-watermark) {
+    left: 60px !important;
+    top: 180px !important;
+    width: 220px !important;
+    height: 220px !important;
+    opacity: 0.15 !important;
+    transform: rotate(-8deg) scale(0.7) !important;
+  }
+ }
+
+/* =========================
+   Contact - Tablet Landscape
+   separated from mobile landscape
+   ========================= */
+
+@media (min-width: 768px) and (max-width: 1180px) and (min-height: 551px) and (orientation: landscape) {
+  .section {
+    padding-top: 20px;
+    padding-bottom: 50px;
+  }
+
+  .layout {
+    width: 100vw;
+    max-width: none;
+    margin-top: 56px;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .contentGrid {
+    gap: 12px;
+  }
+
+  .contentGrid > aside {
+    flex: 0 0 240px;
+    width: 240px;
+    transform: translateX(10px) translateY(-30px) scale(0.92);
+    transform-origin: top left;
+  }
+
+  .mediaColumn {
+    flex: none;
+    width: calc(100vw - 360px);
+    max-width: none;
+    transform: translateX(90px) scale(0.92);
+    transform-origin: top left;
+  }
+
+  .mapCard {
+    height: 300px;
+    border-radius: 24px;
+  }
+
+  .infoPanel {
+    padding: 18px;
+    grid-template-columns: 140px 1fr 1.1fr;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .infoPanelLtr .addressBlock {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .infoPanelLtr .contactRows {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .infoPanelLtr .actionsRow {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .infoPanelRtl .actionsRow {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .infoPanelRtl .contactRows {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .infoPanelRtl .addressBlock {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .actionsRow {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .infoLabel {
+    font-size: 11px;
+  }
+
+  .addressLine p,
+  .contactRows a {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .actionButton {
+    width: 100%;
+    min-width: 0;
+    height: 38px;
+    padding: 0 12px;
+    font-size: 10px;
+  }
+
+  .section :global(.alshafi-contact-watermark) {
+    left: 30px !important;
+    top: 170px !important;
+    width: 190px !important;
+    height: 190px !important;
+    opacity: 0.15 !important;
+    transform: rotate(-8deg) scale(0.6) !important;
+  }
+}
+
+
+/* =========================
+   CONTACT - NARROW MOBILE PORTRAIT
+   max-width 429px فقط موبایل باریک
+   ========================= */
+
+@media (max-width: 429px) and (orientation: portrait) {
+  .section {
+    min-height: auto;
+    padding-top: 105px;
+    padding-bottom: 28px;
+  }
+
+  .layout {
+    width: 100%;
+    max-width: none;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .contentGrid {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .contentGrid > aside {
+    width: 100%;
+    max-width: 320px;
+    transform: translateX(0px) translateY(-55px) scale(0.9);
+    transform-origin: top center;
+  }
+
+  .mediaColumn {
+    width: 100%;
+    max-width: 360px;
+    transform: translateX(0px) translateY(-70px) scale(0.94);
+    transform-origin: top center;
+  }
+
+  .contactPanel {
+    max-width: 360px;
+  }
+
+  .mapCard {
+    height: 290px;
+    border-radius: 22px;
+  }
+
+  .infoPanel {
+    padding: 18px;
+    border-radius: 22px;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 18px;
+  }
+
+  .addressLine p,
+  .contactRows a {
+    font-size: 15px;
+  }
+
+  .actionsRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actionButton {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .footerText {
+    overflow: hidden;
+    margin-top: 24px;
+    padding: 15px 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(201, 154, 58, 0.28);
+    background:
+      radial-gradient(circle at 18% 0%, rgba(201, 154, 58, 0.18), transparent 38%),
+      rgba(8, 8, 8, 0.78);
+    box-shadow:
+      0 18px 50px rgba(0, 0, 0, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 14.2px !important;
+    line-height: 1.82 !important;
+  }
+
+  .footerText p {
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+
+  .footerText[data-lang="ar"],
+  .footerText[data-lang="ar"] p {
+    font-size: 13.4px !important;
+    line-height: 1.82 !important;
+  }
+
+  .footerText[data-lang="ku"],
+  .footerText[data-lang="ku"] p {
+    font-size: 13.2px !important;
+    line-height: 1.86 !important;
+  }
+
+  .section :global(.alshafi-contact-watermark) {
+    left: 100px !important;
+    top: -100px !important;
+    width: 210px !important;
+    height: 210px !important;
+    opacity: 0.3 !important;
+    z-index: 55 !important;
+    transform: translateX(-50%) rotate(-8deg) scale(0.5) !important;
+  }
+}
+
+/* =========================
+   CONTACT - LARGE MOBILE PORTRAIT
+   430px تا 767px فقط موبایل واقعی
+   ========================= */
+
+@media (min-width: 430px) and (max-width: 767px) and (max-height: 899px) and (orientation: portrait) {
+  .section {
+    min-height: auto;
+    padding-top: 105px;
+    padding-bottom: 28px;
+  }
+
+  .layout {
+    width: 100%;
+    max-width: none;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .contentGrid {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .contentGrid > aside {
+    width: 100%;
+    max-width: 320px;
+    transform: translateX(0px) translateY(-55px) scale(0.9);
+    transform-origin: top center;
+  }
+
+  .mediaColumn {
+    width: 100%;
+    max-width: 390px;
+    transform: translateX(0px) translateY(-70px) scale(0.94);
+    transform-origin: top center;
+  }
+
+  .contactPanel {
+    max-width: 390px;
+  }
+
+  .mapCard {
+    height: 290px;
+    border-radius: 22px;
+  }
+
+  .infoPanel {
+    padding: 18px;
+    border-radius: 22px;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 18px;
+  }
+
+  .addressLine p,
+  .contactRows a {
+    font-size: 15px;
+  }
+
+  .actionsRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actionButton {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .footerText {
+    overflow: hidden;
+    margin-top: 24px;
+    padding: 15px 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(201, 154, 58, 0.28);
+    background:
+      radial-gradient(circle at 18% 0%, rgba(201, 154, 58, 0.18), transparent 38%),
+      rgba(8, 8, 8, 0.78);
+    box-shadow:
+      0 18px 50px rgba(0, 0, 0, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 14.2px !important;
+    line-height: 1.82 !important;
+  }
+
+  .footerText p {
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+
+  .footerText[data-lang="ar"],
+  .footerText[data-lang="ar"] p {
+    font-size: 13.4px !important;
+    line-height: 1.82 !important;
+  }
+
+  .footerText[data-lang="ku"],
+  .footerText[data-lang="ku"] p {
+    font-size: 13.2px !important;
+    line-height: 1.86 !important;
+  }
+
+  .section :global(.alshafi-contact-watermark) {
+    left: 30px !important;
+    top: -100px !important;
+    width: 210px !important;
+    height: 210px !important;
+    opacity: 0.3 !important;
+    z-index: 55 !important;
+    transform: translateX(-50%) rotate(-8deg) scale(0.45) !important;
+  }
+}
+
+/* =========================
+   CONTACT - SMALL TABLET PORTRAIT
+   430px تا 767px فقط تبلت عمودی
+   ========================= */
+
+@media (min-width: 430px) and (max-width: 767px) and (min-height: 900px) and (orientation: portrait) {
+  .section {
+    min-height: auto;
+    padding-top: 70px;
+    padding-bottom: 190px;
+  }
+
+  .layout {
+    width: 100%;
+    max-width: none;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .contentGrid {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .contentGrid > aside {
+    width: 100%;
+    max-width: 320px;
+    transform: translateX(0px) translateY(-55px) scale(0.9);
+    transform-origin: top center;
+  }
+
+  .mediaColumn {
+    width: 100%;
+    max-width: 420px;
+    transform: translateX(0px) translateY(-70px) scale(1.2);
+    transform-origin: top center;
+  }
+
+  .contactPanel {
+    max-width: 420px;
+  }
+
+  .mapCard {
+    height: 320px;
+  }
+
+  .infoPanel {
+    padding: 18px;
+    border-radius: 22px;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 18px;
+  }
+
+  .addressLine p,
+  .contactRows a {
+    font-size: 15px;
+  }
+
+  .actionsRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actionButton {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .footerText {
+    margin-top: 24px;
+    padding: 15px 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(201, 154, 58, 0.28);
+    background:
+      radial-gradient(circle at 18% 0%, rgba(201, 154, 58, 0.18), transparent 38%),
+      rgba(8, 8, 8, 0.78);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 14.6px !important;
+    line-height: 1.78 !important;
+  }
+
+  .footerText p {
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+
+  .footerText[data-lang="ar"],
+  .footerText[data-lang="ar"] p {
+    font-size: 14.8px !important;
+    line-height: 1.86 !important;
+  }
+
+  .footerText[data-lang="ku"],
+  .footerText[data-lang="ku"] p {
+    font-size: 13.6px !important;
+    line-height: 1.9 !important;
+  }
+
+  .section :global(.alshafi-contact-watermark) {
+    left: 230px !important;
+    top: -100px !important;
+    width: 210px !important;
+    height: 210px !important;
+    opacity: 0.3 !important;
+    z-index: 55 !important;
+    transform: translateX(-50%) rotate(-8deg) scale(0.5) !important;
+  }
+}
+/* =========================
+   CONTACT - MOBILE LANDSCAPE
+   normal mobile landscape only
+   separated from tablet + short mobile landscape
+   ========================= */
+
+@media (max-width: 932px) and (min-height: 431px) and (max-height: 550px) and (orientation: landscape) {
+  .section {
+    min-height: auto;
+    padding-top: 24px;
+    padding-bottom: 40px;
+  }
+
+  .layout {
+    width: 100vw;
+    max-width: none;
+    margin-top: 36px;
+    margin-bottom: 40px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .contentGrid {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .contentGrid > aside {
+    flex: 0 0 245px;
+    width: 245px;
+    max-width: 245px;
+    transform: translateX(-50px) translateY(-20px) scale(0.9);
+    transform-origin: top center;
+    z-index: 5;
+  }
+
+  .mediaColumn {
+    flex: 1 1 auto;
+    width: auto;
+    max-width: none;
+    transform: translateX(-16px) translateY(0px) scale(1.04);
+    transform-origin: top left;
+  }
+
+  .contactPanel {
+    max-width: none;
+  }
+
+  .mapCard {
+    height: 220px;
+    margin-bottom: 12px;
+    border-radius: 18px;
+  }
+
+  .infoPanel {
+    padding: 14px;
+    grid-template-columns: 120px 1fr 1.05fr;
+    align-items: center;
+    gap: 10px;
+    border-radius: 18px;
+  }
+
+  .infoLabel {
+    font-size: 9px;
+  }
+
+  .addressLine {
+    gap: 8px;
+  }
+
+  .addressLine p,
+  .contactRows a {
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .actionsRow {
+    gap: 8px;
+  }
+
+  .actionButton {
+    width: 100%;
+    min-width: 0;
+    height: 34px;
+    padding: 0 10px;
+    font-size: 9px;
+  }
+
+  .footerText {
+    margin-top: 12px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    font-size: 9px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  .footerText[data-lang="ar"],
+  .footerText[data-lang="ku"] {
+    font-size: 8.3px;
+    line-height: 1.55;
+  }
+
+  .section :global(.alshafi-contact-watermark) {
+    left: 20px !important;
+    top: 120px !important;
+    width: 150px !important;
+    height: 150px !important;
+    opacity: 0.15 !important;
+    transform: rotate(-8deg) scale(0.7) !important;
+  }
+}
+
+/* =========================
+   CONTACT - SHORT MOBILE LANDSCAPE
+   very low height phones only
+   ========================= */
+
+@media (max-width: 932px) and (max-height: 430px) and (orientation: landscape) {
+  .section {
+    min-height: auto;
+    padding-top: 18px;
+    padding-bottom: 34px;
+  }
+
+  .layout {
+    width: 100vw;
+    max-width: none;
+    margin-top: 28px;
+    margin-bottom: 34px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .contentGrid {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .contentGrid > aside {
+    flex: 0 0 245px;
+    width: 245px;
+    max-width: 245px;
+    transform: translateX(-50px) translateY(-28px) scale(0.86);
+    transform-origin: top center;
+    z-index: 5;
+  }
+
+  .mediaColumn {
+    flex: 1 1 auto;
+    width: auto;
+    max-width: none;
+    transform: translateX(-16px) translateY(0px) scale(1.02);
+    transform-origin: top left;
+  }
+
+  .contactPanel {
+    max-width: none;
+  }
+
+  .mapCard {
+    height: 200px;
+    margin-bottom: 12px;
+    border-radius: 18px;
+  }
+
+  .infoPanel {
+    padding: 14px;
+    grid-template-columns: 120px 1fr 1.05fr;
+    align-items: center;
+    gap: 10px;
+    border-radius: 18px;
+  }
+
+  .infoLabel {
+    font-size: 9px;
+  }
+
+  .addressLine {
+    gap: 8px;
+  }
+
+  .addressLine p,
+  .contactRows a {
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .actionsRow {
+    gap: 8px;
+  }
+
+  .actionButton {
+    width: 100%;
+    min-width: 0;
+    height: 34px;
+    padding: 0 10px;
+    font-size: 9px;
+  }
+
+  .footerText {
+    margin-top: 12px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    font-size: 9px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  .footerText[data-lang="ar"],
+  .footerText[data-lang="ku"] {
+    font-size: 8.3px;
+    line-height: 1.55;
+  }
+
+  .section :global(.alshafi-contact-watermark) {
+    left: 20px !important;
+    top: 105px !important;
+    width: 150px !important;
+    height: 150px !important;
+    opacity: 0.15 !important;
+    transform: rotate(-8deg) scale(0.7) !important;
+  }
+}
+/* =========================
+   ALSHAFI CONTACT SIGNATURE
+   ========================= */
+
+.signatureBar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 80;
+
+  width: 100%;
+  height: clamp(40px, 3vw, 52px);
+
+  display: grid;
+  grid-template-columns: calc(26% + 10px) minmax(0, 1fr);
+  align-items: center;
+
+  background: transparent;
+  
+}
+
+/* بخش سفید سمت چپ */
+.copyright {
+  position: static;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  padding-inline: clamp(12px, 2vw, 32px);
+font-family: Arial, Helvetica, sans-serif !important;
+  color: rgba(0, 0, 0, 0.68);
+  font-size: clamp(7px, 0.58vw, 11px);
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* بخش مشکی سمت راست */
+.blackCubeSignature {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+
+  gap: clamp(4px, 0.45vw, 8px);
+  width: fit-content;
+
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.blackCubeSignature:hover {
+  transform: scale(1.03);
+}
+
+.signatureText {
+  color: rgba(255, 255, 255, 0.78) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: clamp(7px, 0.62vw, 11px);
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: clamp(0.08em, 0.12vw, 0.14em);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.signatureLogo {
+  width: auto;
+  height: clamp(24px, 2.2vw, 38px);
+  object-fit: contain;
+
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
+}
+
+/* Mobile Portrait */
+@media (max-width: 767px) and (orientation: portrait) {
+  .signatureBar {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 12px;
+  }
+
+  .copyright {
+    display: none;
+  }
+
+  .blackCubeSignature {
+    gap: 4px;
+  }
+
+  .signatureText {
+    font-size: 7px;
+    letter-spacing: 0.06em;
+  }
+
+  .signatureLogo {
+    height: 24px;
+  }
+}

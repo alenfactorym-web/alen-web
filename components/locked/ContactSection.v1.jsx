@@ -112,8 +112,18 @@ export default function ContactSectionV1({ lang = "en" }) {
     "https://www.google.com/maps/place/Swissrose+Factory/@36.0793754,44.0283322,17z/";
 
   const waNumber = contactData?.whatsAppNumber || phones[0];
-  const waE164 = `964${waNumber.replace(/^0/, "")}`;
-  const waLink = `https://wa.me/${waE164}`;
+
+const waDigits = String(waNumber || "").replace(/\D/g, "");
+
+const waE164 = waDigits.startsWith("964")
+  ? waDigits
+  : waDigits.startsWith("0")
+    ? `964${waDigits.slice(1)}`
+    : `964${waDigits}`;
+
+const waLink = `https://wa.me/${waE164}?text=${encodeURIComponent(
+  "Hello ALEN Factory"
+)}`;
 
   /* ===================== UI ===================== */
   function ThemeCard({ children, className = "", noHover = false }) {
@@ -219,7 +229,7 @@ export default function ContactSectionV1({ lang = "en" }) {
         />
 
         {/* Map */}
-        <ThemeCard className="max-w-[1100px] 2xl:max-w-[1400px] mx-auto">
+        <ThemeCard className="alen-contact-map max-w-[1100px] 2xl:max-w-[1400px] mx-auto">
           <div className="relative h-[280px] md:h-[340px] lg:h-[380px] 2xl:h-[420px] bg-zinc-200 overflow-hidden">
             <iframe
               title="Alen Factory Map"
@@ -233,7 +243,7 @@ export default function ContactSectionV1({ lang = "en" }) {
         </ThemeCard>
 
         {/* Info */}
-       <div className="mt-6 max-w-[1100px] 2xl:max-w-[1400px] mx-auto">
+       <div className="alen-contact-info mt-6 max-w-[1100px] 2xl:max-w-[1400px] mx-auto">
   <ThemeCard className="p-6 md:p-7 2xl:p-9" noHover>
             <div className="flex flex-col gap-6">
               {/* Address */}
@@ -299,14 +309,14 @@ export default function ContactSectionV1({ lang = "en" }) {
 
         {/* Footer text */}
         <div
-  className={`mt-10 max-w-[1100px] 2xl:max-w-[1400px] mx-auto px-2 lg:px-0 news-body prose prose-lg text-zinc-600 ${getBodyClass()}`}
+    className={`alen-contact-text mt-10 max-w-[1100px] 2xl:max-w-[1400px] mx-auto  px-2 lg:px-0 news-body prose prose-lg text-zinc-600 ${getBodyClass()}`}
   dir={isRTL ? "rtl" : "ltr"}
 >
           <p>{footerText}</p>
         </div>
 
         {/* Back */}
-        <div className={`mt-10 max-w-[1100px] 2xl:max-w-[1400px] mx-auto px-2 lg:px-0 flex items-center ${uiFont}`}>
+        <div className={`alen-contact-back mt-10 max-w-[1100px] 2xl:max-w-[1400px] mx-auto px-2 lg:px-0 flex items-center ${uiFont}`}>
           <Link
             href={`/?lang=${safeLang}`}
             className="rounded-full border bg-white/90 px-6 py-3 text-sm font-bold text-zinc-600 hover:bg-white shadow-sm transition-transform active:scale-95"

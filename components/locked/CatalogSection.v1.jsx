@@ -130,13 +130,13 @@ export default function CatalogSectionV1({ t, lang }) {
         ) : (
           <div
             dir="ltr"
-            className="
-              grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5
-              gap-4
-              max-w-[1100px] 2xl:max-w-[1400px]
-              mx-auto
-            "
-          >
+className="
+  alen-catalog-grid
+  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5
+  gap-4
+  max-w-[1100px] 2xl:max-w-[1400px]
+  mx-auto
+"          >
             {catalogList.map((c) => (
               <motion.div
                 key={c._id}
@@ -180,8 +180,8 @@ export default function CatalogSectionV1({ t, lang }) {
     ${EN_LOCK}
     px-3 py-1.5 rounded-full text-[11px]
     bg-yellow-400 text-black
-    shadow-[0_8px_18px_-8px_rgba(0,0,0,0.4)]
-    hover:bg-yellow-500 hover:shadow-[0_12px_26px_-10px_rgba(0,0,0,0.5)]
+    shadow-[0_4px_10px_-6px_rgba(0,0,0,0.22)]
+hover:shadow-[0_8px_18px_-8px_rgba(0,0,0,0.30)]
     active:scale-95
     transition-all duration-200
     whitespace-nowrap
@@ -196,11 +196,82 @@ export default function CatalogSectionV1({ t, lang }) {
         )}
       </div>
 
-      <div
-        id="catalogEnd"
-        className="relative flex h-8 w-full items-center justify-center overflow-hidden bg-yellow-500 md:h-10"
-      />
-    </section>
+<div
+  id="catalogEnd"
+  className="
+    relative flex w-full items-center justify-center bg-yellow-500
+    h-[clamp(42px,3.2vw,56px)]
+    px-[clamp(12px,2vw,32px)]
+
+    [@media(max-width:767px)_and_(orientation:portrait)]:h-[42px]
+    [@media(max-width:767px)_and_(orientation:portrait)]:px-3
+  "
+>
+  <span
+  className="
+    absolute
+    left-[clamp(88px,7vw,130px)]
+    whitespace-nowrap
+    text-[clamp(7px,0.58vw,11px)]
+    font-medium
+    tracking-[0.06em]
+    text-black/70
+
+    [@media(max-width:767px)_and_(orientation:portrait)]:hidden
+  "
+  style={{
+    fontFamily: "Arial, Helvetica, sans-serif",
+  }}
+>
+  © 2026 ALEN Factory. All rights reserved.
+</span>
+
+<a
+  href="https://wa.me/989144401036"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Designed and developed by Black Cube"
+  className="
+    inline-flex items-center justify-center
+    gap-[clamp(4px,0.45vw,8px)]
+    transition-transform duration-200
+    hover:scale-[1.03]
+
+    [@media(max-width:767px)_and_(orientation:portrait)]:gap-1
+  "
+>
+  <span
+    className="
+      whitespace-nowrap
+      text-[clamp(7px,0.62vw,11px)]
+      font-semibold uppercase
+      tracking-[clamp(0.08em,0.12vw,0.14em)]
+      text-black/75
+
+      [@media(max-width:767px)_and_(orientation:portrait)]:text-[7px]
+      [@media(max-width:767px)_and_(orientation:portrait)]:tracking-[0.06em]
+    "
+    style={{
+      fontFamily: "Arial, Helvetica, sans-serif",
+    }}
+  >
+    Designed &amp; Developed by
+  </span>
+
+  <img
+    src="/branding/black-cube-logo.png"
+    alt="Black Cube Visual Design Studio"
+    className="
+      h-[clamp(24px,2.2vw,38px)]
+      w-auto object-contain
+
+      [@media(max-width:767px)_and_(orientation:portrait)]:h-[24px]
+    "
+    draggable="false"
+  />
+</a>
+</div>
+  </section>
   );
 }
 
