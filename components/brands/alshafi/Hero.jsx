@@ -31,7 +31,7 @@ const brandTextFix = currentLang === "en" ? "" : "leading-[1.45] pb-2";
     },
     ku: {
       badge: "کوالێتی بەرز",
-      brand: "الشافی",
+      brand: "ئەلشافی",
       spices: "بەهارات",
       crafted: " بۆ هەموو تام و چێژێک دەبێت",
       desc: "تامی سروشتی بە وردی هەڵبژێردراو و بە باشی تێکەڵکراو.",

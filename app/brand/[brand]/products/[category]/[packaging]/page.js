@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 import { client } from "@/sanity/lib/client";
 import PackagingGalleryClient from "./ui.client";
 import ProductGroupPageClient from "@/components/brands/alshafi/products/product-group/ProductGroupPageClient";
-
+import GolyRozhProductGalleryClient from "@/components/brands/goly-rozh/products/gallery/golyrozhProductGalleryClient";
 const PER_PAGE = 12;
 
 export default async function PackagingGalleryPage({ params, searchParams }) {
@@ -253,21 +253,17 @@ brand === "alshafi"
 )
     `
     : `
-      count(*[
-        _type=="product" &&
-        brand->slug.current==$brand &&
-        category->slug.current==$category &&
-        productGroup->slug.current==$slug &&
-        !defined(packaging) &&
-        coalesce(isActive,true)==true
-      ]) + count(*[
-        _type=="product" &&
-        brand->slug.current==$brand &&
-        category->slug.current==$category &&
-        packaging->productGroup->slug.current==$slug &&
-        coalesce(isActive,true)==true
-      ])
-    `
+  count(*[
+    _type=="product" &&
+    brand->slug.current==$brand &&
+    category->slug.current==$category &&
+    (
+      productGroup->slug.current==$slug ||
+      packaging->productGroup->slug.current==$slug
+    ) &&
+    coalesce(isActive,true)==true
+  ])
+`
   : `
     count(*[
       _type=="product" &&
@@ -340,12 +336,9 @@ brand === "alshafi"
         brand->slug.current==$brand &&
         category->slug.current==$category &&
         (
-          (
-            productGroup->slug.current==$slug &&
-            !defined(packaging)
-          ) ||
-          packaging->productGroup->slug.current==$slug
-        ) &&
+  productGroup->slug.current==$slug ||
+  packaging->productGroup->slug.current==$slug
+) &&
         coalesce(isActive,true)==true
       ]
       | order(coalesce(order, 999999) asc, _createdAt asc)
@@ -461,6 +454,7 @@ const currentPack = isDirectProducts
     ) || null;
 
 const isGroupLandingPage =
+  !(brand === "alen" && isGroupPage) &&
   (isGroupPage || isPackagingUnderGroup) &&
   serverPackagingList.length > 0 &&
   !currentPack;
@@ -504,8 +498,7 @@ const serverBackHref = isDirectProducts
   ? `/brand/${brand}/products/${category}/${activeProductGroupSlug}?lang=${lang}`
   : `/brand/${brand}/products/${category}?lang=${lang}`;
 
-if (
-brand === "alshafi") {
+if (brand === "alshafi") {
   return (
     <ProductGroupPageClient
       brand={brand}
@@ -520,7 +513,9 @@ brand === "alshafi") {
           ku: "",
         }
       }
-      serverProductGroupsList={Array.isArray(productGroupsList) ? productGroupsList : []}
+      serverProductGroupsList={
+        Array.isArray(productGroupsList) ? productGroupsList : []
+      }
       allCategories={Array.isArray(categories) ? categories : []}
       page={page}
       perPage={PER_PAGE}
@@ -528,6 +523,30 @@ brand === "alshafi") {
     />
   );
 }
+
+if (brand === "goly-rozh") {
+  return (
+    <GolyRozhProductGalleryClient
+      brand={brand}
+      category={category}
+      group={slug}
+      lang={lang}
+      items={serverItems}
+      title={serverPackTitle}
+      productGroups={
+        Array.isArray(productGroupsList) ? productGroupsList : []
+      }
+      allCategories={
+        Array.isArray(categories) ? categories : []
+      }
+      backHref={serverBackHref}
+      page={page}
+      perPage={PER_PAGE}
+      total={Number(total || 0)}
+    />
+  );
+}
+
 return (
   <PackagingGalleryClient
     brand={brand}
@@ -538,7 +557,9 @@ return (
     serverCartonQty={serverCartonQty}
     serverPackTitle={serverPackTitle}
     serverPackagingList={serverPackagingList}
-    serverProductGroupsList={Array.isArray(productGroupsList) ? productGroupsList : []}
+    serverProductGroupsList={
+      Array.isArray(productGroupsList) ? productGroupsList : []
+    }
     serverBackHref={serverBackHref}
     isGroupLandingPage={isGroupLandingPage}
     page={page}
@@ -546,4 +567,5 @@ return (
     total={Number(total || 0)}
     allCategories={Array.isArray(categories) ? categories : []}
   />
-);}
+);
+}

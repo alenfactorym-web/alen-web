@@ -1,0 +1,1074 @@
+/* =========================================================
+   GOLY ROZH HERO
+   Brand-only styles — ALEN and ALSHAFI are not affected
+   ========================================================= */
+
+.hero {
+  --goly-red: #a81720;
+  --goly-red-dark: #8f0e18;
+  --goly-red-deep: #720a12;
+  
+ 
+
+  position: relative;
+  z-index: auto;
+  width: 100%;
+  min-height: 100svh;
+  overflow: visible;
+  background: transparent;
+  isolation: auto;
+}
+/* =========================================================
+   RED AREA
+   ========================================================= */
+
+.redSection {
+  position: relative;
+  z-index: 2;
+  min-height: 50svh;
+  overflow: visible;
+  background:
+    radial-gradient(
+      ellipse at 50% 22%,
+      rgba(255, 92, 102, 0.16) 0%,
+      rgba(255, 60, 72, 0.07) 34%,
+      transparent 68%
+    ),
+    linear-gradient(
+      180deg,
+      #b01a24 0%,
+      var(--goly-red) 48%,
+      #9f121c 100%
+    );
+}
+
+.redPattern {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  z-index: 0;
+  width: min(900px, 70vw);
+  height: min(380px, 36vh);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0.1;
+}
+.farmVector {
+  position: absolute;
+  left: 50%;
+  bottom: 3%;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  max-height: 48%;
+  object-fit: contain;
+  object-position: center bottom;
+  opacity: 0.16;
+  transform: translateX(-50%);
+  pointer-events: none;
+  user-select: none;
+}
+.redPattern::before,
+.redPattern::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 50%;
+}
+
+.redPattern::before {
+  transform: rotate(-6deg) scaleX(1.08);
+}
+
+.redPattern::after {
+  transform: rotate(7deg) scaleX(0.9) scaleY(0.78);
+}
+
+.redContent {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  min-height: 46svh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: min(1500px, 92vw);
+  margin-inline: auto;
+  padding-top: clamp(82px, 11vh, 150px);
+  padding-bottom: clamp(76px, 10vh, 130px);
+  text-align: center;
+}
+.redContent::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  z-index: 1;
+  width: min(640px, 48vw);
+  height: min(260px, 24vh);
+  border-radius: 50%;
+  background: radial-gradient(
+  circle,
+  rgba(255, 160, 165, 0.52) 0%,
+  rgba(255, 80, 91, 0.28) 38%,
+  transparent 72%
+);
+filter: blur(34px);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.86);
+  transition:
+    opacity 650ms ease,
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.redContent:has(.logo:hover)::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.18);
+}
+
+.eyebrow {
+  margin: 0 0 clamp(8px, 1.2vh, 16px);
+  color: rgba(255, 255, 255, 0.76);
+  font-size: clamp(10px, 0.72vw, 13px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.48em;
+  text-transform: uppercase;
+}
+
+.logoWrap {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  cursor: pointer;
+}
+.logoWrap::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  z-index: 0;
+  width: 84%;
+  height: 64%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 120, 128, 0.22) 0%,
+    rgba(255, 74, 84, 0.13) 42%,
+    transparent 74%
+  );
+  filter: blur(30px);
+  opacity: 0.52;
+  transform: translate(-50%, -50%) scale(0.96);
+  transition:
+    opacity 500ms ease,
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.logoWrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+
+  background: linear-gradient(
+  110deg,
+  transparent 42%,
+  rgba(255, 255, 255, 0.10) 46%,
+  rgba(255, 255, 255, 0.60) 50%,
+  rgba(255, 255, 255, 0.10) 54%,
+  transparent 58%
+);
+  background-size: 300% 100%;
+  background-position: 100% center;
+
+  -webkit-mask-image: url("/logos/goly-rozh-logo.webp");
+  mask-image: url("/logos/goly-rozh-logo.webp");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  opacity: 0;
+}.logo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: clamp(320px, 34vw, 650px);
+  max-width: 76vw;
+  height: auto;
+  object-fit: contain;
+  transform-origin: center center;
+  filter:
+    drop-shadow(0 10px 14px rgba(63, 0, 4, 0.24))
+    drop-shadow(0 2px 2px rgba(0, 0, 0, 0.16));
+  transition:
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 700ms ease;
+  will-change: transform;
+}
+
+.logoWrap:hover .logo {
+  transform: translateY(-4px) scale(1.06);
+  filter:
+    drop-shadow(0 16px 22px rgba(89, 0, 7, 0.32))
+    drop-shadow(0 3px 3px rgba(0, 0, 0, 0.18));
+}
+.logoWrap:hover::after {
+  opacity: 1;
+  animation: golyRozhLogoShine 900ms ease-out forwards;
+}
+
+.logoWrap:hover::before {
+  opacity: 0.8;
+  transform: translate(-50%, -50%) scale(1.04);
+}
+@keyframes golyRozhLogoShine {
+  0% {
+    opacity: 0;
+    background-position: 100% center;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    background-position: 0% center;
+  }
+}
+
+/* =========================================================
+   WHITE AREA
+   ========================================================= */
+
+.whiteSection {
+  position: relative;
+  z-index: auto;
+  display: flex;
+  flex-direction: column;
+  height: 50svh;
+  min-height: 0;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  padding-top: clamp(100px, 13vh, 170px);
+  background: transparent;
+}
+
+ .pepperVisual {
+  position: absolute;
+  top: 13%;
+  right: 5vw;
+  z-index: 1;
+  width: clamp(280px, 25vw, 520px);
+  height: auto;
+  pointer-events: auto;
+  user-select: none;
+}
+
+.pepperImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 18px 18px rgba(63, 20, 10, 0.18));
+  transform: rotate(-5deg) scale(1);
+  transform-origin: center center;
+  transition:
+    transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 600ms ease;
+  will-change: transform;
+}
+
+.pepperVisual:hover .pepperImage {
+  transform: rotate(-5deg) translateY(-4px) scale(1.05);
+  filter: drop-shadow(0 22px 24px rgba(63, 20, 10, 0.22));
+}.mainContent {
+  position: relative;
+  z-index: 2;
+  width: min(850px, 88vw);
+  margin-inline: auto;
+  padding-bottom: clamp(48px, 7vh, 90px);
+  text-align: center;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.03em;
+  margin: 0;
+   color: #565153;
+  font-size: clamp(43px, 4.4vw, 82px);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.titleLine {
+  display: block;
+  width: 100%;
+}
+
+
+.titleLine,
+.description,
+.button {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(22px);
+  animation: golyRozhContentReveal 850ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.titleLine:first-child {
+  animation-delay: 900ms;
+}
+
+.titleLine:nth-child(2) {
+  animation-delay: 1050ms;
+}
+
+.description {
+  animation-delay: 1250ms;
+}
+
+.button {
+  animation-delay: 1450ms;
+}
+
+@keyframes golyRozhContentReveal {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.description {
+  max-width: 650px;
+  margin: clamp(18px, 2.2vh, 28px) auto 0;
+   color: #827c7e;
+  font-size: clamp(14px, 1vw, 18px);
+  font-weight: 400;
+  line-height: 1.65;
+  text-wrap: balance;
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  min-width: 190px;
+  margin-top: clamp(23px, 3vh, 34px);
+  padding: 13px 27px;
+  overflow: hidden;
+  border: 1px solid rgba(183, 20, 32, 0.34);
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      135deg,
+      var(--goly-red-dark),
+      var(--goly-red)
+    );
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow:
+    0 16px 32px -23px rgba(114, 10, 18, 0.84),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  transition:
+    transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 350ms ease,
+    background 350ms ease;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -48px;
+  width: 34px;
+  height: 100%;
+  transform: skewX(-22deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.42),
+    transparent
+  );
+  transition: transform 800ms ease;
+}
+
+.button:hover {
+  transform: translateY(-3px);
+  background:
+    linear-gradient(
+      135deg,
+      var(--goly-red-deep),
+      var(--goly-red-dark)
+    );
+  box-shadow:
+    0 24px 42px -24px rgba(114, 10, 18, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.button:hover::before {
+  transform: translateX(285px) skewX(-22deg);
+}
+
+.arrow,
+.arrowRTL {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  font-size: 18px;
+  line-height: 1;
+  transition: transform 300ms ease;
+}
+
+.button:hover .arrow {
+  transform: translateX(4px);
+}
+
+.arrowRTL {
+  transform: scaleX(-1);
+}
+
+.button:hover .arrowRTL {
+  transform: scaleX(-1) translateX(4px);
+}
+
+/* =========================================================
+   RTL
+   ========================================================= */
+
+.hero[dir="rtl"] .eyebrow {
+  letter-spacing: 0.08em;
+}
+
+.hero[dir="rtl"] .title {
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.hero[dir="rtl"] .description {
+  line-height: 1.9;
+}
+
+.hero[dir="rtl"] .button {
+  gap: 11px;
+}
+
+/* =========================================================
+   LARGE MONITOR
+   ========================================================= */
+
+@media (min-width: 1280px) and (min-height: 900px) and (orientation: landscape) {
+.pepperVisual {
+  top: 15%;
+  right: 8vw;
+z-index: 3;
+  width: clamp(380px, 26vw, 540px);
+}
+ .farmVector {
+  bottom: 1%;
+  width: 100%;
+  max-height: 75%;
+  opacity: 0.5;
+} 
+.redSection {
+  min-height: 50svh;
+}
+
+.whiteSection {
+  min-height: 50svh;
+}
+
+.redContent {
+  min-height: 0;
+  height: 50svh;
+  padding-top: 78px;
+  padding-bottom: 54px;
+}
+
+.eyebrow {
+  margin-bottom: 70px;
+  transform: translateY(16px);
+}
+
+  .logo {
+    width: clamp(500px, 36vw, 700px);
+  }
+
+  .mainContent {
+    padding-top: 75px;
+    padding-bottom: 78px;
+  }
+
+  .title {
+    font-size: clamp(56px, 3.5vw, 79px);
+    line-height: 1;
+
+  }
+
+  .description {
+    max-width: 680px;
+    font-size: 18px;
+  }
+}
+
+/* =========================================================
+   LAPTOP
+   ========================================================= */
+
+@media (min-width: 1024px) and (max-height: 950px) and (orientation: landscape) {
+.pepperVisual {
+  top: 10%;
+  right: 8vw;
+  z-index: 3;
+
+  width: clamp(300px, 22vw, 380px);
+}
+ .farmVector {
+  bottom: 2%;
+  width: 100%;
+  max-height: 70%;
+  opacity: 0.5;
+} 
+.redSection {
+    min-height: 50svh;
+  }
+
+  .whiteSection {
+    min-height: 50svh;
+  }
+  .redContent {
+  min-height: 0;
+  height: 50svh;
+  padding-top: 58px;
+  padding-bottom: 42px;
+}
+
+.eyebrow {
+  margin-bottom: 50px;
+  font-size: 12px;
+  transform: translateY(14px);
+}
+
+ .logo {
+  width: clamp(320px, 30vw, 480px);
+}
+
+  .mainContent {
+    padding-top: 35px;
+    padding-bottom: 42px;
+  }
+
+  .title {
+  font-size: clamp(35px, 3.2vw, 50px);
+}
+
+  .description {
+    max-width: 570px;
+    margin-top: 15px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .button {
+    min-width: 170px;
+    margin-top: 19px;
+    padding: 10px 22px;
+    font-size: 12px;
+  }
+}
+
+/* =========================================================
+   TABLET LANDSCAPE
+   ========================================================= */
+
+@media (min-width: 768px) and (max-width: 1180px) and (orientation: landscape) {  
+  .redSection {
+    min-height: 50svh;
+  }
+
+  .whiteSection {
+    min-height: 50svh;
+  }
+
+  .redContent {
+    min-height: 0;
+    height: 50svh;
+    padding-top: 65px;
+    padding-bottom: 50px;
+  }
+
+  .eyebrow {
+    margin-bottom: 40px;
+    transform: translateY(14px);
+  }
+
+  .logo {
+    width: clamp(300px, 30vw, 400px);
+  }
+
+  .mainContent {
+  padding-top: 120px;
+  padding-bottom: 30px;
+}
+
+  .title {
+    font-size: clamp(40px, 3.8vw, 55px);
+  }
+
+  .description {
+    max-width: 510px;
+    font-size: 13px;
+  }
+
+  .hero[dir="rtl"] .description {
+    max-width: 340px;
+    margin-inline: auto;
+    line-height: 1.5;
+    font-size: 13px;
+
+  }
+.farmVector {
+  opacity: 0.6;
+}
+.pepperVisual {
+  top: 18%;
+  right: 7vw;
+  width: 34vw;
+  max-width: 280px;
+}
+
+}
+/* =========================================================
+   TABLET PORTRAIT
+   ========================================================= */
+
+@media (min-width: 768px) and (max-width: 1180px) and (min-height: 900px) and (orientation: portrait) {
+.farmVector {
+  bottom: 2%;
+  width: 100%;
+  max-height: none;
+  height: auto;
+  opacity: 0.6;
+  transform: translateX(-50%) scale(1.5);
+  transform-origin: center bottom;
+}  
+.redSection {
+    min-height: 46svh;
+  }
+
+  .whiteSection {
+    min-height: 54svh;
+  }
+
+  .redContent {
+    min-height: 0;
+    height: 46svh;
+    padding-top: 90px;
+    padding-bottom: 46px;
+  }
+
+  .eyebrow {
+    margin-bottom: 18px;
+    transform: translateY(10px);
+  }
+
+  .logo {
+    width: min(460px, 58vw);
+  }
+
+  .mainContent {
+    width: min(620px, 78vw);
+    padding-top: 48px;
+    padding-bottom: 55px;
+  }
+
+  .title {
+    font-size: clamp(42px, 5.4vw, 58px);
+    line-height: 0.96;
+  }
+
+  .description {
+    max-width: 500px;
+    margin-top: 16px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .hero[dir="rtl"] .title {
+    font-size: clamp(42px, 5.7vw, 60px);
+    line-height: 1.18;
+  }
+
+  .hero[dir="rtl"] .description {
+    max-width: 420px;
+    line-height: 1.75;
+  }
+
+  .pepperVisual {
+    top: 12%;
+    right: -7vw;
+    width: 28vw;
+    max-width: 270px;
+  }
+}
+/* =========================================================
+   MOBILE LANDSCAPE
+   ========================================================= */
+
+@media (max-width: 932px) and (max-height: 550px) and (orientation: landscape) {
+  .hero {
+    min-height: 100svh;
+  }
+
+ .redSection {
+  min-height: 43svh;
+}
+
+.whiteSection {
+  min-height: 57svh;
+}
+
+.redContent {
+  min-height: 0;
+  height: 43svh;
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+  .eyebrow {
+  margin-bottom: -3px;
+  font-size: 8px;
+  letter-spacing: 0.34em;
+  transform: translateY(-10px);
+}
+
+  .logo {
+    width: min(290px, 32vw);
+    max-width: 45vw;
+  }
+
+  .mainContent {
+  width: min(600px, 88vw);
+  padding-top: 10px;
+  padding-bottom: 18px;
+  transform: translateY(10px);
+}
+  .title {
+    gap: 0;
+    font-size: clamp(20px, 3.6vw, 30px);
+    line-height: 1;
+  }
+
+  .description {
+    max-width: 380px;
+    margin-top: 8px;
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  .button {
+    min-width: 145px;
+    margin-top: 10px;
+    padding: 7px 16px;
+    font-size: 9px;
+  }
+
+  .arrow,
+  .arrowRTL {
+    font-size: 13px;
+  }
+
+  .hero[dir="rtl"] .title {
+    font-size: clamp(26px, 4vw, 34px);
+    line-height: 1.15;
+  }
+
+  .pepperVisual {
+  top: 1%;
+  right:10vw;
+  width: 34vw;
+  max-width: 200px;
+}
+.hero[dir="rtl"] .description {
+  max-width: 300px;
+  font-size: 12px !important;
+  line-height: 1.45 !important;
+}.farmVector {
+  bottom: 1%;
+  max-height: 88%;
+  opacity: 0.7;
+}
+}
+
+/* =========================================================
+   MOBILE PORTRAIT
+   ========================================================= */
+
+@media (max-width: 430px) and (orientation: portrait) {
+.hero {
+  height: 100svh;
+  min-height: 0;
+  max-height: 100svh;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-rows: 39% 61%;
+  gap: 0;
+}
+.redSection {
+  height: auto;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.whiteSection {
+  height: auto;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.redContent {
+  min-height: 0;
+  height: 100%;
+  width: 92vw;
+  padding-top: 74px;
+  padding-bottom: 24px;
+  box-sizing: border-box;
+}
+  .eyebrow {
+    margin-bottom: 24px;
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    transform: translateY(-25px);
+  }
+
+  .logo {
+    width: min(300px, 70vw);
+    max-width: 70vw;
+    transform: translateY(-25px);
+
+  }
+
+ .mainContent {
+  width: 86vw;
+  padding-top: 0;
+  padding-bottom: 36px;
+  margin-top: -20px;
+}
+
+  .title {
+    gap: 1px;
+    font-size: 25px;
+    line-height: 0.96;
+  }
+
+  .description {
+    max-width: 285px;
+    margin-top: 12px;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .button {
+    min-width: 150px;
+    margin-top: 15px;
+    padding: 9px 18px;
+    font-size: 10px;
+  }
+
+ 
+  .pepperVisual {
+  top: 55%;
+  right: 8vw;
+  width: 38vw;
+  max-width: 170px;
+  opacity: 0.88;
+}
+
+  .hero[dir="rtl"] .title {
+    font-size: clamp(31px, 8.2vw, 39px);
+    line-height: 1.2;
+  }
+
+  .hero[dir="rtl"] .description {
+  max-width: 220px;
+  margin-top: 9px;
+  font-size: 11px !important;
+  line-height: 1.6 !important;
+}
+
+.farmVector {
+  bottom: 2%;
+  width: 100%;
+  max-height: none;
+  height: auto;
+  opacity: 0.8;
+  transform: translateX(-50%) scale(1.55);
+  transform-origin: center bottom;
+}
+}
+
+/* =========================================================
+   REAL TABLET PORTRAIT
+   Tablet viewport reported below 768px
+   ========================================================= */
+
+@media (min-width: 431px) and (max-width: 767px) and (orientation: portrait) {
+.farmVector {
+  bottom: 2%;
+  width: 100%;
+  max-height: none;
+  height: auto;
+  opacity: 0.8;
+  transform: translateX(-50%) scale(1.5);
+  transform-origin: center bottom;
+}  
+.hero {
+    min-height: 100svh;
+  }
+
+  .redSection {
+    min-height: 46svh;
+  }
+
+  .whiteSection {
+    min-height: 54svh;
+  }
+
+  .redContent {
+    min-height: 0;
+    height: 46svh;
+    width: 92vw;
+    padding-top: 76px;
+    padding-bottom: 42px;
+  }
+
+  .eyebrow {
+    margin-bottom: 22px;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    transform: translateY(-30px);
+  }
+
+  .logo {
+    width: min(380px, 54vw);
+    max-width: 62vw;
+  }
+
+  .mainContent {
+  width: min(580px, 78vw);
+  padding-top: 12px;
+  padding-bottom: 44px;
+  transform: translateY(-86px);
+}
+
+  .title {
+    gap: 1px;
+    font-size: clamp(24px, 4.4vw, 38px);
+    line-height: 0.96;
+  }
+
+  .description {
+    max-width: 420px;
+    margin-top: 14px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .button {
+    min-width: 160px;
+    margin-top: 18px;
+    padding: 10px 20px;
+    font-size: 11px;
+  }
+
+  .pepperVisual {
+    top: 45%;
+    right: 8vw;
+    width: 32vw;
+    max-width: 300px;
+    opacity: 0.9;
+  }
+
+  .hero[dir="rtl"] .title {
+    font-size: clamp(36px, 6.8vw, 50px);
+    line-height: 1.18;
+  }
+
+  .hero[dir="rtl"] .description {
+    max-width: 380px;
+    line-height: 1.7;
+  }
+}
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .titleLine,
+  .description,
+  .button {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    animation: none;
+  }
+
+  .logo,
+  .button,
+  .button::before,
+  .arrow,
+  .arrowRTL {
+    transition: none;
+  }
+}
+.hero[data-lang="ku"] .title {
+  font-weight: 500;
+  font-synthesis: none;
+}
+
+.hero[data-lang="ku"] .titleLine {
+  text-shadow: none;
+  -webkit-text-stroke: 0;
+}

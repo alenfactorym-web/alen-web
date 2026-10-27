@@ -9,6 +9,8 @@ import { motion } from "framer-motion";
 import { MotionTitle, MotionSubtitle } from "@/components/ui/MotionText";
 import CategoryBlurBar from "@/components/products/CategoryBlurBar";
 import CategoryPageClient from "@/components/brands/alshafi/products/category/CategoryPageClient";
+import GolyRozhCategoryPageClient from "@/components/brands/goly-rozh/products/category/CategoryPageClient";
+
 function pickLang(obj, lang) {
   if (!obj) return "";
   if (lang === "ar") return obj.ar || obj.en || "";
@@ -20,18 +22,12 @@ function PackagingCardsSkeleton() {
   return (
     <div
       dir="ltr"
-      className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-5 xl:gap-6"
-      style={
-        typeof window !== "undefined" &&
-        window.innerWidth >= 1024 &&
-        window.innerWidth < 1440
-          ? {
-              gap: "12px",
-            }
-          : undefined
-      }
-    >
-      {Array.from({ length: 3 }).map((_, i) => (
+      className="
+        grid grid-cols-1 md:grid-cols-3
+        gap-4 sm:gap-5 md:gap-6 lg:gap-5 xl:gap-6
+        [@media(min-width:1024px)_and_(max-width:1439px)]:gap-3
+      "
+    >      {Array.from({ length: 3 }).map((_, i) => (
         <div
           key={i}
           className="
@@ -74,7 +70,18 @@ export default function BrandCategoryClient({
       />
     );
   }
-
+if (brand === "goly-rozh") {
+  return (
+    <GolyRozhCategoryPageClient
+      brand={brand}
+      category={category}
+      lang={lang}
+      initialProductGroups={initialProductGroups}
+      initialPackaging={initialPackaging}
+      allCategories={allCategories}
+    />
+  );
+}
   const router = useRouter();
 
   const isRTL = lang === "ar" || lang === "ku";
@@ -165,9 +172,9 @@ useEffect(() => {
       <main className={`min-h-screen ${uiFont}`}>
         <section className={`relative pt-36 md:pt-60 pb-24 bg-transparent overflow-hidden isolate ${uiFont}`}>
           <div
-            className="relative z-10 w-[min(1500px,96vw)] mx-auto px-[clamp(16px,3vw,56px)]"
-            dir={isRTL ? "rtl" : "ltr"}
-          >
+  className="relative z-10 w-[min(1500px,96vw)] [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:w-[min(1920px,96vw)] [@media(min-width:1367px)_and_(max-width:1536px)_and_(max-height:899px)_and_(orientation:landscape)]:w-[96vw] mx-auto px-[clamp(16px,3vw,56px)]"
+  dir={isRTL ? "rtl" : "ltr"}
+>
             <SectionHeader
               resetKey={resetKey}
               titleClassName="text-4xl md:text-5xl lg:text-6xl font-extrabold text-zinc-500"
@@ -260,11 +267,16 @@ useEffect(() => {
 
   return (
     <main className="min-h-screen">
-      <section className={`relative pt-24 md:pt-60 pb-24 bg-transparent overflow-hidden isolate ${uiFont}`}>
-        <div
-          className="relative z-10 w-[min(1500px,96vw)] mx-auto px-[clamp(16px,3vw,56px)]"
-          dir={isRTL ? "rtl" : "ltr"}
-        >
+      <section className={`relative pt-24 md:pt-60 pb-24 bg-transparent overflow-hidden isolate ${uiFont}
+ [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:!pt-22
+[@media(min-width:1367px)_and_(max-width:1536px)_and_(max-height:899px)_and_(orientation:landscape)]:!pt-20
+[@media(min-width:768px)_and_(max-width:1366px)_and_(orientation:landscape)]:!pt-30
+[@media(max-width:767px)_and_(max-height:550px)_and_(orientation:landscape)]:!pt-20
+`}>
+       <div
+  className="relative z-10 w-[min(1500px,96vw)] [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:w-[min(1920px,96vw)] mx-auto px-[clamp(16px,3vw,56px)]"
+  dir={isRTL ? "rtl" : "ltr"}
+>
           <SectionHeader
             resetKey={resetKey}
             titleClassName="text-4xl md:text-5xl lg:text-6xl font-extrabold text-zinc-500"
@@ -392,12 +404,24 @@ useEffect(() => {
 </div>
 </div>
 
-         <div
+       <div
   dir="ltr"
-  className={`grid grid-cols-1 ${
+  className={`grid grid-cols-2
+  [@media(max-width:932px)_and_(max-height:550px)_and_(orientation:landscape)]:grid-cols-3 ${
     items.length === 2
-      ? "md:flex md:justify-center"
-      : "alen-laptop-grid-3 md:grid-cols-3 max-w-[1100px] 2xl:max-w-[1400px]"
+      ? "lg:landscape:flex lg:landscape:justify-center"
+    : `alen-laptop-grid-3 lg:landscape:grid-cols-3 max-w-[1100px] 2xl:max-w-[1400px]
+   [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:!flex
+   [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:flex-wrap
+   [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:justify-center
+   [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:max-w-[1867px]
+   [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:[&>button]:!w-[calc((100%-48px)/4)]
+
+   [@media(min-width:1367px)_and_(max-width:1536px)_and_(max-height:899px)_and_(orientation:landscape)]:!flex
+   [@media(min-width:1367px)_and_(max-width:1536px)_and_(max-height:899px)_and_(orientation:landscape)]:flex-wrap
+   [@media(min-width:1367px)_and_(max-width:1536px)_and_(max-height:899px)_and_(orientation:landscape)]:justify-center
+   [@media(min-width:1367px)_and_(max-width:1536px)_and_(max-height:899px)_and_(orientation:landscape)]:max-w-full
+   [@media(min-width:1367px)_and_(max-width:1536px)_and_(max-height:899px)_and_(orientation:landscape)]:[&>button]:!w-[calc((100%-48px)/4)]`
   } gap-3 md:gap-4 lg:gap-4 xl:gap-4 mx-auto`}
 >
             {items.map((p) => {
@@ -423,7 +447,7 @@ useEffect(() => {
                       ? { y: -10, scale: 0.98 }
                       : { y: 0, scale: 0.95 }
                   }
-                  className={`text-left w-full ${items.length === 2 ? "md:w-[450px] md:flex-none" : ""}`}
+                  className={`text-left w-full ${items.length === 2 ? "lg:landscape:w-[450px] lg:landscape:flex-none" : ""}`}
                 >
                   <div
                     className={`
@@ -431,13 +455,11 @@ useEffect(() => {
                       group-hover:border-black/20
                       bg-white border border-black/10
                       transition-all duration-300
-                      shadow-[0_18px_35px_-28px_rgba(0,0,0,0.65)]
-                      hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.75)]
-                      hover:shadow-[0_40px_80px_-35px_rgba(0,0,0,0.9)]
-                      hover:-translate-y-1
-                      border-b-[6px] border-b-yellow-400
-                      ${isActive ? "shadow-[0_35px_70px_-35px_rgba(0,0,0,0.85)]" : ""}
-                    `}
+shadow-[0_18px_35px_-28px_rgba(0,0,0,0.35)]
+hover:shadow-[0_24px_55px_-28px_rgba(0,0,0,0.28)]
+hover:-translate-y-1
+border-b-[6px] border-b-yellow-400
+${isActive ? "shadow-[0_26px_60px_-30px_rgba(0,0,0,0.35)]" : ""}                    `}
                   >
                     <div className="relative bg-zinc-200 overflow-hidden aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5]">
                       <img

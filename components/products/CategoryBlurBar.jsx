@@ -20,14 +20,121 @@ export default function CategoryBlurBar({
   const safeLang = (lang || "en").toLowerCase();
 
   const scrollRef = useRef(null);
-  const itemRefs = useRef(new Map());
+const itemRefs = useRef(new Map());
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+const [edges, setEdges] = useState({
+  left: false,
+  right: false,
+});
 
-    const mq = window.matchMedia("(hover: none) and (pointer: coarse)");
-    const update = () => setIsTouchDevice(mq.matches);
+useEffect(() => {
+  const bar = scrollRef.current;
+  if (!bar) return;
 
+  const updateEdges = () => {
+    const bounds = bar.getBoundingClientRect();
+    const tabs = Array.from(itemRefs.current.values());
+
+    const left = tabs.some(
+      (tab) => tab.getBoundingClientRect().left < bounds.left - 2
+    );
+
+    const right = tabs.some(
+      (tab) => tab.getBoundingClientRect().right > bounds.right + 2
+    );
+
+    setEdges((prev) =>
+      prev.left === left && prev.right === right
+        ? prev
+        : { left, right }
+    );
+  };
+
+  const observer = new ResizeObserver(updateEdges);
+
+  observer.observe(bar);
+
+  Array.from(itemRefs.current.values()).forEach((tab) => {
+    observer.observe(tab);
+  });
+
+  bar.addEventListener("scroll", updateEdges, { passive: true });
+  window.addEventListener("resize", updateEdges);
+
+  const frame = requestAnimationFrame(updateEdges);
+
+  return () => {
+    cancelAnimationFrame(frame);
+    observer.disconnect();
+    bar.removeEventListener("scroll", updateEdges);
+    window.removeEventListener("resize", updateEdges);
+  };
+}, [categories, activeCategory, safeLang]);
+
+const moveByArrow = (direction) => {
+  const bar = scrollRef.current;
+  if (!bar) return;
+
+  const bounds = bar.getBoundingClientRect();
+
+  const hidden = Array.from(itemRefs.current.values()).filter((tab) => {
+    const rect = tab.getBoundingClientRect();
+
+    return direction === "left"
+      ? rect.left < bounds.left - 2
+      : rect.right > bounds.right + 2;
+  });
+
+  if (!hidden.length) return;
+
+  const target = hidden.reduce((closest, tab) => {
+    if (!closest) return tab;
+
+    const rect = tab.getBoundingClientRect();
+    const other = closest.getBoundingClientRect();
+
+    return direction === "left"
+      ? rect.right > other.right ? tab : closest
+      : rect.left < other.left ? tab : closest;
+  }, null);
+
+  target.scrollIntoView({
+  behavior: "smooth",
+  block: "nearest",
+  inline: direction === "left" ? "start" : "end",
+});
+
+window.setTimeout(() => {
+  const barRect = bar.getBoundingClientRect();
+  const tabs = Array.from(itemRefs.current.values());
+
+  let nearestTab = null;
+  let nearestDistance = Infinity;
+
+  tabs.forEach((tab) => {
+    const rect = tab.getBoundingClientRect();
+    const distance = Math.abs(rect.left - barRect.left);
+
+    if (distance < nearestDistance) {
+      nearestDistance = distance;
+      nearestTab = tab;
+    }
+  });
+
+   nearestTab?.scrollIntoView({
+    behavior: "smooth",
+    block: "nearest",
+    inline: "start",
+  });
+}, 380);
+
+};
+
+useEffect(() => {
+  if (typeof window === "undefined") return;
+
+  const mq = window.matchMedia("(hover: none) and (pointer: coarse)");
+  const update = () => setIsTouchDevice(mq.matches);
     update();
 
     if (mq.addEventListener) {
@@ -62,10 +169,24 @@ export default function CategoryBlurBar({
   }, [activeCategory, isTouchDevice]);
 
   return (
-    <>
-      <div
-        ref={scrollRef}
-        className="w-full max-w-[1100px] mx-auto mt-6 mb-3 overflow-x-auto"
+  <>
+    <div className="relative w-full max-w-[1100px] mx-auto mt-6 mb-3">
+
+      <button
+        type="button"
+        className="alenCatArrow alenCatArrowLeft"
+        data-visible={edges.left}
+        aria-label="Previous categories"
+        aria-hidden={!edges.left}
+        tabIndex={edges.left ? 0 : -1}
+        onClick={() => moveByArrow("left")}
+      >
+        ‹
+      </button>
+
+     <div
+  ref={scrollRef}
+  className="w-full overflow-x-auto alenCatScroll"
         style={{
           scrollbarWidth: "none",
           msOverflowStyle: "none",
@@ -99,7 +220,7 @@ export default function CategoryBlurBar({
   onMouseEnter={() => {
     if (!isTouchDevice) setHovered(slug);
   }}
-  className="inline-flex items-center shrink-0"
+  className="inline-flex items-center shrink-0 snap-start"
 >
                 <span
                   className={`
@@ -127,11 +248,88 @@ export default function CategoryBlurBar({
         </div>
       </div>
 
-      <style jsx>{`
-        div::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
+      <button
+        type="button"
+        className="alenCatArrow alenCatArrowRight"
+        data-visible={edges.right}
+        aria-label="Next categories"
+        aria-hidden={!edges.right}
+        tabIndex={edges.right ? 0 : -1}
+        onClick={() => moveByArrow("right")}
+      >
+        ›
+      </button>
+
+    </div>
+
+   <style jsx>{`
+  div::-webkit-scrollbar {
+    display: none;
+  }
+
+  .alenCatArrow {
+    display: none;
+  }
+
+ @media (max-width: 767px) and (orientation: portrait),
+       (min-width: 768px) and (max-width: 1180px) and (orientation: portrait),
+       (max-width: 932px) and (max-height: 550px) and (orientation: landscape),
+       (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
+
+    .alenCatArrow {
+      position: absolute;
+      z-index: 5;
+      top: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 28px;
+      height: 32px;
+
+      padding: 0;
+      border: 0;
+
+background: transparent;
+color: #a88318;      font-size: 29px;
+      font-weight: 300;
+      line-height: 1;
+
+      opacity: 0;
+      pointer-events: none;
+
+      transform: translateY(-50%) scale(0.88);
+
+      transition:
+        opacity 220ms ease,
+        transform 300ms ease;
+    }
+
+    .alenCatArrow[data-visible="true"] {
+      opacity: 0.9;
+      pointer-events: auto;
+      transform: translateY(-50%) scale(1);
+    }
+
+    .alenCatArrowLeft {
+      left: 0;
+      border-radius: 0 10px 10px 0;
+    }
+
+   .alenCatArrowRight {
+  right: 0;
+  border-radius: 10px 0 0 10px;
+}
+
+.alenCatScroll {
+  width: calc(100% - 56px);
+  margin-inline: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 8px;
+}
+  }
+`}</style>
     </>
   );
 }

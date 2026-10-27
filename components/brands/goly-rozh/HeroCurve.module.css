@@ -1,0 +1,110 @@
+.heroCurve {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  height: clamp(120px, 15vh, 185px);
+  overflow: visible;
+  pointer-events: none;
+  transform: translateY(calc(100% - 1px));
+  color: #9f121c;
+}
+
+.heroCurveSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.heroCurveLandscape {
+  display: block;
+}
+
+.heroCurvePortrait {
+  display: none;
+}
+
+.heroCurveRed {
+  fill: currentColor;
+  filter: drop-shadow(0 3px 3px rgba(70, 0, 5, 0.12));
+}
+
+.heroCurveStroke {
+  pointer-events: none;
+  filter:
+    drop-shadow(0 -6px 8px rgba(255, 91, 101, 0.24))
+    drop-shadow(0 -12px 18px rgba(255, 47, 61, 0.12))
+    drop-shadow(0 5px 6px rgba(55, 0, 5, 0.2));
+}
+
+@media (min-width: 1280px) and (min-height: 900px) and (orientation: landscape) {
+  .heroCurve {
+    height: 190px;
+  }
+
+  .heroCurveStroke {
+    stroke-width: 17px;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 899px) and (orientation: landscape) {
+  .heroCurve {
+    height: 125px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1366px) and (min-height: 900px) and (orientation: landscape) {
+  .heroCurve {
+    height: 155px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1180px) and (min-height: 900px) and (orientation: portrait) {
+  .heroCurveLandscape {
+    display: none;
+  }
+
+  .heroCurvePortrait {
+    display: block;
+  }
+
+  .heroCurve {
+    height: 165px;
+  }
+
+  .heroCurveStroke {
+    stroke-width: 17px;
+  }
+}
+
+@media (max-width: 932px) and (max-height: 550px) and (orientation: landscape) {
+  .heroCurve {
+    height: 78px;
+  }
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+  .heroCurveLandscape {
+    display: none;
+  }
+
+  .heroCurvePortrait {
+    display: block;
+  }
+
+  .heroCurve {
+    height: 115px;
+  }
+}
+
+@media (max-width: 430px) and (orientation: portrait) {
+  .heroCurve {
+    height: 102px;
+  }
+
+  .heroCurveStroke {
+    stroke-width: 5px;
+  }
+}

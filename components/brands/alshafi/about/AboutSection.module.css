@@ -55,17 +55,24 @@
   overflow: hidden;
 }
 
-.heroImage img,
-.gridImage img {
+.heroImageElement,
+.gridImageElement {
   position: absolute;
   inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s ease;
+  transform: scale(1);
+  transform-origin: center center;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.card:hover img {
+.heroCard:hover .heroImageElement {
+  transform: scale(1.05);
+}
+
+.grid > .card:hover .gridImageElement {
   transform: scale(1.06);
 }
 

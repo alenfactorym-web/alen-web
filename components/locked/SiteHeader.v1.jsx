@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams, useParams } from "next/navigation";
 import { getBrandTheme } from "@/lib/brandTheme";
+import ProductSearch from "@/components/search/ProductSearch";
 
 export default function SiteHeader(props) {
   const { lang, setLang, t } = props;
@@ -53,9 +54,26 @@ const nav = (
   const openedAtRef = useRef(0);
   const [active, setActive] = useState("home");
   const [onLight, setOnLight] = useState(false);
-  const [moreOpen, setMoreOpen] = useState(false);
-  const moreRef = useRef(null);
+ const [moreOpen, setMoreOpen] = useState(false);
+const [searchOpen, setSearchOpen] = useState(false);
+const moreRef = useRef(null);
 const [brandLogoUrl, setBrandLogoUrl] = useState(null);
+const [alenProductModalOpen, setAlenProductModalOpen] = useState(false);
+
+useEffect(() => {
+  const update = () => {
+    setAlenProductModalOpen(
+      !!document.querySelector('[data-alen-product-modal="true"]')
+    );
+  };
+
+  const observer = new MutationObserver(update);
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  update();
+
+  return () => observer.disconnect();
+}, []);
 
   // ✅ Auto-hide فقط برای موبایل/تبلت لمسی: هنگام اسکرول مخفی، بعد توقف ظاهر
   const [hideOnTouchScroll, setHideOnTouchScroll] = useState(false);
@@ -274,15 +292,106 @@ if (Date.now() > manualActiveUntilRef.current) {
       if (touchHideTimerRef.current) clearTimeout(touchHideTimerRef.current);
     };
   }, [moreOpen]);
+// ALEN — Restore correct section position after internal navigation (Cinematic Aware)
+// ALEN — Restore correct section position after internal navigation (Fixed Refresh for All Sections)
+useLayoutEffect(() => {
+  if (pathname !== "/") return;
+
+  const hash =
+    window.location.hash.replace("#", "") ||
+    sessionStorage.getItem("alenReturnSection");
+  if (!hash) return;
+
+  const validSections = [
+    "top",
+    "brands",
+    "products",
+    "video",
+    "news",
+    "catalog",
+  ];
+
+  if (!validSections.includes(hash)) return;
+
+  const largeMonitor = window.matchMedia(
+    "(min-width: 1280px) and (min-height: 900px) and (orientation: landscape)"
+  ).matches;
+
+  const laptop = window.matchMedia(
+    "(min-width: 1367px) and (max-width: 1536px) and (max-height: 899px) and (orientation: landscape)"
+  ).matches;
+
+  const goToSection = () => {
+    const el = document.getElementById(hash);
+    if (!el) return;
+
+    let targetY;
+
+    if ((largeMonitor || laptop) && hash === "products") {
+      const stage = document.getElementById(
+        "alen-products-cinematic-stage"
+      );
+
+      if (stage) {
+        targetY =
+          stage.getBoundingClientRect().bottom +
+          window.scrollY -
+          window.innerHeight;
+      } else {
+        const rect = el.getBoundingClientRect();
+        targetY = rect.top + window.scrollY;
+      }
+
+    } else {
+      // 🛠️ محاسبه دقیق و مستقیم مختصات واقعی عنصر برای ویدیو، اخبار، کاتالوگ و بقیه بخش‌ها در هنگام رفرش
+      const rect = el.getBoundingClientRect();
+      const elTop = rect.top + window.scrollY;
+
+      if (hash === "top") {
+        targetY = 0;
+      } else if (largeMonitor) {
+        if (hash === "video" || hash === "news" || hash === "catalog") {
+          targetY = elTop - 70; // فاصله مناسب از بالای هدر در مانیتور بزرگ
+        } else {
+          targetY = elTop + rect.height / 2 - window.innerHeight / 2 + 60;
+        }
+      } else {
+        targetY = elTop - 20;
+      }
+    }
+
+    window.scrollTo({
+      top: Math.max(0, targetY),
+      behavior: "instant",
+    });
+  };
+
+  let frame = 0;
+  let timer = null;
+
+  // استفاده از تایمر کوتاه تا انیمیشن‌ها و ابعاد صفحه در مانیتور بزرگ کاملاً لود و تثبیت شوند
+  timer = setTimeout(() => {
+    frame = requestAnimationFrame(() => {
+      goToSection();
+      sessionStorage.removeItem("alenReturnSection");
+    });
+  }, 60);
+
+  return () => {
+    clearTimeout(timer);
+    cancelAnimationFrame(frame);
+  };
+}, [pathname]);
+
 
 const base =
   "relative px-1.5 py-0.5 md:px-3 md:py-1.5 rounded-full text-[10px] md:text-[11px] font-black shadow-lg transition-all duration-300" +
   " [@media(hover:none)_and_(pointer:coarse)]:px-3" +
   " [@media(hover:none)_and_(pointer:coarse)]:py-1.5" +
   " [@media(hover:none)_and_(pointer:coarse)]:text-[12px]" +
-  " [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)_and_(orientation:landscape)]:px-3.5" +
-  " [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)_and_(orientation:landscape)]:py-2" +
-  " [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)_and_(orientation:landscape)]:text-[13px]" +
+  " [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)_and_(orientation:landscape)]:px-2.5" +
+" [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)_and_(orientation:landscape)]:py-1" +
+" [@media(hover:none)_and_(pointer:coarse)_and_(min-width:768px)_and_(orientation:landscape)]:text-[11px]" +
   
   // 🌟 قفل کردن آیتم‌های منو در تبلت عمودی
   " [@media(max-width:1024px)_and_(orientation:portrait)]:!px-1.5" +
@@ -326,11 +435,17 @@ function PillGlow({ on }) {
     return lang ? `/?lang=${lang}` : "/";
   }
 
-  function onChangeLang(nextLang) {
-    setLang(nextLang);
-    const hash = typeof window !== "undefined" ? window.location.hash : "";
-    router.replace(buildUrlWithLang(nextLang, hash), { scroll: false });
+ function onChangeLang(nextLang) {
+  const hash = typeof window !== "undefined" ? window.location.hash : "";
+  const nextUrl = buildUrlWithLang(nextLang, hash);
+
+  if (brand === "goly-rozh" && typeof window !== "undefined") {
+    window.history.replaceState(null, "", nextUrl);
+    return;
   }
+
+  router.replace(nextUrl, { scroll: false });
+}
 
   function navHref(href) {
   const qs = lang ? `?lang=${lang}` : "";
@@ -343,11 +458,16 @@ function PillGlow({ on }) {
   return href.includes("?") ? href : `${href}${qs}`;
 }
 
-  return (
+    return (
+   <>
    <header
   dir="ltr"
-  className={[
-    "fixed left-0 right-0 z-[9999]",
+ className={[
+  "fixed left-0 right-0 z-[9999]",
+
+  brand === "alen" && alenProductModalOpen
+    ? "pointer-events-none"
+    : "",
 
     // ✅ موبایل/تبلت: fixed top-0 (دیگه sticky نیست)
     "top-0",
@@ -355,7 +475,13 @@ function PillGlow({ on }) {
     // ✅ دسکتاپ: همون مثل قبل top-6
     brand === "alshafi"
   ? "[@media(hover:hover)_and_(pointer:fine)]:top-3"
-  : "[@media(hover:hover)_and_(pointer:fine)]:top-6",
+  : brand === "goly-rozh"
+    ? [
+        "[@media(hover:hover)_and_(pointer:fine)]:top-6",
+       "[@media(min-width:1024px)_and_(max-height:899px)_and_(orientation:landscape)]:!top-1",
+"[@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:!top-1",
+      ].join(" ")
+    : "[@media(hover:hover)_and_(pointer:fine)]:top-6",
 
     "transition-transform duration-300 ease-out",
 
@@ -389,13 +515,20 @@ function PillGlow({ on }) {
     ? "[@media(hover:none)_and_(pointer:coarse)]:shadow-none"
     : "[@media(hover:none)_and_(pointer:coarse)]:shadow-[0_18px_40px_-30px_rgba(0,0,0,0.45)]",
 
-  "[@media(hover:hover)_and_(pointer:fine)]:bg-transparent",
-  "[@media(hover:hover)_and_(pointer:fine)]:border-transparent",
-  "[@media(hover:hover)_and_(pointer:fine)]:shadow-none",
-].join(" ")}
-      >
+"[@media(hover:hover)_and_(pointer:fine)]:bg-transparent",
+"[@media(hover:hover)_and_(pointer:fine)]:border-transparent",
+"[@media(hover:hover)_and_(pointer:fine)]:shadow-none",
+
+brand === "alen" && alenProductModalOpen
+  ? "[@media(hover:none)_and_(pointer:coarse)]:!bg-transparent [@media(hover:none)_and_(pointer:coarse)]:!border-transparent [@media(hover:none)_and_(pointer:coarse)]:!shadow-none [@media(hover:none)_and_(pointer:coarse)]:!backdrop-blur-none"
+  : "",
+].join(" ")}      >
         <div className="flex flex-wrap items-center justify-between px-3 md:px-4 gap-y-3 landscape:pr-1 py-2">
-          <nav className="flex-1 min-w-0 pointer-events-auto">
+          <nav
+  className={`flex-1 min-w-0 pointer-events-auto ${
+    brand === "alen" && alenProductModalOpen ? "hidden" : ""
+  }`}
+>
             {/* موبایل Portrait + موبایل Landscape: منوی کشویی */}
             <div className="hidden [@media(max-width:639px)_and_(orientation:portrait)]:flex [@media(max-width:950px)_and_(orientation:landscape)]:flex items-center gap-1.5">
               <div ref={moreRef} className="relative">
@@ -447,12 +580,27 @@ function PillGlow({ on }) {
                     key={item.key}
                     href={navHref(item.href)}
 onClick={(e) => {
-  manualActiveUntilRef.current = Date.now() + 650; // ✅ lock
+  manualActiveUntilRef.current = Date.now() + 650;
   setActive(item.key);
 
-  // ✅ فقط برای لینک‌های # داخل صفحه Home
-  if (!isMiniBrand && pathname === "/" && item.href?.startsWith("#")) {
+  // ALEN: برگشت از صفحات داخلی بدون پرش اولیه Hash
+  if (!isMiniBrand && pathname !== "/" && item.href?.startsWith("#")) {
     e.preventDefault();
+
+    sessionStorage.setItem(
+      "alenReturnSection",
+      item.href.slice(1)
+    );
+
+    router.push(lang ? `/?lang=${lang}` : "/", {
+      scroll: false,
+    });
+
+    return;
+  }
+
+  // ✅ فقط برای لینک‌های # داخل صفحه Home
+  if (!isMiniBrand && pathname === "/" && item.href?.startsWith("#")) {    e.preventDefault();
 
     const id = item.href.slice(1);
     const el = document.getElementById(id);
@@ -461,19 +609,66 @@ onClick={(e) => {
    const rect = el.getBoundingClientRect();
 const elTop = rect.top + window.scrollY;
 
-const headerOffset =
-  id === "products"
-    ? -50
-    : id === "video"
-      ? -150
-      : 120;
+// ALEN Homepage / Large Monitor + Laptop
+const isAlenLargeMonitor =
+  !isMiniBrand &&
+  pathname === "/" &&
+  (
+    window.matchMedia(
+      "(min-width: 1280px) and (min-height: 900px) and (orientation: landscape)"
+    ).matches ||
+    window.matchMedia(
+      "(min-width: 1367px) and (max-width: 1536px) and (max-height: 899px) and (orientation: landscape)"
+    ).matches
+  );
+const cinematicStage =
+  id === "products" && isAlenLargeMonitor
+    ? document.getElementById("alen-products-cinematic-stage")
+    : null;
 
-const targetY =
-  id === "products" || id === "video"
+const videoStage =
+  id === "video" && isAlenLargeMonitor
+    ? document.querySelector("#video > div")
+    : null;
+
+let targetY;
+if (cinematicStage) {
+  const stageRect = cinematicStage.getBoundingClientRect();
+
+    targetY =    stageRect.bottom +    window.scrollY -    window.innerHeight;
+} else if (videoStage) {
+  const stageRect = videoStage.getBoundingClientRect();
+
+  // نمای کامل Video، کمی قبل از آزادشدن Sticky
+  targetY =
+    stageRect.bottom +
+    window.scrollY -
+    window.innerHeight -
+    70;
+
+} else { 
+
+ const headerOffset =
+    id === "products"
+      ? -50
+      : id === "video"
+        ? -150
+        : 120;
+
+ targetY =
+  id === "products" || id === "video" || id === "news"
     ? Math.max(0, elTop - headerOffset)
-    : Math.max(0, elTop + rect.height / 2 - window.innerHeight / 2 + headerOffset / 2);
+    : Math.max(
+        0,
+        elTop + rect.height / 2 -
+        window.innerHeight / 2 + headerOffset / 2
+      );
+}
 
-window.scrollTo({ top: targetY, behavior: "smooth" });
+window.scrollTo({
+  top: Math.max(0, targetY),
+  behavior: isAlenLargeMonitor ? "instant" : "smooth",
+});
   }
 }}   
           className={[base, isActive ? activePill : dark].join(" ")}
@@ -507,6 +702,39 @@ style={
 )}
             </Link>
 
+            {/* PRODUCT SEARCH — TRIGGER */}
+            <button
+              type="button"
+              aria-label="Search products"
+              title="Search products"
+              className={[
+                base,
+                dark,
+                "relative inline-flex items-center justify-center",
+                "!w-8 !h-8 !p-0 md:!w-9 md:!h-9",
+                "shrink-0",
+              ].join(" ")}
+              
+onClick={() => {
+  setMoreOpen(false);
+  setSearchOpen(true);
+}}            >
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="10.8" cy="10.8" r="6.8" />
+                <path d="m16 16 4.5 4.5" />
+              </svg>
+            </button>
+
             {["en", "ar", "ku"].map((l) => (
   <button
     key={l}
@@ -535,7 +763,7 @@ style={
         </div>
 
         {/* ✅ یه “نوار زیر” خیلی نازک که وقتی hide میشه هنوز یه hint بمونه */}
-      {!isMiniBrand && (
+      {!isMiniBrand && !(brand === "alen" && alenProductModalOpen) && (
   <div
     className={[
       "h-[6px]",
@@ -545,8 +773,15 @@ style={
     ].join(" ")}
   />
 )}
-      </div>
+            </div>
     </header>
+
+    <ProductSearch
+  open={searchOpen}
+  onClose={() => setSearchOpen(false)}
+  brand={isBrand ? brand : "alen"}
+  lang={lang}
+/>
+  </>
   );
 }
-

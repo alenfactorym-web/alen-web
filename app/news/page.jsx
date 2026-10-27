@@ -52,8 +52,29 @@ export default async function NewsIndexPage({ searchParams }) {
   return (
     <main
       className={`relative min-h-screen bg-transparent overflow-hidden isolate ${uiFont}`}
-      dir={isRTL ? "rtl" : "ltr"}
+      dir="ltr"
     >
+   <style>{`
+  @media (max-width: 599px) and (orientation: portrait) {
+    .alen-news-index-grid {
+      width: 90% !important;
+      margin-inline: auto !important;
+    }
+  }
+
+  @media (min-width: 600px) and (orientation: portrait) {
+    .alen-news-index-grid {
+      grid-template-columns: minmax(0, 1fr) !important;
+      width: 80% !important;
+      margin-inline: auto !important;
+    }
+
+        .alen-news-index-grid > a {
+          width: 100% !important;
+          min-width: 0 !important;
+        }
+      }
+    `}</style>
      
 
 <div className="relative w-[min(1500px,96vw)] mx-auto px-[clamp(16px,3vw,56px)] py-16">
@@ -89,6 +110,7 @@ export default async function NewsIndexPage({ searchParams }) {
   className="
   alen-laptop-grid-3
   alen-news-grid
+  alen-news-index-grid
   grid grid-cols-1 md:grid-cols-3
   gap-4 md:gap-4 lg:gap-4 xl:gap-4
   max-w-[1100px] 2xl:max-w-[1400px]
@@ -99,10 +121,10 @@ export default async function NewsIndexPage({ searchParams }) {
             <Link
               key={n._id}
               href={`/news/${n.slug}?lang=${lang}`}
-              className="group block overflow-hidden rounded-3xl bg-white backdrop-blur-xl
+             className="group block overflow-hidden rounded-3xl bg-white backdrop-blur-xl
 border border-black/10 shadow-[0_22px_45px_-30px_rgba(0,0,0,0.7)]
 hover:shadow-[0_35px_70px_-45px_rgba(0,0,0,0.85)]
-border-b-[8px] border-b-yellow-400 transition-transform duration-300 hover:-translate-y-1 hover:scale-[0.97]"
+border-b-[8px] border-b-yellow-400 transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.02]"
             >
               <div className="relative aspect-[16/9] bg-zinc-200">
                 {n.image && (

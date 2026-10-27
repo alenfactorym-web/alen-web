@@ -41,9 +41,32 @@ export default function NewsSectionV1({ lang }) {
   return (
   <section id="news" className={`relative py-24 bg-transparent overflow-hidden isolate ${uiFont}`}>
     <div
-      className="relative z-10 w-[min(1500px,96vw)] mx-auto px-[clamp(16px,3vw,56px)]"
-      dir={isRTL ? "rtl" : "ltr"}
-    >
+  className="relative z-10 w-[min(1500px,96vw)] mx-auto px-[clamp(16px,3vw,56px)]"
+  dir="ltr"
+>
+<style>{`
+  /* MOBILE PORTRAIT ONLY */
+  @media (max-width: 599px) and (orientation: portrait) {
+    #news .alen-news-grid {
+      width: 90% !important;
+      margin-inline: auto !important;
+    }
+  }
+
+  /* TABLET PORTRAIT — UNCHANGED */
+  @media (min-width: 600px) and (orientation: portrait) {
+    #news .alen-news-grid {
+      grid-template-columns: minmax(0, 1fr) !important;
+      width: 80% !important;
+      margin-inline: auto !important;
+    }
+
+    #news .alen-news-grid > a {
+      width: 100% !important;
+      min-width: 0 !important;
+    }
+  }
+`}</style>
       <FadeInUp>
         <SectionHeader
           resetKey={`news-${lang}-${resetKey}`}

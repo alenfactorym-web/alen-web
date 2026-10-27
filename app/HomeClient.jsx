@@ -8,43 +8,42 @@ import NewsSectionV1 from "@/components/locked/NewsSection.v1";
 import CatalogSectionV1 from "@/components/locked/CatalogSection.v1";
 import BrandProductsClient from "@/app/brand/[brand]/products/ui.client";
 
-export default function HomeClient({ initialCategories }) {
+export default function HomeClient({ initialCategories, brands }) {
   const { lang, t } = useLanguage();
 
 useLayoutEffect(() => {
-    if (typeof window === "undefined") return;
+  if (typeof window === "undefined") return;
 
+  if ('scrollRestoration' in window.history) {
     window.history.scrollRestoration = "manual";
+  }
 
-    const navType = window.performance?.getEntriesByType?.("navigation")?.[0]?.type;
+  // اگر هش در URL وجود دارد (مثل #products یا بخش‌های دیگر)، آن را پاک کن تا مرورگر روی آن قفل نکند
+  if (window.location.hash) {
+    window.history.replaceState(null, "", window.location.pathname + window.location.search);
+  }
 
-    if (navType === "back_forward") {
-      const timer = setTimeout(() => {
-        const el = document.getElementById("products");
-        if (el) {
-          // محاسبه مکان دقیق نسبت به اسکرول فعلی
-          const rect = el.getBoundingClientRect();
-          const targetY = rect.top + window.scrollY;
-          
-          // عدد 120 را کم می‌کنیم تا تیتر دقیقا زیر هدر نچسبد و کمی پایین‌تر باشد
-          window.scrollTo({
-            top: targetY - 120, 
-            behavior: "instant"
-          });
-        }
-      }, 100);
-      return () => clearTimeout(timer);
-    }
-  }, []);
-  return (
+  const navType = window.performance?.getEntriesByType?.("navigation")?.[0]?.type;
+
+  // اگر صفحه رفرش شد یا کاربر برگشت، حتماً بفرست بالا و نگذار به هش قبلی بپرد
+  if (navType === "reload" || navType === "back_forward") {
+    window.scrollTo({ top: 0, behavior: "instant" });
+    sessionStorage.clear();
+    
+    // یک‌بار دیگر برای اطمینان بعد از رندر کامل
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    });
+  }
+}, []);  return (
     <main className="min-h-screen">
       <div id="top" />
       <Hero t={t} lang={lang} />
 
       <div className="relative">
-        <div className="relative z-10 flex flex-col">
+        <div className="relative flex flex-col">
           <section id="brands" className="scroll-mt-24">
-            <BrandSlider t={t} lang={lang} />
+            <BrandSlider t={t} lang={lang} brands={brands} />
           </section>
 
           <section id="products" className="scroll-mt-1">
@@ -55,10 +54,9 @@ useLayoutEffect(() => {
             <VideoSectionV1 t={t} lang={lang} />
           </section>
 
-          <section id="news" className="scroll-mt-32">
-            <NewsSectionV1 lang={lang} />
-          </section>
-
+<section className="scroll-mt-32">
+  <NewsSectionV1 lang={lang} />
+</section>
           <div className="h-20" />
 
           <section id="catalog" className="scroll-mt-40">

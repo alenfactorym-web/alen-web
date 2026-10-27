@@ -1,7 +1,15 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+  useSpring,
+} from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import SectionHeader from "@/components/products/SectionHeader";
 import FadeInUp from "@/components/motion/FadeInUp";
 import { MotionTitle, MotionSubtitle } from "@/components/ui/MotionText";
@@ -51,15 +59,17 @@ function GlassButton({ href, label }) {
   return (
     <a
       href={href}
-      className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-black
+        className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-black
       bg-black/5 text-zinc-500 border border-black/10 backdrop-blur-md
       hover:bg-black/10 transition shadow-xl"
+
     >
       {label}
       <span className="text-zinc-500">→</span>
     </a>
   );
 }
+
 
 function VideoCard({ item, lang, onOpen }) {
   const uiFont = lang === "ar" ? "font-ar-title" : lang === "ku" ? "ku-title" : "";
@@ -76,7 +86,7 @@ function VideoCard({ item, lang, onOpen }) {
      whileHover={{ y: -6, scale: 1.02 }}
          whileTap={{ scale: 0.98 }}
      transition={{ duration: 0.35 }}
-   className={`group block w-full relative overflow-hidden
+className={`group block w-full relative overflow-hidden
   rounded-3xl bg-white/95 backdrop-blur-xl
   border border-black/10
   border-b-[8px] border-b-yellow-400
@@ -84,18 +94,9 @@ function VideoCard({ item, lang, onOpen }) {
   hover:shadow-[0_0_0_1px_rgba(250,204,21,0.4),0_30px_70px_-34px_rgba(0,0,0,0.5)]
   transition-all duration-300
   ${uiFont}`}
+
     >
-      <span
-        className="
-          pointer-events-none absolute inset-0
-          opacity-0 group-hover:opacity-100
-          bg-[linear-gradient(120deg,transparent_0%,rgba(255,255,255,0.7)_35%,transparent_70%)]
-          bg-[length:200%_100%] bg-[position:200%_0]
-          group-hover:bg-[position:-200%_0]
-          transition-[background-position,opacity] duration-700 ease-out
-        "
-      />
-      <div className="relative w-full aspect-[16/10] bg-zinc-200 overflow-hidden">
+           <div className="relative w-full aspect-[16/10] bg-zinc-200 overflow-hidden">
         {thumbUrl ? (
       <motion.img
   src={thumbUrl}
@@ -121,16 +122,33 @@ function VideoCard({ item, lang, onOpen }) {
         </div>
       </div>
 
-      <div className="p-5">
-        <div
+     <div className="p-5">
+  <div
   className={[
     "font-black text-zinc-500 text-[13px] leading-[1.15] h-[32px] overflow-hidden",
     lang === "ar" || lang === "ku" ? "text-right" : "text-left",
   ].join(" ")}
->
-  {item?.title || "Video"}
+  >
+    <span className="relative inline-block">
+      {item?.title || "Video"}
+
+      <span
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute inset-0
+          opacity-0 group-hover:opacity-100
+          bg-[linear-gradient(120deg,transparent_0%,rgba(255,255,255,0.7)_35%,transparent_70%)]
+          bg-[length:200%_100%] bg-[position:200%_0]
+          group-hover:bg-[position:-200%_0]
+          bg-clip-text text-transparent
+          transition-[background-position,opacity] duration-700 ease-out
+        "
+      >
+        {item?.title || "Video"}
+      </span>
+    </span>
+  </div>
 </div>
-      </div>
     </motion.button>
   );
 }
@@ -168,10 +186,76 @@ function VideoPlayer({ item }) {
 
   return null;
 }
+
+// ALEN — Scattered Video Card
+function CinematicVideoCard({
+  item,
+  index,
+  lang,
+  onOpen,
+  progress,
+  enabled,
+}) {
+const timings = [
+  [0.00, 0.48],
+  [0.02, 0.53],
+  [0.01, 0.56],
+];
+ const startX = [-160, 110, 230];
+  const startY = [-100, 140, -65];
+
+  const [start, end] = timings[index];
+
+  const x = useTransform(
+    progress,
+    [start, end],
+    [startX[index], 0]
+  );
+
+  const y = useTransform(
+    progress,
+    [start, end],
+    [startY[index], 0]
+  );
+
+  const scale = useTransform(
+    progress,
+    [start, end],
+    [0.90, 1]
+  );
+
+ const springConfig = {
+  stiffness: 180,
+  damping: 30,
+  mass: 0.8,
+};
+
+  const smoothX = useSpring(x, springConfig);
+  const smoothY = useSpring(y, springConfig);
+  const smoothScale = useSpring(scale, springConfig);
+
+  return (
+    <motion.div
+      className="w-full min-w-0"
+style={{
+  x: enabled ? smoothX : 0,
+  y: enabled ? smoothY : 0,
+  scale: enabled ? smoothScale : 1,
+}}    >
+      <VideoCard
+        item={item}
+        lang={lang}
+        onOpen={onOpen}
+      />
+    </motion.div>
+  );
+}
+
+
 /* ---------- main ---------- */
 export default function VideoSectionV1({ lang }) {
-  const uiFont = lang === "ar" ? "font-ar-title" : lang === "ku" ? "ku-title" : "";
-  const isRTL = lang === "ar" || lang === "ku";
+  const pathname = usePathname();
+  const uiFont = lang === "ar" ? "font-ar-title" : lang === "ku" ? "ku-title" : "";  const isRTL = lang === "ar" || lang === "ku";
 
   // ✅ EN chars | AR/KU block
   const revealMode = lang === "en" ? "chars" : "block";
@@ -189,6 +273,118 @@ export default function VideoSectionV1({ lang }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [openItem, setOpenItem] = useState(null);
+// ALEN — Cinematic Video Scroll
+const videoSectionRef = useRef(null);
+const videoSceneRef = useRef(null);
+const videoViewportRef = useRef(null);
+const videoContentRef = useRef(null);
+const [laptopOverflow, setLaptopOverflow] = useState(0);
+const reduceMotion = useReducedMotion();
+const [isLargeMonitor, setIsLargeMonitor] = useState(false);
+const [isLaptop, setIsLaptop] = useState(false);
+const [returnToVideo, setReturnToVideo] = useState(false);
+
+useEffect(() => {
+  const handlePageShow = () => {
+    if (window.sessionStorage.getItem("alen-video-back") !== "1") return;
+
+    window.sessionStorage.removeItem("alen-video-back");
+    setReturnToVideo(true);
+  };
+
+  handlePageShow();
+
+  window.addEventListener("pageshow", handlePageShow);
+
+  return () => {
+    window.removeEventListener("pageshow", handlePageShow);
+  };
+}, []);
+useEffect(() => {
+  const large = window.matchMedia(    "(min-width: 1280px) and (min-height: 900px) and (orientation: landscape)"
+  );
+
+  const laptop = window.matchMedia(
+    "(min-width: 1367px) and (max-width: 1536px) and (max-height: 899px) and (orientation: landscape)"
+  );
+
+  const update = () => {
+    setIsLargeMonitor(large.matches);
+    setIsLaptop(laptop.matches);
+  };
+
+  update();
+
+  large.addEventListener("change", update);
+  laptop.addEventListener("change", update);
+
+  return () => {
+    large.removeEventListener("change", update);
+    laptop.removeEventListener("change", update);
+  };
+}, []);
+
+const cinematicVideo =
+  pathname === "/" &&
+  isLargeMonitor &&
+  !reduceMotion &&
+  !returnToVideo;
+
+useEffect(() => {
+  if (!isLaptop || !cinematicVideo) return;
+
+  const viewport = videoViewportRef.current;
+  const content = videoContentRef.current;
+
+  if (!viewport || !content) return;
+
+  const measure = () => {
+    setLaptopOverflow(
+      Math.max(0, content.scrollHeight - viewport.clientHeight)
+    );
+  };
+
+  const observer = new ResizeObserver(measure);
+
+  observer.observe(viewport);
+  observer.observe(content);
+
+  measure();
+
+  return () => observer.disconnect();
+}, [isLaptop, cinematicVideo, loading, data]);
+
+const { scrollYProgress } = useScroll({
+  target: videoSceneRef,
+  offset: ["start 55%", "end end"],
+});
+
+const laptopVideoY = useTransform(
+  scrollYProgress,
+  [0, 0.35, 0.85, 1],
+  [0, 0, -laptopOverflow, -laptopOverflow]
+);// Featured — Previous Stable Motion
+const featuredScale = useTransform(
+  scrollYProgress,
+  [0, 0.18, 0.50, 1],
+  [1.15, 1.15, 1, 1]
+);
+const featuredY = useTransform(
+  scrollYProgress,
+  [0, 0.32, 0.50, 1],
+  ["20vh", "0vh", "0vh", "0vh"]
+);const smoothFeaturedScale = useSpring(featuredScale, {
+  stiffness: 65,
+  damping: 30,
+  mass: 1.5,
+});
+
+const smoothFeaturedY = useSpring(featuredY, {
+  stiffness: 65,
+  damping: 30,
+  mass: 1.5,
+});
+// کارت‌های پایین — حرکت مستقل
 useEffect(() => {
   if (!openItem) return;
 
@@ -252,14 +448,47 @@ useEffect(() => {
   const featuredIsUpload = featured?.source === "upload" && featured?.videoUrl;
   const featuredYouTubeEmbed = featured?.youtubeUrl ? getYouTubeEmbed(featured.youtubeUrl) : null;
 
- return (
-    <section className={`relative py-60 bg-transparent isolate ${uiFont}`} id="video">
-    
-      <div
-  className="relative w-[min(1500px,96vw)] mx-auto px-[clamp(16px,3vw,56px)]"
-  dir={isRTL ? "rtl" : "ltr"}
+return (
+ <section
+  ref={videoSectionRef}
+ className={`relative ${uiFont} ${
+  cinematicVideo
+    ? "py-20"
+    : isLaptop
+      ? "pt-20 pb-60"
+      : "py-60 [@media(max-width:1024px)_and_(orientation:portrait)]:!pt-60"
+}`}
 >
-
+    <div
+  ref={videoSceneRef}
+  className={
+  cinematicVideo
+    ? isLaptop
+      ? "relative h-[230vh]"
+      : "relative h-[210vh]"
+    : "relative"
+}
+>
+     <div
+  ref={videoViewportRef}
+  className={
+  cinematicVideo
+  ? isLaptop
+    ? "sticky top-[70px] h-[calc(100vh-70px)]"
+    : "sticky top-[70px] h-[calc(100vh-70px)]"
+  : ""
+  }
+>
+  <motion.div
+    ref={videoContentRef}
+    style={{ y: isLaptop ? laptopVideoY : 0 }}
+    className={`relative mx-auto px-[clamp(16px,3vw,56px)] ${
+      cinematicVideo
+        ? "w-[min(1880px,96vw)]"
+        : "w-[min(1500px,96vw)]"
+    }`}
+    dir="ltr"
+  >
 {/* ✅ Header درست (تیتر بزرگ + کمان بزرگ + ریپلی همه زبان‌ها) */}
              <FadeInUp>
        <SectionHeader
@@ -303,22 +532,26 @@ useEffect(() => {
       {lang === "ar"
         ? "شاهد أحدث فيديوهاتنا"
         : lang === "ku"
-        ? "تەمەشای نوێترین ڤیدیۆکانمان بکە"
+        ? "بینەری نوێترین ڤیدیۆکانمان بن"
         : "Watch our latest videos and highlights."}
     </MotionSubtitle>
   }
 />
 </FadeInUp>
-        <motion.div
+    <motion.div
   initial={{ opacity: 0, y: 18 }}
   whileInView={{ opacity: 1, y: 0 }}
   viewport={{ once: true, amount: 0.2 }}
   transition={{ duration: 0.45 }}
   className="space-y-8"
 >
-          {/* Featured */}
-         <div
-  className="
+         {/* Featured */}
+<motion.div
+style={{
+  scale: cinematicVideo && !returnToVideo ? smoothFeaturedScale : 1,
+  y: cinematicVideo && !returnToVideo ? smoothFeaturedY : 0,
+  transformOrigin: "center center",
+}}  className="
     alen-video-featured
     relative overflow-hidden rounded-3xl
     bg-white/95 backdrop-blur-xl
@@ -328,6 +561,7 @@ useEffect(() => {
     transition
     max-w-[1100px] 2xl:max-w-[1400px] mx-auto
   "
+
 >
             <div className="alen-video-featured-frame relative w-full aspect-video md:aspect-auto md:h-[360px] 2xl:md:h-[540px] bg-black overflow-hidden">
               {loading ? (
@@ -390,18 +624,26 @@ useEffect(() => {
   </div>
 )}
             </div>
-          </div>
+          </motion.div>
 <div
   className="
-    alen-video-grid
-    grid grid-cols-1 md:grid-cols-3
-    gap-4 md:gap-4 lg:gap-4 xl:gap-4
-    max-w-[1100px] 2xl:max-w-[1700px]
-    mx-auto
+   alen-video-grid grid grid-cols-1 md:grid-cols-3
+gap-4 md:gap-4 lg:gap-4 xl:gap-4
+max-w-[1100px] 2xl:max-w-[1700px]
+mx-auto
+max-md:w-[88%]
   "
 >
   {list.map((v, i) => (
-    <VideoCard key={getUid(v) || i} item={v} lang={lang} onOpen={setOpenItem} />
+    <CinematicVideoCard
+      key={getUid(v) || i}
+      item={v}
+      index={i}
+      lang={lang}
+      onOpen={setOpenItem}
+            progress={scrollYProgress}
+      enabled={cinematicVideo && !returnToVideo}
+    />
   ))}
 </div>
 <div
@@ -415,8 +657,10 @@ useEffect(() => {
     px-2 lg:px-0
   `}
 >            <GlassButton href={`/videos?lang=${lang}`} label={lang === "ar" ? "المزيد" : lang === "ku" ? "زیاتر" : "More"} />
-          </div>
+                   </div>
+              </motion.div>
         </motion.div>
+      </div>
       </div>
 
       <AnimatePresence>

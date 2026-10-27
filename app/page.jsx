@@ -15,8 +15,22 @@ export default async function HomePage() {
     }
   `;
 
-  const initialCategories = await client.fetch(query, { brand: "alen" });
+  const [initialCategories, brands] = await Promise.all([
+  client.fetch(query, { brand: "alen" }),
+  client.fetch(`
+    *[_type == "brand" && slug.current != "alen"]{
+      "slug": slug.current,
+      name,
+      "logo": logo.asset->url
+    }
+  `),
+]);
 
-  return <HomeClient initialCategories={Array.isArray(initialCategories) ? initialCategories : []} />;
+return (
+  <HomeClient
+    initialCategories={Array.isArray(initialCategories) ? initialCategories : []}
+    brands={Array.isArray(brands) ? brands : []}
+  />
+);
 }
 

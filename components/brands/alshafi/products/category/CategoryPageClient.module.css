@@ -1861,53 +1861,6 @@
   }
 }
 /* =========================
-   ALSHAFI CATEGORY PAGE - TITLE BACK LINK
-   ========================= */
-
-.titleBackWrap {
-  display: flex;
-  justify-content: center;
-  margin: -28px auto 24px;
-}
-
-.titleBackLink {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(201, 154, 58, 0.78);
-  font-size: 12px;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  transition: 220ms ease;
-}
-
-.titleBackLink:hover {
-  color: #f3d98a;
-  transform: translateX(-3px);
-}
-
-@media (max-width: 767px) {
-  .titleBackWrap {
-    margin: -18px auto 22px;
-  }
-
-  .titleBackLink {
-    font-size: 11px;
-  }
-}
-
-@media (min-width: 601px) and (max-width: 1180px) and (orientation: portrait) {
-  .titleBackWrap {
-    margin: -20px auto 24px;
-  }
-
-  .titleBackLink {
-    font-size: 11px;
-  }
-}
-/* =========================
    RESPONSIVE
    ========================= */
 
@@ -2645,53 +2598,6 @@
   }
 }
 /* =========================
-   ALSHAFI CATEGORY PAGE - TITLE BACK LINK
-   ========================= */
-
-.titleBackWrap {
-  display: flex;
-  justify-content: center;
-  margin: -28px auto 24px;
-}
-
-.titleBackLink {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(201, 154, 58, 0.78);
-  font-size: 12px;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  transition: 220ms ease;
-}
-
-.titleBackLink:hover {
-  color: #f3d98a;
-  transform: translateX(-3px);
-}
-
-@media (max-width: 767px) {
-  .titleBackWrap {
-    margin: -18px auto 22px;
-  }
-
-  .titleBackLink {
-    font-size: 11px;
-  }
-}
-
-@media (min-width: 601px) and (max-width: 1180px) and (orientation: portrait) {
-  .titleBackWrap {
-    margin: -20px auto 24px;
-  }
-
-  .titleBackLink {
-    font-size: 11px;
-  }
-}
-/* =========================
    ALSHAFI CATEGORY CARDS - RTL TEXT POSITION FIX
    keep title position visually same as EN
    ========================= */
@@ -2708,4 +2614,25 @@
   direction: rtl !important;
   unicode-bidi: plaintext !important;
   text-align: left !important;
+}
+/* ALSHAFI — MOBILE PORTRAIT TITLE AUTO-FIT */
+
+@media (max-width: 600px) and (orientation: portrait) {
+  .categoryHeading :global(.alshafi-section-top-title[data-auto-fit-mobile="true"]),
+  .categoryHeadingLong :global(.alshafi-section-top-title[data-auto-fit-mobile="true"]) {
+    box-sizing: border-box !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    padding-inline: 0 !important;
+
+    font-size: var(--alshafi-fit-size, 52px) !important;
+    line-height: 1.1 !important;
+
+    white-space: nowrap !important;
+    text-align: center !important;
+
+    letter-spacing: 0 !important;
+  }
 }

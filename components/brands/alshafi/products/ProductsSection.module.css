@@ -172,7 +172,7 @@
     transform: translateX(70px) translateY(-80px) !important;
   }
 
-  :global(.mini-site-alshafi) .productsSection:global(#products) :global(aside h2 span:first-child) {
+  :global(.mini-site-alshafi) .productsSection:global(#products) :global(aside h2 > span:first-child) {
     color: rgba(255, 255, 255, 0.9) !important;
     font-size: 46px !important;
   }
@@ -240,14 +240,48 @@
   }
 
   :global(.mini-site-alshafi) .productsSection :global(.alshafi-products-grid) {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    gap: 16px !important;
-  }
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+}
 
-  :global(.mini-site-alshafi) .productsSection :global(.alshafi-products-grid > a) {
-    grid-column: span 1 / span 1 !important;
-    height: 170px !important;
-  }
+:global(.mini-site-alshafi) .productsSection :global(.alshafi-products-grid > a) {
+  height: 170px !important;
+}
+
+/* ردیف اول */
+:global(.mini-site-alshafi) .productsSection :global(.alshafi-cat-spices),
+:global(.mini-site-alshafi) .productsSection :global(.alshafi-cat-pasta-assistants) {
+  grid-column: span 3 / span 3 !important;
+}
+
+/* ردیف دوم */
+:global(.mini-site-alshafi) .productsSection :global(.alshafi-cat-dessert) {
+  grid-column: span 2 / span 2 !important;
+}
+
+:global(.mini-site-alshafi) .productsSection :global(.alshafi-cat-sauce-ketchup),
+:global(.mini-site-alshafi) .productsSection :global(.alshafi-cat-sauce-and-ketchup) {
+  grid-column: span 3 / span 3 !important;
+}
+
+:global(.mini-site-alshafi) .productsSection :global(.alshafi-cat-bouillon-soup),
+:global(.mini-site-alshafi) .productsSection :global(.alshafi-cat-bouillon-and-soup) {
+  grid-column: span 1 / span 1 !important;
+}
+
+/* ردیف سوم */
+:global(.mini-site-alshafi) .productsSection :global(.alshafi-cat-liquids) {
+  grid-column: span 3 / span 3 !important;
+}
+
+:global(.mini-site-alshafi) .productsSection :global(.alshafi-cat-salt-sumac),
+:global(.mini-site-alshafi) .productsSection :global(.alshafi-cat-salt-and-sumac) {
+  grid-column: span 1 / span 1 !important;
+}
+
+:global(.mini-site-alshafi) .productsSection :global(.alshafi-cat-vinegar) {
+  grid-column: span 2 / span 2 !important;
+}
 
   :global(.mini-site-alshafi) .productsSection:global(#products) :global(aside) {
     transform: translateX(-40px) translateY(-30px) !important;
@@ -347,7 +381,7 @@
     bottom: 12px !important;
   }
 
-  :global(.mini-site-alshafi) .productsSection:global(#products) :global(aside h2 span:first-child) {
+  :global(.mini-site-alshafi) .productsSection:global(#products) :global(aside h2 > span:first-child) {
     color: rgba(255,255,255,0.92) !important;
     font-size: 34px !important;
   }

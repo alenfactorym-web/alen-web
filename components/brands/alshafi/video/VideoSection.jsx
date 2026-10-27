@@ -271,35 +271,36 @@ const videoCopy = {
     eyebrow: "EXPLORE",
     titleTop: "ALSHAFI",
     titleBottom: "VIDEOS",
-    desc: "Watch Alshafi official videos and highlights.",
+    desc: "Watch official Alshafi videos and featured highlights.",
     featureOne: "OFFICIAL VIDEOS",
-    featureOneDesc: "Factory, products and brand moments.",
+    featureOneDesc: "Discover our factory, products, and brand stories.",
     featureTwo: "LATEST HIGHLIGHTS",
-    featureTwoDesc: "Fresh updates and featured stories.",
+    featureTwoDesc: "See the latest updates and featured moments.",
   },
 
   ar: {
     eyebrow: "استكشف",
     titleTop: "الشافي",
     titleBottom: "الفيديوهات",
-    desc: "شاهد فيديوهات الشافي الرسمية وأبرز اللقطات.",
+    desc: "شاهد فيديوهات الشافي الرسمية وأبرز اللحظات",
     featureOne: "فيديوهات رسمية",
-    featureOneDesc: "المصنع والمنتجات ولحظات العلامة التجارية.",
-    featureTwo: "أحدث المقاطع",
-    featureTwoDesc: "آخر التحديثات والقصص المميزة.",
+    featureOneDesc: "اكتشف مصنعنا ومنتجاتنا وقصص العلامة التجارية",
+    featureTwo: "أحدث الفيديوهات",
+    featureTwoDesc: "شاهد أحدث التحديثات واللحظات المميزة",
   },
 
   ku: {
     eyebrow: "بگەڕێ",
-    titleTop: "ئەشفی",
+    titleTop: "ئەلشافی",
     titleBottom: "ڤیدیۆکان",
-    desc: "تەماشای ڤیدیۆ فەرمییەکانی ئەشفی بکە.",
+    desc: "تەماشای ڤیدیۆ فەرمییەکانی ئەلشافی و دیارترین ساتەکان بکە",
     featureOne: "ڤیدیۆ فەرمییەکان",
-    featureOneDesc: "کارگە و بەرهەم و چیرۆکی براند.",
+    featureOneDesc: "کارگە، بەرهەمەکان و چیرۆکەکانی براند ببینە",
     featureTwo: "نوێترین ڤیدیۆکان",
-    featureTwoDesc: "نوێترین هەواڵ و بابەتە تایبەتەکان.",
+    featureTwoDesc: "نوێترین بابەت و ساتە تایبەتەکان ببینە",
   },
 }[lang];
+
  return (
     <section className={`${styles.videoSection} relative py-20 bg-transparent isolate ${uiFont}`} id="video">
     

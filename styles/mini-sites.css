@@ -157,11 +157,7 @@
     --mini-card-outer-px: 18px;
   }
 
-  .mini-site-alshafi .alshafi-card-inner {
-    padding-top: 8px !important;
-    padding-bottom: 12px !important;
-  }
-
+  
   .mini-site-alshafi .alshafi-hero-card .tracking-\[0\.9em\] {
     font-size: 6px !important;
     letter-spacing: 0.4em !important;
@@ -205,10 +201,7 @@
     transform-origin: top center;
   }
 
-  .mini-site-alshafi .alshafi-hero-button-wrap {
-    margin-top: 4px !important;
-  }
-}
+ }
 
 /* =========================
    ALSHAFI - TABLET LANDSCAPE
@@ -426,13 +419,7 @@
     line-height: 1.2 !important;
   }
 
-  .mini-site-alshafi .alshafi-hero-card .font-alshafi-logo,
-  .mini-site-alshafi .alshafi-hero-card .font-ar-title,
-  .mini-site-alshafi .alshafi-hero-card .ku-title {
-    font-size: 110px !important;
-    line-height: 1 !important;
-  }
-
+ 
   .mini-site-alshafi .alshafi-hero-card .brand-text-shine {
     font-size: inherit !important;
     transform: translateX(0px) translateY(0px) scale(1) !important;
@@ -563,13 +550,7 @@
     line-height: 1 !important;
   }
 
-  .mini-site-alshafi .alshafi-hero-card .font-alshafi-logo,
-  .mini-site-alshafi .alshafi-hero-card .font-ar-title,
-  .mini-site-alshafi .alshafi-hero-card .ku-title {
-    font-size: 60px !important;
-    line-height: 0.8 !important;
-  }
-
+ 
   .mini-site-alshafi .alshafi-hero-card .alshafi-spices-text {
     font-size: 22px !important;
     letter-spacing: 0.08em !important;
@@ -811,4 +792,30 @@
 
 .mini-site-alshafi .alshafi-heading-line {
   transform: translateX(0px) !important;
+}
+/* =========================
+   GOLY ROZH - CONTINUOUS LOWER VISUAL SHELL
+   Products / Video / About / Contact
+   ========================= */
+
+.mini-site-goly-rozh .goly-rozh-lower-shell {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+
+  background:
+    radial-gradient(
+      ellipse 90% 34% at 50% 42%,
+      rgba(255, 92, 102, 0.16) 0%,
+      rgba(255, 60, 72, 0.07) 34%,
+      rgba(255, 45, 58, 0.03) 54%,
+      transparent 72%
+    ),
+    linear-gradient(
+      180deg,
+      #9f121c 0%,
+      #a81720 42%,
+      #b01a24 78%,
+      #b01a24 100%
+    );
 }

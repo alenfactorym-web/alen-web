@@ -72,6 +72,10 @@
   top: 105px !important;
   transform: rotate(-8deg) scale(1) !important;
 }
+.videoSection :global(.alshafi-video-title-shine) {
+  font-size: 17px;
+  line-height: 1.2;
+}
 /* =========================
    ALSHAFI VIDEO - LARGE MONITOR
    ========================= */
@@ -359,10 +363,11 @@
     padding: 12px 14px !important;
   }
 
-  .videoSection :global(.alshafi-video-title-shine) {
-    font-size: 13px !important;
-    line-height: 1.15 !important;
-  }
+.videoSection :global(.alshafi-video-title-shine) {
+  font-size: 14px !important;
+  line-height: 1.15 !important;
+}
+
   .videoSection :global(.alshafi-video-watermark) {
     left: -58px !important;
     top: 72px !important;
@@ -465,6 +470,10 @@
     opacity: 0.15 !important;
     transform: rotate(-8deg) scale(0.7) !important;
   }
+.videoSection :global(.alshafi-video-title-shine) {
+  font-size: 14px !important;
+  line-height: 1.15 !important;
+}
 }
 
 /* =========================

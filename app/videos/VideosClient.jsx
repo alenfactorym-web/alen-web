@@ -106,24 +106,16 @@ function VideoCard({ item, lang, onOpen }) {
      
  whileHover={{ y: -6 }}
       transition={{ type: "spring", stiffness: 260, damping: 18 }}
-      className={`group block w-full relative overflow-hidden
-        ${isRTL ? "text-right" : "text-left"}
-        rounded-3xl bg-white/95 backdrop-blur-xl
-        border border-black/10 shadow-[0_22px_45px_-30px_rgba(0,0,0,0.7)]
-        hover:shadow-[0_35px_70px_-45px_rgba(0,0,0,0.85)]
-        border-b-[8px] border-b-yellow-400 ${uiFont}`}
+     className={`group block w-full relative overflow-hidden
+  ${isRTL ? "text-right" : "text-left"}
+  rounded-3xl bg-white/95 backdrop-blur-xl
+  border border-transparent
+  shadow-[0_18px_40px_-28px_rgba(0,0,0,0.38)]
+  hover:shadow-[0_30px_70px_-34px_rgba(0,0,0,0.5)]
+  border-b-[4px] border-b-yellow-400
+  ${uiFont}`}
     >
-      <span
-        className="
-          pointer-events-none absolute inset-0
-          opacity-0 group-hover:opacity-100
-          bg-[linear-gradient(120deg,transparent_0%,rgba(255,255,255,0.7)_35%,transparent_70%)]
-          bg-[length:200%_100%] bg-[position:200%_0]
-          group-hover:bg-[position:-200%_0]
-          transition-[background-position,opacity] duration-700 ease-out
-        "
-      />
-      <div className="relative w-full aspect-[16/9] bg-zinc-200 overflow-hidden">
+           <div className="relative w-full aspect-[16/9] bg-zinc-200 overflow-hidden">
         {thumbUrl ? (
           <img
   src={thumbUrl}
@@ -149,8 +141,8 @@ function VideoCard({ item, lang, onOpen }) {
 
       <div className="p-5">
         <div className="font-black text-zinc-500 text-[13px] leading-[1.15] h-[32px] overflow-hidden">
-          {item?.title || "Video"}
-        </div>
+  {item?.title || "Video"}
+</div>
       </div>
     </motion.button>
   );
@@ -227,28 +219,80 @@ useEffect(() => {
     next: lang === "ar" ? "التالي" : lang === "ku" ? "داهاتوو" : "Next",
   };
 
-  const stableList = useMemo(() => (Array.isArray(list) ? list : []), [list]);
+const stableList = useMemo(
+  () => (Array.isArray(list) ? list : []),
+  [list]
+);
 
-  const goToPage = (nextPage) => {
-    const p = Math.max(1, Math.min(totalPages, nextPage));
-    const qs = new URLSearchParams(sp?.toString() || "");
-    qs.set("lang", lang);
-    qs.set("page", String(p));
-    router.push(`${pathname}?${qs.toString()}`, { scroll: true });
-  };
+const currentPage = Math.max(
+  1,
+  Math.min(
+    Math.max(1, Number(totalPages) || 1),
+    Number(sp?.get("page")) || Number(page) || 1
+  )
+);
 
-  const canPrev = page > 1;
-  const canNext = page < totalPages;
+const pageCount = Math.max(1, Number(totalPages) || 1);
 
-  return (
-    <main className={`relative min-h-screen bg-transparent overflow-hidden isolate ${uiFont}`} dir={isRTL ? "rtl" : "ltr"}>
-      
-<div className="relative w-[min(1500px,96vw)] mx-auto px-[clamp(16px,3vw,56px)] pt-28 pb-16">      
+const goToPage = (nextPage) => {
+  const targetPage = Math.max(
+    1,
+    Math.min(pageCount, Number(nextPage) || 1)
+  );
+
+  if (targetPage === currentPage) return;
+
+  const qs = new URLSearchParams(sp?.toString() || "");
+  qs.set("lang", lang);
+  qs.set("page", String(targetPage));
+
+  router.push(`${pathname}?${qs.toString()}`, {
+    scroll: true,
+  });
+};
+
+const canPrev = currentPage > 1;
+const canNext = currentPage < pageCount; return (
+ <main className={`relative min-h-screen bg-transparent overflow-hidden isolate ${uiFont}`} dir={isRTL ? "rtl" : "ltr"}>
+
+    <style>{`
+      /* Show the existing Canvas behind Videos content */
+      @media
+        (min-width: 1280px) and (min-height: 900px) and (orientation: landscape),
+        (min-width: 1367px) and (max-width: 1536px) and (max-height: 899px) and (orientation: landscape) {
+        .alen-videos-page {
+  background: transparent !important;
+  z-index: auto;
+}
+      }
+
+      @media (max-width: 599px) and (orientation: portrait) {
+        .alen-videos-index-grid {
+          width: 90% !important;
+          margin-inline: auto !important;
+        }
+      }
+
+      @media (min-width: 600px) and (orientation: portrait) {
+        .alen-videos-index-grid {
+          grid-template-columns: minmax(0, 1fr) !important;
+          width: 80% !important;
+          margin-inline: auto !important;
+        }
+
+        .alen-videos-index-grid > button {
+          width: 100% !important;
+          min-width: 0 !important;
+        }
+      }
+    `}</style>
+
+    <div className="relative w-[min(1500px,96vw)] [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:w-[min(1880px,96vw)] mx-auto px-[clamp(16px,3vw,56px)] pt-28 pb-16">      
   {/* ✅ Title + Yellow Arc (centered like home) */}
         <div className="flex flex-col items-center text-center mb-10">
-  <MotionTitle
-    as="h1"
-    className="text-5xl font-black text-zinc-500"
+ <MotionTitle
+  as="h1"
+  className="text-5xl font-black text-zinc-500"
     reveal={lang === "en" ? "chars" : "block"}
     effect="mask"
     stagger={lang === "en" ? 0.045 : 0}
@@ -282,12 +326,14 @@ useEffect(() => {
   </motion.svg>
 </div>
 
-        <div
- className="
-  alen-laptop-grid-3
-  grid grid-cols-1 md:grid-cols-3
+       <div
+  className="
+   alen-laptop-grid-3
+   alen-videos-index-grid
+   grid grid-cols-1 md:grid-cols-3
   gap-4 md:gap-4 lg:gap-4 xl:gap-4
   max-w-[1100px] 2xl:max-w-[1400px]
+  [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:max-w-[1760px]
   mx-auto
 "
 
@@ -308,6 +354,7 @@ className={`
   alen-laptop-wrap-1088
   mt-10
   max-w-[1100px] 2xl:max-w-[1400px]
+[@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:max-w-[1760px]
   mx-auto
   flex items-center justify-between gap-3
   px-2 lg:px-0
@@ -315,34 +362,33 @@ className={`
 `}>
           <Link
             href={`/?lang=${lang}#video`}
-            className="rounded-full border bg-white/90 px-6 py-3 text-sm font-bold text-zinc-500 hover:bg-white shadow-sm transition-transform active:scale-95"
-          >
+className="rounded-full border bg-white/90 px-6 py-3 text-sm font-bold text-zinc-500 hover:bg-white shadow-sm transition-transform active:scale-95"   >
             {t.back}
           </Link>
 
           <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={() => goToPage(page - 1)}
+              onClick={() => goToPage(currentPage - 1)}
               disabled={!canPrev}
               className={`rounded-full border px-6 py-3 text-sm font-bold shadow-sm ${
-                !canPrev
-                  ? "bg-white/50 text-zinc-300 cursor-not-allowed"
-                  : "bg-white/90 text-zinc-500 hover:bg-white active:scale-95 transition-all"
-              }`}
+  !canPrev
+    ? "bg-white/50 text-zinc-300 cursor-not-allowed"
+    : "bg-white/90 text-zinc-500 hover:bg-white active:scale-95 transition-all"
+}`}
             >
               {t.prev}
             </button>
 
             <button
               type="button"
-              onClick={() => goToPage(page + 1)}
+              onClick={() => goToPage(currentPage + 1)}
               disabled={!canNext}
               className={`rounded-full border px-6 py-3 text-sm font-bold shadow-sm ${
-                !canNext
-                  ? "bg-white/50 text-zinc-300 cursor-not-allowed"
-                  : "bg-white/90 text-zinc-500 hover:bg-white active:scale-95 transition-all"
-              }`}
+  !canNext
+    ? "bg-white/50 text-zinc-300 cursor-not-allowed"
+    : "bg-white/90 text-zinc-500 hover:bg-white active:scale-95 transition-all"
+}`}
             >
               {t.next}
             </button>

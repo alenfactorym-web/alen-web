@@ -1,18 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { MotionTitle } from "@/components/ui/MotionText";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+} from "framer-motion";
+import { useEffect, useRef, useState } from "react";import { MotionTitle } from "@/components/ui/MotionText";
 
-const brands = [
-  { slug: "alshafi", name: "Alshafi", logo: "/logos/alshafi.png", color: "#000000" },
-  { slug: "goly-rozh", name: "Goly Rozh", logo: "/logos/golyrozh.png", color: "#800020" },
-  { slug: "goli-alen", name: "Goli Alen", logo: "/logos/golialen.png", color: "#2563eb" },
-  { slug: "alen-plus", name: "Alen Plus", logo: "/logos/alenplus.png", color: "#60a5fa" },
-];
+export default function BrandSlider({ t, lang, brands = [] }) {
+  const brandDefaults = {
+    alshafi: { name: "Alshafi", logo: "/logos/alshafi.png", color: "#000000" },
+    "goly-rozh": { name: "Goly Rozh", logo: "/logos/golyrozh.png", color: "#800020" },
+    "goli-alen": { name: "Goli Alen", logo: "/logos/golialen.png", color: "#2563eb" },
+    "alen-plus": { name: "Alen Plus", logo: "/logos/alenplus.png", color: "#60a5fa" },
+  };
 
-export default function BrandSlider({ t, lang }) {
+  brands = brands.map((brand) => ({
+    ...brand,
+    name: brandDefaults[brand.slug]?.name || brand.name,
+    logo: brandDefaults[brand.slug]?.logo || brand.logo,
+    color: brandDefaults[brand.slug]?.color || "#C99A3A",
+  }));
   const isRTL = lang === "ar" || lang === "ku";
   const uiFont = lang === "ar" ? "font-ar-title" : lang === "ku" ? "ku-title" : "";
 
@@ -28,8 +38,85 @@ export default function BrandSlider({ t, lang }) {
   const revealMode = lang === "en" ? "chars" : "block";
   const titleStagger = lang === "en" ? 0.085 : 0;
 
+// ALEN — Cinematic Brands
+const brandsRef = useRef(null);
+const reduceMotion = useReducedMotion();
+
+const [isLargeMonitor, setIsLargeMonitor] = useState(false);
+const [isLaptop, setIsLaptop] = useState(false);
+const [isPortraitTablet, setIsPortraitTablet] = useState(false);
+
+useEffect(() => {
+  const large = window.matchMedia(
+    "(min-width: 1280px) and (min-height: 900px) and (orientation: landscape)"
+  );
+
+  const laptop = window.matchMedia(
+    "(min-width: 1367px) and (max-width: 1536px) and (max-height: 899px) and (orientation: landscape)"
+  );
+
+  const update = () => {
+    setIsLargeMonitor(large.matches);
+    setIsLaptop(laptop.matches);
+  };
+
+  update();
+
+  large.addEventListener("change", update);
+  laptop.addEventListener("change", update);
+
+  return () => {
+    large.removeEventListener("change", update);
+    laptop.removeEventListener("change", update);
+  };
+}, []);
+useEffect(() => {
+  const media = window.matchMedia(
+    "(min-width: 768px) and (max-width: 1180px) and (orientation: portrait)"
+  );
+  const update = () => setIsPortraitTablet(media.matches);
+  update();
+  media.addEventListener("change", update);
+  return () => media.removeEventListener("change", update);
+}, []);
+
+const { scrollYProgress } = useScroll({
+  target: brandsRef,
+  offset: ["start end", "end start"],
+});
+
+const cinematicActive = (isLargeMonitor || isLaptop) && !reduceMotion;
+
+// ALEN — Unified Cinematic Depth
+const cardsScale = useTransform(
+  scrollYProgress,
+  [0, 0.42, 0.72, 1],
+  [0.82, 1, 1, 0.94]
+);
+
+const cardsY = useTransform(
+  scrollYProgress,
+  [0, 0.42, 0.72, 1],
+  [60, 0, 0, -90]
+);
+
+const laptopCardsScale = useTransform(
+  scrollYProgress,
+  [0, 0.42, 0.72, 1],
+  [0.92, 1, 1, 0.98]
+);
+
+const laptopCardsY = useTransform(
+  scrollYProgress,
+  [0, 0.42, 0.72, 1],
+  [30, 0, 0, -40]
+);
+
   return (
-    <section className="alen-brands-section relative py-24 overflow-visible">
+    <section
+  ref={brandsRef}
+  className="alen-brands-section relative py-24 overflow-visible"
+>
       {/* Background layers */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-x-0 top-0 h-[55%] bg-zinc-600" />
@@ -69,7 +156,13 @@ export default function BrandSlider({ t, lang }) {
         <div dir="ltr" className="alen-brands-wrap max-w-[1100px] 2xl:max-w-[1400px] mx-auto px-6">
           {/* ✅ MOBILE ONLY: 4 cards in ONE row (no scroll) */}
           <div className="md:hidden -mx-6 px-4">
-            <div className="grid grid-cols-4 gap-2">
+            <div
+              className="grid gap-2 mx-auto"
+              style={{
+                gridTemplateColumns: `repeat(${Math.min(brands.length, 4)}, minmax(0, 1fr))`,
+                width: `${Math.min(brands.length, 4) * 25}%`,
+              }}
+            >
               {brands.map((brand) => (
                 <Link key={brand.slug} href={`/brand/${brand.slug}`} className="block w-full">
                   <motion.div whileTap={{ scale: 0.98 }} className="relative">
@@ -99,11 +192,36 @@ transition duration-300 group-hover:shadow-[0_22px_40px_-28px_rgba(0,0,0,0.55)]
           </div>
 
           {/* ✅ DESKTOP/TABLET (md+): EXACTLY your old grid, unchanged */}
-          <div className="alen-brands-grid hidden md:grid grid-cols-4 gap-4 lg:gap-6 2xl:gap-10 justify-items-center">
-            {brands.map((brand) => (
-              <Link key={brand.slug} href={`/brand/${brand.slug}`} className="block w-full">
-                <motion.div
-                  whileHover={{ y: -8, scale: 1.02 }}
+          <motion.div
+  className="alen-brands-grid hidden md:grid gap-4 lg:gap-6 2xl:gap-10 justify-items-center mx-auto [@media(min-width:768px)_and_(max-width:1180px)_and_(orientation:portrait)]:!w-full"
+ style={{
+  "--brand-count": Math.min(brands.length, 4),
+  gridTemplateColumns: `repeat(${Math.min(brands.length, 4)}, minmax(0, 1fr))`,
+  width: `${Math.min(brands.length, 4) * 25}%`,
+
+  scale: cinematicActive
+    ? isLargeMonitor
+      ? cardsScale
+      : laptopCardsScale
+    : 1,
+
+  y: cinematicActive
+    ? isLargeMonitor
+      ? cardsY
+      : laptopCardsY
+    : 0,
+
+  transformOrigin: "center center",
+}}
+>
+  {brands.map((brand) => (
+    <Link
+      key={brand.slug}
+      href={`/brand/${brand.slug}`}
+      className="block w-full"
+    >
+        <motion.div
+          whileHover={{ y: -8, scale: 1.02 }}
                   whileTap={{ scale: 0.99 }}
                   transition={{ type: "spring", stiffness: 340, damping: 18 }}
                   className="relative group cursor-pointer"
@@ -136,10 +254,14 @@ transition duration-300 group-hover:shadow-[0_22px_40px_-28px_rgba(0,0,0,0.55)]
                       src={brand.logo}
                       alt={brand.name}
                       className="h-12 lg:h-14 2xl:h-20 w-auto max-w-[80%] mx-auto mb-3 2xl:mb-4 object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                      style={{
+                        transform: isPortraitTablet ? "scale(1.25)" : undefined,
+                        transformOrigin: "center center",
+                      }}
                       draggable="false"
                     />
 
-                    <div className="relative inline-block font-black tracking-tight text-slate-900">
+                    <div className="relative inline-block font-black tracking-tight text-slate-900 [@media(min-width:768px)_and_(max-width:1180px)_and_(orientation:portrait)]:!text-[22px]">
                       <span className="relative">{brand.name}</span>
                       <span
                         className="pointer-events-none absolute inset-0 text-transparent bg-clip-text
@@ -156,14 +278,13 @@ transition duration-300 group-hover:shadow-[0_22px_40px_-28px_rgba(0,0,0,0.55)]
                       className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition duration-300 group-hover:opacity-100"
                       style={{ boxShadow: `inset 0 0 0 1px ${brand.color}55` }}
                     />
-                  </div>
+                                  </div>
                 </motion.div>
               </Link>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 }
-

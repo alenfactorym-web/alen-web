@@ -1,0 +1,98 @@
+/* =========================================================
+   GOLY ROZH SHARED MOTIONS
+   Mini-site only
+   ========================================================= */
+
+
+/* =========================================================
+   SECTION HEADING REVEAL
+   Whole text blocks — EN / AR / KU
+   Triggered by visibility class
+   ========================================================= */
+
+.mini-site-goly-rozh .goly-rozh-reveal {
+  --goly-reveal-y: 28px;
+  --goly-reveal-blur: 5px;
+  --goly-reveal-duration: 850ms;
+  --goly-reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+.mini-site-goly-rozh .goly-rozh-reveal .goly-rozh-section-eyebrow,
+.mini-site-goly-rozh .goly-rozh-reveal .goly-rozh-section-top-title,
+.mini-site-goly-rozh .goly-rozh-reveal .goly-rozh-section-bottom-title,
+.mini-site-goly-rozh .goly-rozh-reveal .goly-rozh-section-desc {
+  opacity: 0;
+  filter: blur(var(--goly-reveal-blur));
+  transform: translateY(var(--goly-reveal-y));
+
+  transition:
+    opacity var(--goly-reveal-duration) var(--goly-reveal-ease),
+    transform var(--goly-reveal-duration) var(--goly-reveal-ease),
+    filter var(--goly-reveal-duration) var(--goly-reveal-ease);
+}
+
+
+/* EYEBROW */
+
+.mini-site-goly-rozh
+  .goly-rozh-reveal.is-visible
+  .goly-rozh-section-eyebrow {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+  transition-delay: 80ms;
+}
+
+
+/* TOP TITLE */
+
+.mini-site-goly-rozh
+  .goly-rozh-reveal.is-visible
+  .goly-rozh-section-top-title {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+  transition-delay: 180ms;
+}
+
+
+/* BOTTOM TITLE */
+
+.mini-site-goly-rozh
+  .goly-rozh-reveal.is-visible
+  .goly-rozh-section-bottom-title {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+  transition-delay: 300ms;
+}
+
+
+/* DESCRIPTION */
+
+.mini-site-goly-rozh
+  .goly-rozh-reveal.is-visible
+  .goly-rozh-section-desc {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+  transition-delay: 430ms;
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .mini-site-goly-rozh .goly-rozh-reveal .goly-rozh-section-eyebrow,
+  .mini-site-goly-rozh .goly-rozh-reveal .goly-rozh-section-top-title,
+  .mini-site-goly-rozh .goly-rozh-reveal .goly-rozh-section-bottom-title,
+  .mini-site-goly-rozh .goly-rozh-reveal .goly-rozh-section-desc {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}

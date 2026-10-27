@@ -213,11 +213,18 @@ useEffect(() => {
 
   const [step, setStep] = useState(360);
   useEffect(() => {
-    const calc = () => {
-      const w = window.innerWidth || 360;
-      const s = Math.min(460, Math.max(210, Math.round(w * 0.5)));
-      setStep(s);
-    };
+   const calc = () => {
+  const w = window.innerWidth || 360;
+  const mobileLandscape = window.matchMedia(
+    "(max-width: 950px) and (max-height: 600px) and (orientation: landscape)"
+  ).matches;
+
+  const s = mobileLandscape
+    ? 240
+    : Math.min(460, Math.max(210, Math.round(w * 0.5)));
+
+  setStep(s);
+};
     calc();
     window.addEventListener("resize", calc);
     return () => window.removeEventListener("resize", calc);
@@ -251,17 +258,19 @@ useEffect(() => {
     startRef.current = { x: e.clientX, y: e.clientY };
   }, []);
 
-  const onPointerUp = useCallback(
-    (e) => {
-      const dx = e.clientX - startRef.current.x;
-      const dy = e.clientY - startRef.current.y;
-      if (Math.abs(dx) < 40) return;
-      if (Math.abs(dy) > Math.abs(dx) * 0.8) return;
-      if (dx < 0) swipeNext();
-      else swipePrev();
-    },
-    [swipeNext, swipePrev]
-  );
+ const onPointerUp = useCallback(
+  (e) => {
+    if (e.pointerType === "touch") return;
+
+    const dx = e.clientX - startRef.current.x;
+    const dy = e.clientY - startRef.current.y;
+    if (Math.abs(dx) < 40) return;
+    if (Math.abs(dy) > Math.abs(dx) * 0.8) return;
+    if (dx < 0) swipeNext();
+    else swipePrev();
+  },
+  [swipeNext, swipePrev]
+);
 
   useEffect(() => {
     if (!open) return;
@@ -413,7 +422,7 @@ useEffect(() => {
         open ? "pointer-events-none" : ""
       }`}
     >
-        <div className="alen-laptop-wrap-1100 w-[min(1320px,96vw)] mx-auto px-4">
+        <div className="alen-laptop-wrap-1100 w-[min(1320px,96vw)] [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:w-[min(1880px,96vw)] mx-auto px-4">
         <SectionHeader
   resetKey={resetKey}
   titleClassName="text-4xl md:text-5xl lg:text-6xl font-extrabold text-zinc-600 group-hover:text-black transition-colors"
@@ -511,17 +520,23 @@ useEffect(() => {
   </div>
 ) : null}
 
-        <div
+       <div
   dir="ltr"
   className={
     isGroupLandingPage
-  ? "alen-laptop-grid-3 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 lg:gap-4 xl:gap-4 max-w-[1100px] 2xl:max-w-[1400px] mx-auto mt-8"
-      : `
-    flex flex-wrap justify-center
-    gap-3 md:gap-4 lg:gap-4 xl:gap-4
-    max-w-[1100px] 2xl:max-w-[1400px]
-    mx-auto mt-8
-  `
+      ? `alen-laptop-grid-3 grid grid-cols-1 md:grid-cols-3
+         gap-3 md:gap-4 lg:gap-4 xl:gap-4
+         max-w-[1100px] 2xl:max-w-[1400px]
+         [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:max-w-[1750px]
+         mx-auto mt-8`
+     : `
+         flex flex-wrap justify-center
+         gap-3 md:gap-4 lg:gap-4 xl:gap-4
+         max-w-[1100px] 2xl:max-w-[1400px]
+         [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:max-w-[1750px]
+         [@media(min-width:1367px)_and_(max-width:1536px)_and_(max-height:899px)_and_(orientation:landscape)]:!max-w-full
+         mx-auto mt-8
+        `
   }
 >
             {allItems.map((item, i) => {
@@ -579,12 +594,14 @@ useEffect(() => {
   text-left group block overflow-hidden rounded-3xl
   bg-white border border-black/10
   border-b-[6px] border-b-yellow-400
-  shadow-[0_22px_45px_-30px_rgba(0,0,0,0.7)]
-  hover:shadow-[0_25px_50px_-30px_rgba(0,0,0,0.7)]
-  hover:-translate-y-[2px]
-  hover:border-black/20
+ shadow-[0_18px_35px_-28px_rgba(0,0,0,0.35)]
+hover:shadow-[0_24px_55px_-28px_rgba(0,0,0,0.28)]
+hover:-translate-y-[2px]
+hover:border-black/20
   transition-all pointer-events-auto
   w-[calc(50%-6px)] md:w-[calc(25%-12px)]
+[@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:w-[calc(20%-13px)]
+[@media(min-width:1367px)_and_(max-width:1536px)_and_(max-height:899px)_and_(orientation:landscape)]:!w-[calc(25%-12px)]
 `
 }
 >
@@ -601,16 +618,17 @@ useEffect(() => {
   fill
   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
    priority={i < 3} 
-  className={
-    isGroupLandingPage
-      ? "absolute inset-0 w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-110"
-      : `
-    object-contain
-    transition-transform duration-300
-    group-hover:scale-105
-    will-change-transform opacity-100
-  `
-  }
+ className={
+  isGroupLandingPage
+    ? "absolute inset-0 w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-110"
+    : `
+      object-contain
+      scale-[0.90]
+      transition-transform duration-300
+      group-hover:scale-[0.95]
+      will-change-transform opacity-100
+    `
+}
   draggable={false}
 />
 {isGroupLandingPage ? (
@@ -694,8 +712,9 @@ useEffect(() => {
       {/* ================= MODAL 3D ================= */}
       <AnimatePresence>
         {open && modalTotal > 0 && (
-          <motion.div
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-3xl"
+        <motion.div
+  data-alen-product-modal="true"
+  className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/70 backdrop-blur-3xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -733,14 +752,14 @@ useEffect(() => {
                   <motion.div
                     key={item.id || item.image || index}
                     initial={false}
-                    animate={{
-                      x: offset * step,
-                      z: isActive ? 320 : -140,
-                      rotateY: offset * -30,
-                      rotateZ: offset * -0.5,
-                      scale: isActive ? 1.0 : 0.8,
-                      opacity: 1,
-                    }}
+                   animate={{
+  x: offset * step * (isRTL ? -1 : 1),
+  z: isActive ? 320 : -140,
+  rotateY: offset * (isRTL ? 30 : -30),
+  rotateZ: offset * (isRTL ? 0.5 : -0.5),
+  scale: isActive ? 1.0 : 0.8,
+  opacity: 1,
+}}
                     transition={{ type: "spring", stiffness: 210, damping: 28 }}
                     style={{
   zIndex: isActive ? 100 : 10,
@@ -752,16 +771,16 @@ useEffect(() => {
   backfaceVisibility: "hidden",
   WebkitBackfaceVisibility: "hidden",
 }}
-                    className="w-full max-w-[84vw] sm:max-w-[520px] lg:max-w-[560px]"
+                 className="w-full max-w-[min(310px,80vw)] sm:max-w-[400px] lg:max-w-[560px] [@media(max-width:950px)_and_(max-height:600px)_and_(orientation:landscape)]:!max-w-[280px] [@media(min-width:951px)_and_(max-width:1366px)_and_(orientation:landscape)]:!max-w-[420px] [@media(min-width:1367px)_and_(max-width:1536px)_and_(max-height:899px)_and_(orientation:landscape)]:!max-w-[470px]"
                   >
                     <div
                       className={`relative flex flex-col overflow-hidden border border-white/20 ${
                         isActive ? "bg-[#ededed]" : "bg-[#d7d7d7]"
-                      } rounded-[38px] sm:rounded-[60px] max-h-[84svh] md:max-h-[80svh] shadow-2xl`}
+                      } rounded-[30px] sm:rounded-[60px] max-h-[78svh] md:max-h-[80svh] [@media(max-width:950px)_and_(max-height:550px)_and_(orientation:landscape)]:!max-h-[82svh] [@media(max-width:950px)_and_(max-height:550px)_and_(orientation:landscape)]:!rounded-[28px] shadow-2xl`}
                     >
                       {/* header */}
                       <div
-                        className={`shrink-0 relative px-5 sm:px-8 pt-5 sm:pt-8 pb-3 transition-opacity duration-300 ${
+                        className={`shrink-0 relative px-5 sm:px-8 pt-4 sm:pt-8 pb-2 sm:pb-3 [@media(max-width:950px)_and_(max-height:550px)_and_(orientation:landscape)]:!pt-2 [@media(max-width:950px)_and_(max-height:550px)_and_(orientation:landscape)]:!pb-1 transition-opacity duration-300 ${
                           isActive ? "opacity-100" : "opacity-0"
                         }`}
                       >
@@ -810,9 +829,13 @@ useEffect(() => {
   alt={label}
   className={`
     object-contain transition-all duration-500 will-change-transform
-    max-w-full
-    max-h-[52svh]
-    [@media(orientation:landscape)_and_(max-height:600px)]:max-h-[32vh]
+   max-w-full
+max-h-[38svh]
+sm:portrait:max-h-[35svh]
+lg:max-h-[52svh]
+[@media(min-width:1367px)_and_(max-width:1536px)_and_(max-height:899px)_and_(orientation:landscape)]:!max-h-[45svh]
+[@media(orientation:landscape)_and_(max-height:600px)]:max-h-[32vh]
+[@media(max-width:950px)_and_(max-height:600px)_and_(orientation:landscape)]:!max-h-[35svh]
     ${isActive ? "scale-[1.00]" : "opacity-30"}
   `}
     style={{
@@ -827,7 +850,10 @@ useEffect(() => {
 {/* details + progress */}
 <div
                         className={`
-                          shrink-0 relative px-6 sm:px-10 pb-5 sm:pb-7 space-y-2
+                          shrink-0 relative px-5 sm:px-10 pb-4 sm:pb-7 space-y-2
+[@media(max-width:950px)_and_(max-height:550px)_and_(orientation:landscape)]:!px-5
+[@media(max-width:950px)_and_(max-height:550px)_and_(orientation:landscape)]:!pb-2
+[@media(max-width:950px)_and_(max-height:550px)_and_(orientation:landscape)]:!space-y-0
                           transition-opacity duration-300
                           ${isActive ? "opacity-100" : "opacity-0"}
                           [@media(orientation:landscape)_and_(max-height:600px)]:px-5
@@ -855,7 +881,7 @@ useEffect(() => {
                           </span>
                         </div>
 
-                        <div className="flex justify-between items-baseline py-2">
+                        <div className="flex justify-between items-baseline py-1">
                           <span
                             className={`
                               text-[10px] sm:text-[11px] font-black text-zinc-500 uppercase
@@ -875,7 +901,7 @@ useEffect(() => {
                           </span>
                         </div>
 
-                        <div className="pt-2 flex flex-col items-center gap-2">
+                        <div className="pt-1 flex flex-col items-center gap-1">
                           <div className="text-[10px] sm:text-[11px] font-black text-zinc-500">
                             {activeIndex + 1} / {modalTotal}
                           </div>
@@ -893,23 +919,49 @@ useEffect(() => {
                 );
               })}
 
-              <button
+            <button
   type="button"
-  aria-label={safeLang === "ar" ? "السابق" : safeLang === "ku" ? "پێشوو" : "Previous"}
-  onClick={prev}
-  className="absolute left-4 text-yellow-400 text-6xl z-[110]"
+  dir="ltr"
+  aria-label={isRTL ? "Next" : "Previous"}
+  onClick={isRTL ? next : prev}
+  className="absolute left-4 text-yellow-400 text-6xl z-[110] !font-sans"
 >
-  ‹
-</button>
-<button
+  <svg
+    width="28"
+    height="48"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+    className="block"
+  >
+    <path d="M15 18 9 12l6-6" />
+  </svg>
+</button><button
   type="button"
-  aria-label={safeLang === "ar" ? "التالي" : safeLang === "ku" ? "داهاتوو" : "Next"}
-  onClick={next}
-  className="absolute right-4 text-yellow-400 text-6xl z-[110]"
+  dir="ltr"
+  aria-label={isRTL ? "Previous" : "Next"}
+  onClick={isRTL ? prev : next}
+  className="absolute right-4 text-yellow-400 text-6xl z-[110] !font-sans"
 >
-  ›
-</button>
-            </div>
+  <svg
+    width="28"
+    height="48"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+    className="block"
+  >
+    <path d="m9 18 6-6-6-6" />
+  </svg>
+</button>           </div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,0 +1,1196 @@
+.rails {
+  position: relative;
+  width: 100%;
+}
+
+/* =========================================================
+   RAIL SHELL / ARROWS
+   ========================================================= */
+
+.railShell {
+  position: relative;
+  width: max-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.railArrow {
+  display: none;
+
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+/* =========================================================
+   SHARED RAIL STRUCTURE
+   ========================================================= */
+
+.categoryBar,
+.groupBar {
+  position: relative;
+  isolation: isolate;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: max-content;
+  min-height: 0;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 0;
+
+  background: transparent;
+  box-shadow: none;
+
+  overflow: visible;
+}
+
+.categoryBar::-webkit-scrollbar,
+.groupBar::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================================================
+   BASE TRACK — LARGE MONITOR / LAPTOP
+   ========================================================= */
+
+.categoryBar::before,
+.groupBar::before {
+  content: "";
+
+  position: absolute;
+  z-index: 0;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 1px;
+
+  border-radius: 999px;
+
+  background: rgba(252, 239, 217, 0.28);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   INDICATOR
+   ========================================================= */
+
+.indicator {
+  position: absolute;
+  z-index: 1;
+
+  left: 0;
+  top: auto;
+  bottom: 0;
+
+  border: 0;
+  border-radius: 999px;
+
+  background: transparent;
+
+  pointer-events: none;
+
+  transition:
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    width 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 180ms ease;
+}
+
+.categoryIndicator {
+  height: 1px;
+}
+
+
+.groupIndicator {
+  height: 1px;
+}
+/* =========================================================
+   VISIBLE LIGHT
+   ========================================================= */
+
+.indicator::after {
+  content: "";
+
+  position: absolute;
+  z-index: 2;
+
+  top: 0;
+  bottom: 0;
+
+  border-radius: 999px;
+
+  pointer-events: none;
+}
+
+.categoryIndicator::after {
+  left: 9%;
+  right: 9%;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 248, 235, 0) 0%,
+      rgba(255, 248, 235, 0.18) 8%,
+      rgba(255, 248, 235, 0.62) 18%,
+      #fffdf8 50%,
+      rgba(255, 248, 235, 0.62) 82%,
+      rgba(255, 248, 235, 0.18) 92%,
+      rgba(255, 248, 235, 0) 100%
+    );
+
+  box-shadow:
+    0 0 1px rgba(255, 250, 240, 0.72),
+    0 0 2px rgba(255, 236, 200, 0.14);
+}
+
+.groupIndicator::after {
+  left: 11%;
+  right: 11%;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 248, 235, 0) 0%,
+      rgba(255, 248, 235, 0.14) 8%,
+      rgba(255, 248, 235, 0.46) 18%,
+      rgba(255, 253, 248, 0.90) 50%,
+      rgba(255, 248, 235, 0.46) 82%,
+      rgba(255, 248, 235, 0.14) 92%,
+      rgba(255, 248, 235, 0) 100%
+    );
+
+  box-shadow:
+    0 0 1px rgba(255, 250, 240, 0.52),
+    0 0 1.5px rgba(255, 236, 200, 0.10);
+}
+
+/* =========================================================
+   CENTER GLOW
+   ========================================================= */
+
+.indicator::before {
+  content: "";
+
+  display: block;
+
+  position: absolute;
+  z-index: 1;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 999px;
+
+  pointer-events: none;
+}
+
+.categoryIndicator::before {
+  width: 34%;
+  height: 7px;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 253, 245, 0.95) 0%,
+      rgba(255, 240, 205, 0.55) 28%,
+      rgba(255, 220, 155, 0.16) 58%,
+      transparent 78%
+    );
+
+  filter: blur(1.5px);
+}
+
+.groupIndicator::before {
+  width: 30%;
+  height: 5px;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 253, 245, 0.72) 0%,
+      rgba(255, 240, 205, 0.36) 30%,
+      rgba(255, 220, 155, 0.10) 58%,
+      transparent 78%
+    );
+
+  filter: blur(1.2px);
+}
+
+/* =========================================================
+   CATEGORY — PRIMARY
+   ========================================================= */
+
+.categoryTab {
+  position: relative;
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  min-height: 0;
+
+  padding: 7px 0 11px;
+
+  border-radius: 0;
+
+  color: rgba(252, 239, 217, 0.58);
+
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.02em;
+
+  text-align: center;
+  white-space: nowrap;
+
+  transition: color 260ms ease;
+}
+
+.categoryTab:hover {
+  color: rgba(252, 239, 217, 0.88);
+}
+
+.categoryTabActive {
+  color: #ffffff;
+}
+
+/* =========================================================
+   PRODUCT GROUP — SECONDARY
+   ========================================================= */
+
+.groupTab {
+  position: relative;
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  min-height: 0;
+
+  padding: 5px 0 9px;
+
+  border-radius: 0;
+
+  color: rgba(252, 239, 217, 0.46);
+
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+
+  text-align: center;
+  white-space: nowrap;
+
+  transition: color 260ms ease;
+}
+
+.groupTab:hover {
+  color: rgba(252, 239, 217, 0.78);
+}
+
+.groupTabActive {
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.tabLabel {
+  display: inline-block;
+  position: relative;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   LARGE MONITOR
+   ========================================================= */
+
+@media
+  (min-width: 1280px)
+  and (min-height: 900px)
+  and (orientation: landscape) {
+
+  .categoryBar {
+    max-width: min(1340px, calc(100vw - 80px));
+
+    margin-bottom: 20px;
+
+    gap: 40px;
+  }
+
+
+  .categoryTab {
+    padding: 8px 0 13px;
+
+    font-size: 22px;
+  }
+
+
+  .groupBar {
+    max-width: min(980px, calc(100vw - 120px));
+
+    margin-bottom: 24px;
+
+    gap: 34px;
+  }
+
+
+  .groupTab {
+    padding: 6px 0 10px;
+
+    font-size: 16.5px;
+  }
+}
+
+/* =========================================================
+   LAPTOP
+   ========================================================= */
+
+@media
+  (min-width: 1024px)
+  and (max-height: 899px)
+  and (orientation: landscape) {
+
+  .categoryBar {
+    max-width: min(1080px, calc(100vw - 64px));
+    margin-bottom: 14px;
+    gap: 24px;
+  }
+
+  .categoryTab {
+    padding: 5px 0 8px;
+    font-size: 15px;
+  }
+
+  .groupBar {
+    max-width: min(820px, calc(100vw - 90px));
+    margin-bottom: 16px;
+    gap: 22px;
+  }
+
+  .groupTab {
+    padding: 4px 0 7px;
+    font-size: 12px;
+  }
+}
+
+/* =========================================================
+   TABLET LANDSCAPE — NO ARROWS
+   ========================================================= */
+
+@media
+  (min-width: 768px)
+  and (max-width: 1366px)
+  and (orientation: landscape)
+  and (hover: none)
+  and (pointer: coarse) {
+
+  .rails {
+    box-sizing: border-box;
+    padding-top: 10px;
+  }
+
+  .railShell {
+    width: 100%;
+  }
+  .categoryBar,
+  .groupBar {
+    justify-content: flex-start;
+
+    width: max-content;
+    max-width: calc(100% - 56px);
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 0;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    border-bottom: 0;
+
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+
+    touch-action: pan-x pan-y;
+    overscroll-behavior-x: contain;
+
+    scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+  }
+
+  .categoryBar::before,
+  .groupBar::before {
+    display: block;
+  }
+
+  .categoryBar {
+    margin-bottom: 14px;
+    gap: 24px;
+  }
+
+  .groupBar {
+    margin-bottom: 16px;
+    gap: 19px;
+  }
+
+  .categoryTab,
+  .groupTab {
+    scroll-snap-align: start;
+  }
+
+  .categoryTab {
+    padding: 6px 0 9px;
+    font-size: 14px;
+  }
+
+  .groupTab {
+    padding: 5px 0 8px;
+    font-size: 12px;
+  }
+
+  .railArrow {
+    display: none !important;
+  }
+}
+/* =========================================================
+   TABLET PORTRAIT — 4 COMPLETE ITEMS
+   ========================================================= */
+
+@media
+  (min-width: 601px)
+  and (max-width: 1180px)
+  and (orientation: portrait) {
+
+  .rails {
+    box-sizing: border-box;
+    padding-top: 20px;
+  }
+
+  .railShell {    width: min(600px, calc(100% - 56px));
+    max-width: 600px;
+
+    box-sizing: border-box;
+
+    padding-left: 24px;
+    padding-right: 24px;
+
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .categoryBar,
+  .groupBar {
+    justify-content: flex-start;
+
+    width: 100%;
+    max-width: 100%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 0;
+    gap: 0;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    border-bottom: 0;
+
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+
+    touch-action: pan-y;
+    overscroll-behavior-x: contain;
+
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+  }
+
+  .categoryBar::before,
+  .groupBar::before {
+    display: block;
+  }
+  .categoryBar {
+    margin-bottom: 14px;
+  }
+
+  .groupBar {
+    margin-bottom: 17px;
+  }
+
+    /* =========================================
+     CATEGORY
+     4 COMPLETE ITEMS MAX
+     ========================================= */
+
+ .categoryTab {
+  box-sizing: border-box;
+
+  flex: 0 0 25%;
+  width: 25%;
+  max-width: 25%;
+  min-width: 0;
+
+  justify-content: center;
+
+  padding: 6px 4px 10px;
+
+  font-size: 14px;
+  letter-spacing: 0;
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+
+  /*
+   * Category:
+   * 1 = یک slot
+   * 2 = دو slot
+   * 3 = سه slot
+   * 4+ = چهار slot دیده می‌شود
+   */
+
+  .categoryBar[data-count="1"] {
+    width: 25%;
+  }
+
+  .categoryBar[data-count="1"] .categoryTab {
+    flex-basis: 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+
+
+  .categoryBar[data-count="2"] {
+    width: 50%;
+  }
+
+  .categoryBar[data-count="2"] .categoryTab {
+    flex-basis: 50%;
+    width: 50%;
+    max-width: 50%;
+  }
+
+
+  .categoryBar[data-count="3"] {
+    width: 75%;
+  }
+
+  .categoryBar[data-count="3"] .categoryTab {
+    flex-basis: 33.333333%;
+    width: 33.333333%;
+    max-width: 33.333333%;
+  }
+
+
+  /*
+   * 4 یا بیشتر:
+   * Rail کل عرض را می‌گیرد
+   * و هر آیتم 25% است.
+   * پس دقیقاً 4 آیتم کامل دیده می‌شود.
+   */
+
+  .categoryBar {
+    width: 100%;
+  }
+
+
+  /* =========================================
+     PRODUCT GROUP
+     3 COMPLETE ITEMS MAX
+     ========================================= */
+
+  /*
+   * خود Rail پایین فقط 75% Rail اصلی است.
+   *
+   * چون:
+   * 75 / 3 = 25
+   *
+   * یعنی عرض هر ProductGroup با عرض یک
+   * Category slot برابر می‌ماند.
+   */
+
+  .groupBar {
+    width: 75%;
+  }
+
+
+ .groupTab {
+  box-sizing: border-box;
+
+  flex: 0 0 33.333333%;
+  width: 33.333333%;
+  max-width: 33.333333%;
+  min-width: 0;
+
+  justify-content: center;
+
+  padding: 5px 4px 8px;
+
+  font-size: 12px;
+  letter-spacing: 0;
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+
+  /*
+   * 1 ProductGroup
+   */
+
+  .groupBar[data-count="1"] {
+    width: 25%;
+  }
+
+  .groupBar[data-count="1"] .groupTab {
+    flex-basis: 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+
+
+  /*
+   * 2 ProductGroup
+   */
+
+  .groupBar[data-count="2"] {
+    width: 50%;
+  }
+
+  .groupBar[data-count="2"] .groupTab {
+    flex-basis: 50%;
+    width: 50%;
+    max-width: 50%;
+  }
+
+
+  /*
+   * 3 ProductGroup
+   */
+
+  .groupBar[data-count="3"] {
+    width: 75%;
+  }
+
+  .groupBar[data-count="3"] .groupTab {
+    flex-basis: 33.333333%;
+    width: 33.333333%;
+    max-width: 33.333333%;
+  }
+
+    .indicator {
+    bottom: 0;
+  }
+
+  .railArrow {
+    position: absolute;
+    z-index: 30;
+
+    top: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 32px;
+
+    padding: 0;
+    border: 0;
+
+    background: transparent;
+    color: #fffdf8;
+
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1;
+
+    opacity: 0;
+    transform: translateY(-50%) scale(0.88);
+
+    pointer-events: none;
+
+    transition:
+      opacity 220ms ease,
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .railArrowVisible {
+    opacity: 0.92;
+    transform: translateY(-50%) scale(1);
+    pointer-events: auto;
+  }
+
+  .railArrowLeft {
+    left: 8px;
+  }
+
+  .railArrowRight {
+    right: 8px;
+  }
+
+
+  /* =========================================
+     PRODUCT GROUP
+     LINE + ARROWS USE SAME WIDTH
+     ========================================= */
+
+  .groupRailShell {
+    --group-rail-width: 75%;
+  }
+
+
+  /*
+   * فقط یک ProductGroup
+   */
+  .groupRailShell[data-visible="1"] {
+    --group-rail-width: 25%;
+  }
+
+
+  /*
+   * دو ProductGroup
+   */
+  .groupRailShell[data-visible="2"] {
+    --group-rail-width: 50%;
+  }
+
+
+  /*
+   * سه یا بیشتر
+   * فقط سه آیتم داخل View
+   */
+  .groupRailShell[data-visible="3"] {
+    --group-rail-width: 75%;
+  }
+
+
+  /*
+   * خود خط و آیتم‌ها
+   */
+  .groupRailShell .groupBar {
+    width: var(--group-rail-width);
+    max-width: var(--group-rail-width);
+  }
+
+
+  /*
+   * فلش چپ دقیقاً کنار ابتدای خط
+   */
+  .groupRailShell .railArrowLeft {
+    left:
+      calc(
+        (100% - var(--group-rail-width)) / 2
+        - 8px
+      );
+  }
+
+
+  /*
+   * فلش راست دقیقاً کنار انتهای خط
+   */
+  .groupRailShell .railArrowRight {
+    right:
+      calc(
+        (100% - var(--group-rail-width)) / 2
+        - 8px
+      );
+  }
+}
+/* =========================================================
+   MOBILE PORTRAIT — 3 COMPLETE ITEMS
+   ========================================================= */
+
+@media
+  (max-width: 600px)
+  and (min-height: 551px)
+  and (orientation: portrait) {
+
+  .rails {
+    box-sizing: border-box;
+    padding-top: 25px;
+  }
+
+  .railShell {    width: 100%;
+    max-width: 100%;
+
+    box-sizing: border-box;
+
+    padding-left: 30px;
+    padding-right: 30px;
+  } 
+  .categoryBar,
+  .groupBar {
+    justify-content: flex-start;
+
+    width: 100%;
+    max-width: 100%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 0;
+    gap: 0;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+
+    /* اجازه Swipe طبیعی افقی با انگشت */
+    touch-action: pan-x pan-y;
+
+    overscroll-behavior-x: contain;
+
+    /* وقتی انگشت رها شد، روی آیتم کامل می‌ایستد */
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+  }
+
+  .categoryBar::before,
+  .groupBar::before {
+    display: block;
+  }
+
+  .categoryBar {
+    margin-bottom: 13px;
+  }
+
+  .groupBar {
+    margin-bottom: 16px;
+  }
+
+  .categoryTab,
+  .groupTab {
+    flex: 0 0 33.333333%;
+    width: 33.333333%;
+    max-width: 33.333333%;
+
+    justify-content: center;
+
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .categoryBar[data-count="1"],
+  .groupBar[data-count="1"] {
+    width: 33.333333%;
+  }
+
+  .categoryBar[data-count="1"] .categoryTab,
+  .groupBar[data-count="1"] .groupTab {
+    flex-basis: 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+
+    /* =========================================
+     CATEGORY — MOBILE PORTRAIT
+     ========================================= */
+
+  .categoryBar[data-count="2"] {
+    width: 66.666667%;
+  }
+
+  .categoryBar[data-count="2"] .categoryTab {
+    flex-basis: 50%;
+    width: 50%;
+    max-width: 50%;
+  }
+
+
+  .categoryTab {
+  padding: 6px 2px 10px;
+
+  font-size:
+    clamp(10.8px, 2.9vw, 12.5px);
+
+  letter-spacing: 0;
+}
+
+
+  /* =========================================
+     PRODUCT GROUP — MOBILE PORTRAIT
+     SECONDARY / SHORTER TRACK
+     ========================================= */
+
+  /*
+   * ProductGroup عمداً از Category باریک‌تر است.
+   *
+   * 3+ item = 78%
+   * 2 item  = 52%
+   * 1 item  = 26%
+   *
+   * بنابراین طول خط هم دقیقاً همراه
+   * تعداد آیتم‌ها کوچک و بزرگ می‌شود.
+   */
+
+  .groupBar {
+    width: 78%;
+  }
+
+
+  .groupBar[data-count="1"] {
+    width: 26%;
+  }
+
+  .groupBar[data-count="1"] .groupTab {
+    flex-basis: 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+
+
+  .groupBar[data-count="2"] {
+    width: 52%;
+  }
+
+  .groupBar[data-count="2"] .groupTab {
+    flex-basis: 50%;
+    width: 50%;
+    max-width: 50%;
+  }
+
+
+  .groupTab {
+  padding: 5px 2px 8px;
+
+  font-size:
+    clamp(9.5px, 2.55vw, 11.2px);
+
+  letter-spacing: 0;
+}
+
+  .categoryIndicator::before {
+    width: 30%;
+    height: 6px;
+  }
+
+  .groupIndicator::before {
+    width: 28%;
+    height: 4px;
+  }
+
+    .indicator {
+    bottom: 0;
+  }
+
+  .railArrow {
+    position: absolute;
+    z-index: 30;
+
+    top: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 30px;
+
+    padding: 0;
+    border: 0;
+
+    background: transparent;
+    color: #fffdf8;
+
+    font-size: 27px;
+    font-weight: 300;
+    line-height: 1;
+
+    opacity: 0;
+    transform: translateY(-50%) scale(0.88);
+
+    pointer-events: none;
+
+    transition:
+      opacity 220ms ease,
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .railArrowVisible {
+    opacity: 0.92;
+    transform: translateY(-50%) scale(1);
+    pointer-events: auto;
+  }
+
+  .railArrowLeft {
+    left: 5px;
+  }
+
+  .railArrowRight {
+    right: 5px;
+  }
+
+
+  /* =========================================
+     PRODUCT GROUP
+     LINE + ARROWS USE SAME WIDTH
+     ========================================= */
+
+  .groupRailShell {
+    --group-rail-width: 78%;
+  }
+
+
+  /*
+   * یک ProductGroup
+   */
+  .groupRailShell[data-visible="1"] {
+    --group-rail-width: 26%;
+  }
+
+
+  /*
+   * دو ProductGroup
+   */
+  .groupRailShell[data-visible="2"] {
+    --group-rail-width: 52%;
+  }
+
+
+  /*
+   * سه یا بیشتر
+   */
+  .groupRailShell[data-visible="3"] {
+    --group-rail-width: 78%;
+  }
+
+
+  /*
+   * خط و خود ProductGroupها
+   */
+  .groupRailShell .groupBar {
+    width: var(--group-rail-width);
+    max-width: var(--group-rail-width);
+  }
+
+
+  /*
+   * فلش چپ = ابتدای واقعی خط
+   */
+  .groupRailShell .railArrowLeft {
+    left:
+      calc(
+        (100% - var(--group-rail-width)) / 2
+        - 5px
+      );
+  }
+
+
+  /*
+   * فلش راست = انتهای واقعی خط
+   */
+  .groupRailShell .railArrowRight {
+    right:
+      calc(
+        (100% - var(--group-rail-width)) / 2
+        - 5px
+      );
+  }
+}
+
+/* =========================================================
+   MOBILE LANDSCAPE — NO ARROWS
+   ========================================================= */
+
+@media
+  (max-width: 932px)
+  and (max-height: 550px)
+  and (orientation: landscape) {
+
+  .railShell {
+    width: 100%;
+  }
+
+  .categoryBar,
+  .groupBar {
+    justify-content: flex-start;
+
+    width: max-content;
+    max-width: calc(100% - 52px);
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 0;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    border-bottom: 0;
+
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+
+    touch-action: pan-y;
+    overscroll-behavior-x: contain;
+
+    scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+  }
+
+  .categoryBar::before,
+  .groupBar::before {
+    display: block;
+  }
+
+  .categoryBar {
+    margin-bottom: 9px;
+    gap: 18px;
+  }
+
+  .groupBar {
+    margin-bottom: 10px;
+    gap: 14px;
+  }
+
+  .categoryTab,
+  .groupTab {
+    scroll-snap-align: start;
+  }
+
+  .categoryTab {
+    padding: 4px 0 6px;
+    font-size: 11.5px;
+    letter-spacing: 0;
+  }
+
+  .groupTab {
+    padding: 3px 0 5px;
+    font-size: 9.8px;
+    letter-spacing: 0;
+  }
+
+  .categoryIndicator::before {
+    width: 30%;
+    height: 5px;
+  }
+
+  .groupIndicator::before {
+    width: 27%;
+    height: 4px;
+  }
+
+  .railArrow {
+    display: none !important;
+  }
+}

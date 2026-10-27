@@ -2,10 +2,12 @@
 
 import SpiceOverlayHover from "@/components/SpiceOverlayHover";
 import { MotionTitle, MotionSubtitle } from "@/components/ui/MotionText";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-
-
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 export default function Hero({ t, lang }) {
   const isArabic = lang === "ar";
   const isKurdish = lang === "ku";
@@ -14,9 +16,98 @@ export default function Hero({ t, lang }) {
   const revealMode = lang === "en" ? "chars" : "block";
   const [heroMedia, setHeroMedia] = useState(null);
   
-  // وضعیت برای مدیریت زوم پس‌زمینه
-   const [bgZoom, setBgZoom] = useState(false);
-       
+   
+
+  // ALEN Cinematic Scroll — Large Monitor & Laptop
+  const heroRef = useRef(null);
+  const [isLargeMonitor, setIsLargeMonitor] = useState(false);
+  const [isLaptop, setIsLaptop] = useState(false);
+
+  useEffect(() => {
+    const large = window.matchMedia(
+      "(min-width: 1280px) and (min-height: 900px) and (orientation: landscape)"
+    );
+
+    const laptop = window.matchMedia(
+      "(min-width: 1367px) and (max-width: 1536px) and (max-height: 899px) and (orientation: landscape)"
+    );
+
+    const update = () => {
+      setIsLargeMonitor(large.matches);
+      setIsLaptop(laptop.matches);
+    };
+
+    update();
+
+    large.addEventListener("change", update);
+    laptop.addEventListener("change", update);
+
+    return () => {
+      large.removeEventListener("change", update);
+      laptop.removeEventListener("change", update);
+    };
+  }, []);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  const factoryScale = useTransform(
+  scrollYProgress,
+  [0, 0.95],
+  [1, 1.28],
+  { clamp: true }
+);
+
+const factoryY = useTransform(
+  scrollYProgress,
+  [0, 0.95],
+  [0, -100],
+  { clamp: true }
+);
+
+  const heroTextY = useTransform(
+  scrollYProgress,
+  [0, 0.90],
+  [0, -160],
+  { clamp: true }
+);
+
+const heroTextOpacity = useTransform(
+  scrollYProgress,
+  [0, 0.20, 0.80],
+  [1, 1, 0],
+  { clamp: true }
+);
+    const spiceOpacity = useTransform(
+  scrollYProgress,
+  [0, 0.18, 0.75],
+  [1, 1, 0]
+);
+
+const laptopFactoryScale = useTransform(
+  scrollYProgress,
+  [0, 0.95],
+  [1, 1.12]
+);
+
+const laptopFactoryY = useTransform(
+  scrollYProgress,
+  [0, 0.95],
+  [0, -35]
+);
+
+const laptopTextOpacity = useTransform(
+  scrollYProgress,
+  [0, 0.25, 0.75],
+  [1, 1, 0]
+);
+
+const laptopSpiceOpacity = useTransform(
+  scrollYProgress,
+  [0, 0.20, 0.70],
+  [1, 1, 0]
+);   
        useEffect(() => {
     let ignore = false;
     async function loadHeroMedia() {
@@ -42,53 +133,84 @@ export default function Hero({ t, lang }) {
   el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-  return (
-   <motion.section
-  initial={{ opacity: 0, scale: 1.02 }}
-  animate={{ opacity: 1, scale: 1 }}
-  transition={{ duration: 1.2 }}
-  className="h-screen relative overflow-hidden text-white"
-  onMouseEnter={() => setBgZoom(true)}
-  onMouseLeave={() => setBgZoom(false)}
->
+ return (
+  <motion.section
+    ref={heroRef}
+    initial={{ opacity: 0, scale: 1.02 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 1.2 }}
+    className="h-screen relative overflow-hidden text-white"
+  >
       <div className="absolute inset-0 bg-black" />
 
-      {/* --- لایه پس‌زمینه با افکت زوم نرم --- */}
-     <picture className={`absolute inset-0 w-full h-full transition-transform duration-[3000ms] ease-out ${bgZoom ? "scale-110" : "scale-100"}`}>
+      {/* Factory Cinematic Depth Layer */}
+      <motion.div
+        className="absolute inset-0"
+        style={{
+  scale: isLargeMonitor
+    ? factoryScale
+    : isLaptop
+      ? laptopFactoryScale
+      : 1,
 
-        <source media="(orientation: portrait) and (max-width: 1023px)" srcSet="/hero-square.webp" />
-        <source media="(orientation: landscape)" srcSet="/hero-rect.webp" />
-        <img
-          src="/hero-rect.webp"
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-100 brightness-100 contrast-110"
-          alt="Factory Background"
-          draggable="false"
-        />
-</picture>
-      {/* بخش ویدئو - دقیقاً طبق استایل و اندازه خودت */}
-      <div
-        className="
-          hidden
-          [@media(hover:hover)_and_(pointer:fine)]:block
-          [@media(min-width:768px)_and_(max-width:1023px)_and_(orientation:portrait)]:block
-          [@media(max-width:767px)_and_(orientation:portrait)]:block
+  y: isLargeMonitor
+    ? factoryY
+    : isLaptop
+      ? laptopFactoryY
+      : 0,
 
-          absolute left-1/2 -translate-x-1/2 top-[3%]
-          w-[min(1400px,96vw)] h-[520px] z-50
-
-          hero-spice-video
-        "
+  transformOrigin: "center center",
+}}
       >
+        <picture className="absolute inset-0 w-full h-full">
+          <source
+            media="(orientation: portrait) and (max-width: 1023px)"
+            srcSet="/hero-square.webp"
+          />
+
+          <source
+            media="(orientation: landscape)"
+            srcSet="/hero-rect.webp"
+          />
+
+          <img
+            src="/hero-rect.webp"
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-100 brightness-100 contrast-110"
+            alt="Factory Background"
+            draggable="false"
+          />
+        </picture>
+      </motion.div>
+      {/* بخش ویدئو - دقیقاً طبق استایل و اندازه خودت */}
+      <motion.div
+  className="
+    hidden
+    [@media(hover:hover)_and_(pointer:fine)]:block
+    [@media(min-width:768px)_and_(max-width:1023px)_and_(orientation:portrait)]:block
+    [@media(max-width:767px)_and_(orientation:portrait)]:block
+
+    absolute left-1/2 -translate-x-1/2 top-[3%]
+    w-[min(1400px,96vw)] h-[520px] z-50
+
+    hero-spice-video
+  "
+  style={{
+    opacity: isLargeMonitor
+      ? spiceOpacity
+      : isLaptop
+        ? laptopSpiceOpacity
+        : 1,
+  }}
+>
         {heroOverlayImage && heroOverlayVideo ? (
           <SpiceOverlayHover
             imgSrc={heroOverlayImage}
             videoSrc={heroOverlayVideo}
           />
         ) : null}
-      </div>
+      </motion.div>
 
       <div className="absolute inset-0 bg-black/15 pointer-events-none z-10" />
-
       <div className="absolute inset-0 z-40 flex flex-col items-center justify-center text-center px-6 pt-0 lg:pt-24 hero-stack">
        {heroOverlayImage ? (
   <img
@@ -99,8 +221,18 @@ export default function Hero({ t, lang }) {
   />
 ) : null}
 
-        <div className="hero-text-block">
-          <MotionTitle
+        <motion.div
+   className="hero-text-block"
+  style={{
+    y: isLargeMonitor ? heroTextY : 0,
+    opacity: isLargeMonitor
+      ? heroTextOpacity
+      : isLaptop
+        ? laptopTextOpacity
+        : 1,
+  }}
+>
+  <MotionTitle
             as="h1"
             className={`hero-title text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-2 tracking-tight ${titleFont}`}
             reveal={revealMode}
@@ -110,7 +242,7 @@ export default function Hero({ t, lang }) {
             y={20}
             blur={8}
             amount={0.85}
-            once={true}
+            once={false}
             duration={0.95}
             resetKey={`hero-title-${lang}`}
           >
@@ -131,7 +263,7 @@ export default function Hero({ t, lang }) {
             y={16}
             blur={6}
             amount={0.85}
-            once={true}
+            once={false}
             duration={0.2}
             resetKey={`hero-sub-${lang}`}
           >
@@ -149,7 +281,7 @@ export default function Hero({ t, lang }) {
 >
             {t?.explore || "Explore Brands"}
           </motion.button>
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );

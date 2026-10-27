@@ -1,0 +1,513 @@
+/* =========================================================
+   GOLY ROZH BRAND SWITCHER
+   Independent from ALEN and ALSHAFI
+   ========================================================= */
+.section {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 46px 24px 54px;
+  overflow: visible;
+  box-sizing: border-box;
+  text-align: center;
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+}
+
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(940px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  transform: none;
+
+  background: transparent;
+  box-shadow: none;
+}
+.logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(760px, 100%);
+  margin-inline: auto;
+  gap: clamp(14px, 2.4vw, 34px);
+  direction: ltr;
+  transform: none;
+}
+
+.logoLink {
+  display: block;
+  flex-shrink: 0;
+}
+
+.logoBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(92px, 9vw, 138px);
+  height: clamp(68px, 6vw, 92px);
+}
+
+.logo {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 14px rgba(35, 31, 32, 0.1));
+  user-select: none;
+}
+
+.alenLogo {
+  height: 78px;
+}
+
+.alshafiLogo {
+  height: 60px;
+}
+
+.defaultLogo {
+  height: 56px;
+}
+
+.divider {
+  width: min(680px, 88%);
+  height: 1px;
+  margin: 12px auto 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(168, 23, 32, 0.78),
+    transparent
+  );
+}
+
+.marquee {
+  position: relative;
+  width: min(680px, 88%);
+  margin: 8px auto 0;
+  overflow: hidden;
+  direction: ltr;
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+.marqueeTrack {
+  width: 100%;
+  white-space: nowrap;
+  animation: golyRozhBrandMarquee 7s linear infinite;
+  will-change: transform;
+}
+
+.marqueeText {
+  display: inline-block;
+  color: #a81720;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: 0.28em;
+  white-space: nowrap;
+}
+
+@keyframes golyRozhBrandMarquee {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-60%);
+  }
+}
+
+/* =========================================================
+   LARGE MONITOR
+   ========================================================= */
+
+@media (min-width: 1280px) and (min-height: 900px) and (orientation: landscape) {
+ .section {
+  padding-top: 52px;
+  padding-bottom: 180px;
+}
+
+  .inner {
+    width: min(1080px, 100%);
+  }
+
+  
+
+  .logoBox {
+    width: 175px;
+    height: 112px;
+  }
+
+  .alenLogo {
+    height: 92px;
+  }
+
+  .alshafiLogo {
+    height: 70px;
+  }
+
+  .defaultLogo {
+    height: 65px;
+  }
+
+ 
+ .divider {
+  margin-top: 14px;
+}
+
+.marquee {
+  margin-top: 9px;
+}
+
+  .marqueeText {
+    font-size: 20px;
+  }
+}
+
+/* =========================================================
+   LAPTOP
+   ========================================================= */
+
+@media (min-width: 1024px) and (max-height: 899px) and (orientation: landscape) {
+ .section {
+  padding-top: 38px;
+  padding-bottom: 125px;
+}
+
+  .inner {
+    width: min(820px, 100%);
+  }
+
+  
+
+  .logoBox {
+    width: 128px;
+    height: 80px;
+  }
+
+  .alenLogo {
+    height: 65px;
+  }
+
+  .alshafiLogo {
+    height: 50px;
+  }
+
+  .defaultLogo {
+    height: 47px;
+  }
+
+ 
+  .divider {
+  margin-top: 10px;
+}
+
+.marquee {
+  margin-top: 7px;
+}
+
+  .marqueeText {
+    padding-inline-end: 56px;
+    font-size: 16px;
+  }
+}
+
+/* =========================================================
+   TABLET LANDSCAPE
+   ========================================================= */
+
+@media (min-width: 768px) and (max-width: 1180px) and (orientation: landscape) {
+  .section {
+  padding: 81px 22px 425px;
+}
+  .inner {
+    width: min(760px, 100%);
+  }
+
+ 
+
+  .logoBox {
+    width: 120px;
+    height: 76px;
+  }
+
+  .alenLogo {
+    height: 60px;
+  }
+
+  .alshafiLogo {
+    height: 47px;
+  }
+
+  .defaultLogo {
+    height: 44px;
+  }
+
+ .divider,
+.marquee {
+  width: min(560px, 78%);
+}
+
+.divider {
+  margin-top: 10px;
+}
+
+
+.marquee {
+  margin-top: 7px;
+}
+
+  .marqueeText {
+    padding-inline-end: 52px;
+    font-size: 15px;
+  }
+}
+
+/* =========================================================
+   TABLET PORTRAIT
+   ========================================================= */
+
+@media (min-width: 768px) and (max-width: 1180px) and (min-height: 900px) and (orientation: portrait) {
+  .section {
+  padding: 46px 28px 520px;
+}
+
+  .inner {
+    width: min(680px, 100%);
+  }
+
+ 
+
+  .logoBox {
+    width: 130px;
+    height: 88px;
+  }
+
+  .alenLogo {
+    height: 68px;
+  }
+
+  .alshafiLogo {
+    height: 53px;
+  }
+
+  .defaultLogo {
+    height: 50px;
+  }
+
+ .divider,
+.marquee {
+  width: min(520px, 82%);
+}
+
+.divider {
+  margin-top: 12px;
+}
+
+.marquee {
+  margin-top: 8px;
+}
+
+  .marqueeText {
+    padding-inline-end: 58px;
+    font-size: 17px;
+  }
+}
+
+/* =========================================================
+   REAL TABLET PORTRAIT
+   Tablet viewport reported below 768px
+   ========================================================= */
+
+@media (min-width: 431px) and (max-width: 767px) and (orientation: portrait) {
+ .section {
+  margin-top: -60px;
+  padding: 40px 20px 480px;
+}
+
+  .inner {
+    width: min(620px, 100%);
+  }
+
+ 
+
+  .logoBox {
+    width: 105px;
+    height: 72px;
+  }
+
+  .alenLogo {
+    height: 57px;
+  }
+
+  .alshafiLogo {
+    height: 44px;
+  }
+
+  .defaultLogo {
+    height: 41px;
+  }
+
+  .divider {
+  margin-top: 11px;
+}
+
+.divider,
+.marquee {
+  width: min(430px, 86%);
+}
+
+.marquee {
+  margin-top: 7px;
+}
+
+  .marqueeText {
+    padding-inline-end: 48px;
+    font-size: 15px;
+  }
+}
+
+/* =========================================================
+   MOBILE LANDSCAPE
+   ========================================================= */
+
+@media (max-width: 932px) and (max-height: 550px) and (orientation: landscape) {
+ .section {
+  padding: 44px 18px 10px;
+}
+
+  .inner {
+    width: min(660px, 100%);
+  }
+
+  .logos {
+  width: min(310px, 92vw);
+  margin-inline: auto;
+}
+
+  .logoBox {
+    width: 100px;
+    height: 60px;
+  }
+
+  .alenLogo {
+    height: 49px;
+  }
+
+  .alshafiLogo {
+    height: 38px;
+  }
+
+  .defaultLogo {
+    height: 36px;
+  }
+
+  .divider,
+.marquee {
+  width: min(360px, 72%);
+}
+
+.divider {
+  margin-top: 9px;
+}
+
+
+.marquee {
+  margin-top: 6px;
+}
+
+  .marqueeText {
+    padding-inline-end: 42px;
+    font-size: 13px;
+  }
+}
+
+/* =========================================================
+   MOBILE PORTRAIT
+   ========================================================= */
+
+@media (max-width: 430px) and (orientation: portrait) {
+  .section {
+  padding: 34px 14px 40px;
+}
+
+  .inner {
+    width: 100%;
+  }
+
+  .logos {
+  width: min(310px, 92vw);
+  margin-inline: auto;
+}
+
+  .logoLink {
+    min-width: 0;
+  }
+
+  .logoBox {
+    width: 100%;
+    height: 70px;
+  }
+
+  .alenLogo {
+    height: 55px;
+  }
+
+  .alshafiLogo {
+    height: 43px;
+  }
+
+  .defaultLogo {
+    height: 40px;
+  }
+
+ .divider {
+  width: min(280px, 86%);
+  margin-top: 12px;
+}
+
+.marquee {
+  width: min(280px, 86%);
+  margin-top: 8px;
+}
+
+  .marqueeText {
+    padding-inline-end: 44px;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+  }
+
+  .section[dir="rtl"] .marqueeText {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack {
+    animation: none;
+    transform: none;
+  }
+}

@@ -1,0 +1,560 @@
+/* =========================================================
+   GOLY ROZH SIDE INTRO
+   Shared section intro only
+   ========================================================= */
+
+.root {
+  --goly-side-accent: var(--goly-red, #a81720);
+  --goly-side-title: var(--goly-text, #231f20);
+  --goly-side-desc: var(--goly-muted, #686365);
+  --goly-side-feature-desc: rgba(35, 31, 32, 0.68);
+
+  position: relative;
+  z-index: 20;
+
+  flex: 0 0 300px;
+  width: 300px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   VARIANTS
+   Kept available for section-specific tuning later
+   ========================================================= */
+
+.default,
+.products,
+.video,
+.about,
+.contact {
+  isolation: isolate;
+}
+
+
+/* =========================================================
+   HEADING
+   ========================================================= */
+
+.headingWrap {
+  position: relative;
+  z-index: 3;
+
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.root :global(.goly-rozh-section-heading) {
+  width: 100%;
+  text-align: center;
+}
+
+.root :global(.goly-rozh-section-eyebrow) {
+  margin: 0;
+
+  color: var(--goly-side-accent);
+
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.root :global(.goly-rozh-section-title) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 12px 0 0;
+
+  line-height: 0.95;
+  text-align: center;
+}
+
+.root :global(.goly-rozh-section-top-title),
+.root :global(.goly-rozh-section-bottom-title) {
+  display: block;
+  width: 100%;
+
+  font-weight: 800;
+  text-align: center;
+}
+
+.root :global(.goly-rozh-section-top-title) {
+  color: var(--goly-side-title);
+  font-size: 48px;
+}
+
+.root :global(.goly-rozh-section-bottom-title) {
+  margin-top: 5px;
+
+  color: var(--goly-side-accent);
+  font-size: 40px;
+}
+
+.root :global(.goly-rozh-heading-line) {
+  width: 250px;
+  height: 1px;
+
+  margin: 22px auto 0;
+
+  background: color-mix(
+    in srgb,
+    var(--goly-side-accent) 72%,
+    transparent
+  );
+}
+
+.root :global(.goly-rozh-section-desc) {
+  max-width: 260px;
+
+  margin: 20px auto 0;
+
+  color: var(--goly-side-desc);
+
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 500;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   DECORATIVE ICON
+   ========================================================= */
+
+.icon {
+  position: absolute;
+  z-index: 1;
+
+  left: 50%;
+  top: 245px;
+
+  width: 280px;
+  height: auto;
+
+  opacity: 0.14;
+
+  transform: translateX(-50%);
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.features {
+  position: relative;
+  z-index: 3;
+
+  display: grid;
+  justify-items: center;
+
+  width: 100%;
+  max-width: 260px;
+
+  margin: 180px auto 0;
+
+  gap: 18px;
+
+  text-align: center;
+}
+
+.featureItem {
+  width: 100%;
+  text-align: center;
+}
+
+.featureItem h3 {
+  margin: 0 0 5px;
+
+  color: var(--goly-side-accent);
+
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 800;
+
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.featureItem p {
+  max-width: 220px;
+
+  margin: 0 auto;
+
+  color: var(--goly-side-feature-desc);
+
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 500;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   RTL
+   ========================================================= */
+
+.root[dir="rtl"] :global(.goly-rozh-section-eyebrow) {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.root[dir="rtl"] .featureItem h3 {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.root[dir="rtl"] .featureItem p {
+  max-width: 240px;
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   LARGE MONITOR
+   ========================================================= */
+
+@media (min-width: 1280px) and (min-height: 900px) and (orientation: landscape) {
+  .root {
+    flex-basis: 320px;
+    width: 320px;
+  }
+
+  .root :global(.goly-rozh-section-top-title) {
+    font-size: 52px;
+  }
+
+  .root :global(.goly-rozh-section-bottom-title) {
+    font-size: 44px;
+  }
+
+  .icon {
+    width: 320px;
+  }
+
+  .features {
+    max-width: 270px;
+  }
+}
+
+
+/* =========================================================
+   LAPTOP
+   ========================================================= */
+
+@media (min-width: 1024px) and (max-height: 899px) and (orientation: landscape) {
+  .root {
+    flex-basis: 260px;
+    width: 260px;
+  }
+
+  .root :global(.goly-rozh-section-top-title) {
+    font-size: 44px;
+  }
+
+  .root :global(.goly-rozh-section-bottom-title) {
+    font-size: 37px;
+  }
+
+  .root :global(.goly-rozh-heading-line) {
+    width: 220px;
+  }
+
+  .root :global(.goly-rozh-section-desc) {
+    max-width: 220px;
+    font-size: 13px;
+  }
+
+  .icon {
+    top: 225px;
+    width: 250px;
+  }
+
+  .features {
+    max-width: 220px;
+    margin-top: 160px;
+    gap: 14px;
+  }
+
+  .featureItem h3 {
+    font-size: 13px;
+  }
+
+  .featureItem p {
+    max-width: 205px;
+    font-size: 11px;
+  }
+}
+
+
+/* =========================================================
+   TABLET LANDSCAPE
+   ========================================================= */
+
+@media (min-width: 768px) and (max-width: 1366px) and (min-height: 900px) and (orientation: landscape) {
+  .root {
+    flex-basis: 240px;
+    width: 240px;
+  }
+
+  .root :global(.goly-rozh-section-top-title) {
+    font-size: 42px;
+  }
+
+  .root :global(.goly-rozh-section-bottom-title) {
+    font-size: 35px;
+  }
+
+  .root :global(.goly-rozh-heading-line) {
+    width: 205px;
+  }
+
+  .root :global(.goly-rozh-section-desc) {
+    max-width: 210px;
+    font-size: 12px;
+  }
+
+  .icon {
+    top: 220px;
+    width: 230px;
+  }
+
+  .features {
+    max-width: 210px;
+    margin-top: 145px;
+    gap: 12px;
+  }
+
+  .featureItem h3 {
+    font-size: 12px;
+  }
+
+  .featureItem p {
+    max-width: 190px;
+    font-size: 10px;
+  }
+}
+
+
+/* =========================================================
+   TABLET PORTRAIT
+   ========================================================= */
+
+@media (min-width: 768px) and (max-width: 1180px) and (min-height: 900px) and (orientation: portrait) {
+  .root {
+    flex: none;
+
+    width: 100%;
+    max-width: 320px;
+
+    margin-inline: auto;
+  }
+
+  .root :global(.goly-rozh-section-top-title) {
+    font-size: 46px;
+  }
+
+  .root :global(.goly-rozh-section-bottom-title) {
+    font-size: 39px;
+  }
+
+  .root :global(.goly-rozh-heading-line) {
+    width: 210px;
+  }
+
+  .root :global(.goly-rozh-section-desc) {
+    max-width: 260px;
+    font-size: 13px;
+  }
+
+  .icon {
+    top: 205px;
+    width: 220px;
+  }
+
+  .features {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   REAL TABLET PORTRAIT
+   Tablet viewport reported below 768px
+   ========================================================= */
+
+@media (min-width: 431px) and (max-width: 767px) and (orientation: portrait) {
+  .root {
+    flex: none;
+
+    width: 100%;
+    max-width: 290px;
+
+    margin-inline: auto;
+  }
+
+  .root :global(.goly-rozh-section-eyebrow) {
+    font-size: 11px;
+  }
+
+  .root :global(.goly-rozh-section-top-title) {
+    font-size: 42px;
+  }
+
+  .root :global(.goly-rozh-section-bottom-title) {
+    font-size: 36px;
+  }
+
+  .root :global(.goly-rozh-heading-line) {
+    width: 190px;
+  }
+
+  .root :global(.goly-rozh-section-desc) {
+    max-width: 245px;
+    font-size: 12px;
+  }
+
+  .icon {
+    top: 195px;
+    width: 200px;
+  }
+
+  .features {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   MOBILE LANDSCAPE
+   ========================================================= */
+
+@media (max-width: 932px) and (max-height: 550px) and (orientation: landscape) {
+  .root {
+    flex-basis: 210px;
+    width: 210px;
+  }
+
+  .root :global(.goly-rozh-section-eyebrow) {
+    font-size: 9px;
+  }
+
+  .root :global(.goly-rozh-section-top-title) {
+    font-size: 34px;
+  }
+
+  .root :global(.goly-rozh-section-bottom-title) {
+    font-size: 30px;
+  }
+
+  .root :global(.goly-rozh-heading-line) {
+    width: 170px;
+    margin-top: 16px;
+  }
+
+  .root :global(.goly-rozh-section-desc) {
+    max-width: 190px;
+
+    margin-top: 14px;
+
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  .icon {
+    top: 175px;
+    width: 185px;
+  }
+
+  .features {
+    max-width: 185px;
+    margin-top: 110px;
+    gap: 9px;
+  }
+
+  .featureItem h3 {
+    font-size: 11px;
+  }
+
+  .featureItem p {
+    max-width: 175px;
+    font-size: 10px;
+    line-height: 1.35;
+  }
+}
+
+
+/* =========================================================
+   MOBILE PORTRAIT
+   ========================================================= */
+
+@media (max-width: 430px) and (orientation: portrait) {
+  .root {
+    flex: none;
+
+    width: 100%;
+    max-width: 260px;
+
+    margin-inline: auto;
+  }
+
+  .root :global(.goly-rozh-section-eyebrow) {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+  }
+
+  .root :global(.goly-rozh-section-top-title) {
+    font-size: 38px;
+  }
+
+  .root :global(.goly-rozh-section-bottom-title) {
+    font-size: 33px;
+  }
+
+  .root :global(.goly-rozh-heading-line) {
+    width: 170px;
+    margin-top: 18px;
+  }
+
+  .root :global(.goly-rozh-section-desc) {
+    max-width: 225px;
+
+    margin-top: 16px;
+
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .icon {
+    top: 185px;
+    width: 180px;
+  }
+
+  .features {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   RTL DEVICE SAFETY
+   ========================================================= */
+
+.root[dir="rtl"] :global(.goly-rozh-section-title),
+.root[dir="rtl"] :global(.goly-rozh-section-top-title),
+.root[dir="rtl"] :global(.goly-rozh-section-bottom-title),
+.root[dir="rtl"] :global(.goly-rozh-section-desc) {
+  letter-spacing: 0;
+  word-spacing: normal;
+  text-transform: none;
+}

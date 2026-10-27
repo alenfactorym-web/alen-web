@@ -72,10 +72,22 @@ body{
 }
 
 /* ✅ Kurdish */
-.ku-title { font-family: "SarchiaSulaimani", system-ui !important; font-weight: 700 !important; }
-.ku-body, .font-ku { font-family: "SarchiaSulaimani", system-ui !important; font-weight: 400 !important; }
-.ku-body { font-size: 19px !important; }
+.ku-title {
+  font-family: "SarchiaSulaimani", system-ui !important;
+  font-weight: 400 !important;
+  font-synthesis: none;
+}
 
+.ku-body,
+.font-ku {
+  font-family: "SarchiaSulaimani", system-ui !important;
+  font-weight: 400 !important;
+  font-synthesis: none;
+}
+
+.ku-body {
+  font-size: 19px !important;
+}
 /* ✅ Arabic */
 .font-ar-title { font-family: "AlQabas", system-ui !important; font-weight: 700 !important; }
 .font-ar-body { font-family: "BahijTheSansArabic", system-ui !important; font-weight: 300 !important; line-height: 1.9 !important; }
@@ -327,11 +339,13 @@ a:focus-visible {
 }
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  overflow-x: clip;
 }
 section {
   position: relative;
@@ -422,11 +436,94 @@ section:has(.group:hover)::before {
   }
 }
 /* =========================
+   ALEN LARGE MONITOR SYSTEM
+   ========================= */
+
+@media (min-width: 1280px) and (min-height: 900px) and (orientation: landscape) {
+
+  /* PRODUCTS — CONTAINER */
+  #products .alen-products-section > div {
+    width: min(1880px, 96vw);
+    max-width: none;
+  }
+
+  /* PRODUCTS — GRID */
+  #products .alen-products-grid {
+    width: 100%;
+    max-width: 1760px;
+    margin-inline: auto;
+  }
+
+  /* PRODUCTS — IMAGES */
+  #products .alen-products-grid img {
+    scale: 1.45;
+    translate: 0 -20px;
+  }
+
+  #products .alen-products-grid a:hover img {
+    scale: 1.50;
+  }
+/* VIDEO — LARGE MONITOR */
+
+#video > div[dir] {
+  width: min(1880px, 96vw);
+  max-width: none;
+}
+
+#video .alen-video-featured,
+#video .alen-video-grid,
+#video .alen-video-more-wrap {
+  width: 100%;
+  max-width: 1760px;
+  margin-inline: auto;
+}
+/* NEWS — LARGE MONITOR */
+
+.alen-news-grid,
+.alen-news-more-wrap {
+  width: min(1760px, calc(100vw - 120px));
+  max-width: none;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.alen-news-index-grid {
+  width: min(1760px, calc(100vw - 120px));
+  max-width: none;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.alen-news-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+/* CATALOG — LARGE MONITOR */
+
+#catalog > div[dir] {
+  width: min(1880px, 96vw);
+  max-width: none;
+}
+
+#catalog .alen-catalog-grid {
+  width: 100%;
+  max-width: 1760px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 24px;
+  margin-inline: auto;
+}
+
+#catalog .alen-catalog-grid > div {
+  width: 100%;
+  max-width: none;
+}
+}
+
+/* =========================
    ALEN LAPTOP SYSTEM
    ========================= */
 
-@media (hover: hover) and (pointer: fine) and (min-width: 1024px) and (max-height: 899px) and (orientation: landscape) {
-  .alen-laptop-grid-3,
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) and (max-height: 899px) and (orientation: landscape) {  .alen-laptop-grid-3,
   .alen-video-grid,
   .alen-news-grid {
     grid-template-columns: repeat(3, 352px) !important;
@@ -467,11 +564,16 @@ section:has(.group:hover)::before {
     max-width: 980px !important;
   }
 
-  .alen-brands-grid {
-    grid-template-columns: repeat(4, 220px) !important;
-    justify-content: center !important;
-    gap: 28px !important;
-  }
+ .alen-brands-grid {
+  grid-template-columns: repeat(
+    var(--brand-count, 4),
+    220px
+  ) !important;
+  width: max-content !important;
+  max-width: 100% !important;
+  margin-inline: auto !important;
+  gap: 28px !important;
+}
 
   .alen-brands-grid > a,
   .alen-brands-grid > a > div > div:nth-of-type(2) {
@@ -544,4 +646,8 @@ section:has(.group:hover)::before {
 
 img {
   pointer-events: none !important;
+}
+/* ALEN Homepage — prevent horizontal overflow */
+body:has(#products .alen-products-section) {
+  overflow-x: clip;
 }

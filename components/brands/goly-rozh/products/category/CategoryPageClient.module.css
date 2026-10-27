@@ -1,0 +1,2440 @@
+.page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #fcefd9;
+}
+/* =========================================================
+CATEGORY HERO — RED AREA
+========================================================= */
+.heroSection {
+  --goly-red: #a81720;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: 560px;
+  padding: 90px 24px 150px;
+  color: #fcefd9;
+  background: radial-gradient( ellipse at 50% 22%, rgba(255, 92, 102, 0.16) 0%, rgba(255, 60, 72, 0.07) 34%, transparent 68% ), linear-gradient( 180deg, #b01a24 0%, var(--goly-red) 48%, #9f121c 100% );
+  overflow: visible;
+}
+/* =========================================================
+PRODUCT GROUPS — CREAM AREA
+========================================================= */
+.productSection {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 620px;
+  padding: 190px 24px 110px;
+  background: radial-gradient( ellipse 1100px 700px at 50% 0%, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.32) 32%, transparent 70% ), #fcefd9;
+  color: #7f0f17;
+}
+.shell {
+  width: min(1420px, 94vw);
+  margin: 0 auto;
+}
+/* =========================
+HEADER / GOLY ROZH TITLE
+========================= */
+.header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 52px;
+  text-align: center;
+}
+.categoryHeading {
+  width: 520px !important;
+  max-width: min(520px, 92vw) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-top: 0 !important;
+  text-align: center !important;
+}
+.categoryHeading :global(p) {
+  color: rgba(252, 239, 217, 0.72) !important;
+}
+.categoryHeading :global(h2) {
+  margin-top: 8px !important;
+  color: #fcefd9 !important;
+}
+.categoryHeadingLong {
+  width: 720px !important;
+  max-width: min(720px, 92vw) !important;
+}
+.page[dir="rtl"] .categoryHeading {
+  width: 560px !important;
+  max-width: min(560px, 92vw) !important;
+}
+.page[dir="rtl"] .categoryHeadingLong {
+  width: 720px !important;
+  max-width: min(720px, 92vw) !important;
+}
+/* =========================
+CATEGORY BAR - GOLY GLASS
+========================= */
+.categoryBar {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: fit-content;
+  max-width: min(1220px, calc(100vw - 48px));
+  min-height: 42px;
+  margin: 0 auto 34px;
+  padding: 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(252, 239, 217, 0.24);
+  background: linear-gradient( 180deg, rgba(116, 8, 18, 0.42), rgba(91, 5, 14, 0.34) );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10), inset 0 -12px 24px rgba(88, 0, 10, 0.18), 0 12px 28px -20px rgba(70, 0, 8, 0.72);
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  overflow: visible;
+}
+.categoryBar::-webkit-scrollbar {
+  display: none;
+}
+.categoryGlass {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 8px;
+  height: calc(100% - 16px);
+  border-radius: 999px;
+  border: 1px solid rgba(252, 239, 217, 0.44);
+  background: radial-gradient( circle at 50% 120%, rgba(252, 239, 217, 0.22), transparent 52% ), linear-gradient( 180deg, rgba(252, 239, 217, 0.18), rgba(252, 239, 217, 0.07) );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.26), inset 0 0 0 1px rgba(252, 239, 217, 0.08), 0 8px 22px -14px rgba(73, 0, 8, 0.70), 0 0 24px -14px rgba(252, 239, 217, 0.32);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  pointer-events: none;
+  transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1), width 460ms cubic-bezier(0.22, 1, 0.36, 1), opacity 160ms ease;
+}
+.categoryGlass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient( 125deg, rgba(255, 255, 255, 0.68), rgba(252, 239, 217, 0.18) 30%, rgba(252, 239, 217, 0.06) 60%, rgba(255, 255, 255, 0.42) );
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+}
+.categoryTab {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-height: 37px;
+  padding: 0 25px;
+  border-radius: 999px;
+  color: rgba(252, 239, 217, 0.68);
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+  transition: color 220ms ease, transform 220ms ease;
+}
+.categoryTab:hover {
+  color: rgba(255, 255, 255, 0.92);
+  transform: none;
+}
+.categoryTabActive {
+  color: #fff;
+}
+/* =========================
+PRODUCT GROUP - GOLY GLASS
+========================= */
+.groupBar {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: fit-content;
+  max-width: min(1120px, calc(100vw - 48px));
+  min-height: 48px;
+  margin: 0 auto 42px;
+  padding: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(252, 239, 217, 0.22);
+  background: linear-gradient( 180deg, rgba(116, 8, 18, 0.36), rgba(91, 5, 14, 0.30) );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), inset 0 -10px 22px rgba(88, 0, 10, 0.16), 0 12px 28px -20px rgba(70, 0, 8, 0.68);
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  overflow: visible;
+}
+.groupGlass {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 7px;
+  height: calc(100% - 14px);
+  border-radius: 999px;
+  border: 1px solid rgba(252, 239, 217, 0.42);
+  background: radial-gradient( circle at 50% 120%, rgba(252, 239, 217, 0.20), transparent 52% ), linear-gradient( 180deg, rgba(252, 239, 217, 0.16), rgba(252, 239, 217, 0.06) );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), inset 0 0 0 1px rgba(252, 239, 217, 0.08), 0 8px 22px -14px rgba(73, 0, 8, 0.68), 0 0 22px -14px rgba(252, 239, 217, 0.28);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  pointer-events: none;
+  transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1), width 460ms cubic-bezier(0.22, 1, 0.36, 1), opacity 160ms ease;
+}
+.groupGlass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient( 125deg, rgba(255, 255, 255, 0.62), rgba(252, 239, 217, 0.16) 30%, rgba(252, 239, 217, 0.05) 60%, rgba(255, 255, 255, 0.38) );
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+}
+.groupTab {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-height: 30px;
+  padding: 0 24px;
+  border-radius: 999px;
+  color: rgba(252, 239, 217, 0.68);
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  transition: color 220ms ease, transform 220ms ease;
+}
+.groupTab:hover {
+  color: rgba(255, 255, 255, 0.92);
+  transform: none;
+}
+.groupTabActive {
+  color: #fff;
+}
+/* =========================
+          RESPONSIVE
+========================= */
+@media (max-width: 767px) {
+  .header {
+    margin-bottom: 28px;
+  }
+  .categoryHeading {
+    width: 320px !important;
+    max-width: 92vw !important;
+  }}
+
+/* =========================
+GOLY ROZH CATEGORY PAGE TABLET / MOBILE CHIPS CLEAN FIX
+========================= */
+/* Desktop / laptop: hide product group chips */
+@media (min-width: 1181px) and (hover: hover) and (pointer: fine) {
+  .groupBar {
+    display: none !important;
+  }}
+
+/* =========================
+  ------ Tablet landscape -----
+  =========================*/
+
+@media (min-width: 768px) and (max-width: 1180px) and (orientation: landscape) {
+  .categoryBar, .groupBar {
+    display: flex !important;
+    justify-content: flex-start !important;
+    width: max-content !important;
+    max-width: calc(100vw - 32px) !important;
+    box-sizing: border-box !important;
+    flex-wrap: nowrap !important;
+    min-height: 36px !important;
+    height: 36px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 5px !important;
+    gap: 6px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: none !important;
+    overscroll-behavior-x: contain !important;
+  }
+  .categoryBar {
+    margin-bottom: 16px !important;
+  }
+  .groupBar {
+    margin-bottom: 20px !important;
+  }
+  .categoryBar::-webkit-scrollbar, .groupBar::-webkit-scrollbar {
+    display: none !important;
+  }
+  .categoryBar::before, .groupBar::before {
+    inset: -4px -5px -5px !important;
+    filter: blur(8px) !important;
+  }
+  .categoryTab, .groupTab {
+    min-height: 26px !important;
+    height: 26px !important;
+    padding: 0 16px !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+    flex: 0 0 auto !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-user-drag: none !important;
+  }
+  .categoryGlass, .groupGlass {
+    top: 5px !important;
+    height: calc(100% - 10px) !important;
+  }
+  
+}
+/* =========================
+Tablet portrait + mobile
+========================== */
+
+@media (max-width: 767px), (min-width: 768px) and (orientation: portrait) {
+  .categoryBar, .groupBar {
+    display: flex !important;
+    justify-content: flex-start !important;
+    width: max-content !important;
+    max-width: calc(100vw - 32px) !important;
+    box-sizing: border-box !important;
+    flex-wrap: nowrap !important;
+    min-height: 36px !important;
+    height: 36px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 5px !important;
+    gap: 6px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: none !important;
+    overscroll-behavior-x: contain !important;
+  }
+  .categoryBar {
+    margin-bottom: 16px !important;
+  }
+  .groupBar {
+    margin-bottom: 22px !important;
+  }
+  .categoryBar::-webkit-scrollbar, .groupBar::-webkit-scrollbar {
+    display: none !important;
+  }
+  .categoryTab, .groupTab {
+    min-height: 26px !important;
+    height: 26px !important;
+    padding: 0 16px !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+    flex: 0 0 auto !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-user-drag: none !important;
+  }
+  .categoryGlass, .groupGlass {
+    top: 5px !important;
+    height: calc(100% - 10px) !important;
+  }
+ 
+}
+/* =========================
+GOLY ROZH CATEGORY PAGE - LAPTOP
+========================= */
+@media (min-width: 1024px) and (max-height: 899px) and (orientation: landscape) {
+  .page {
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow: hidden !important;
+  }
+
+  .fixedHeroSection {
+    display: block;
+    box-sizing: border-box;
+    height: 32vh;
+    min-height: 0;
+    padding: 30px 24px 26px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .panelHeroSection {
+    display: none;
+  }
+
+  .fixedHeroSection .shell {
+
+    width: min(1220px, 92vw);
+    margin: 0 auto;
+transform: translateY(20px) !important;  }
+
+  .header {
+    margin-bottom: 20px;
+  }
+
+  .categoryHeading {
+    width: 460px !important;
+    max-width: min(460px, 88vw) !important;
+    opacity: 0;
+    animation: golyLaptopHeadingStageIn 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .page[dir="rtl"] .categoryHeading {
+    width: 500px !important;
+    max-width: min(500px, 88vw) !important;
+  }
+
+  .categoryHeading :global(p) {
+    margin: 0 !important;
+    color: #050505 !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: 0.20em !important;
+    opacity: 0;
+    animation: golyLaptopCategoryEyebrowIn 620ms cubic-bezier(0.22, 1, 0.36, 1) 80ms forwards;
+  }
+
+  .categoryHeading :global(h2) {
+    margin-top: 9px !important;
+    font-size: clamp(34px, 3vw, 48px) !important;
+    font-weight: 900 !important;
+    line-height: 0.94 !important;
+    letter-spacing: -0.04em !important;
+    opacity: 0;
+    animation: golyLaptopCategoryTitleIn 820ms cubic-bezier(0.16, 1, 0.3, 1) 150ms forwards;
+  }
+
+  @keyframes golyLaptopHeadingStageIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+      filter: blur(5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }  }
+
+  @keyframes golyLaptopCategoryEyebrowIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+      letter-spacing: 0.28em;
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      letter-spacing: 0.20em;
+    }  }
+
+  @keyframes golyLaptopCategoryTitleIn {
+    from {
+      opacity: 0;
+      transform: translateY(24px) scale(0.96);
+      filter: blur(7px);    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);    }  }
+
+  .fixedHeroSection 
+
+  .masterRail {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    width: 100vw;
+    min-width: 100vw;
+    height: 68vh;
+    min-height: 68vh;
+    max-height: 70vh;
+    direction: ltr;
+    transform: none;
+    overflow: hidden;
+    background: radial-gradient( ellipse 1100px 700px at 50% 0%, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.32) 32%, transparent 70% ), #fcefd9;
+  }
+
+  .masterRail .categoryPanel {
+    display: none;
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    width: 100vw;
+    min-width: 100vw;
+    height: 68vh;
+    min-height: 68vh;
+    max-height: 70vh;
+    overflow: hidden;
+    background: transparent;  }
+
+  .masterRail .categoryPanelActive,
+  .masterRail .categoryPanelIncoming {
+    display: block !important;
+  }
+
+  .masterRail .categoryPanelActive {
+    z-index: 1;  }
+
+  .masterRail .categoryPanelIncoming {
+    z-index: 2;  }
+
+  .productSection {
+    box-sizing: border-box;
+    height: 68vh;
+    min-height: 0;
+    max-height: 70vh;
+    padding: 10px 0 0;
+    overflow: hidden;
+    background: transparent;
+  }
+
+  .productSection .shell {
+    position: relative;
+     top: 18px;
+    width: 100vw;
+    height: 100%;
+    min-height: 0;
+    direction: ltr;
+  }
+
+  .categoryContentOutgoing {
+    animation: golyLaptopCategoryContentOut 720ms cubic-bezier(0.65, 0, 0.35, 1) both;
+    will-change: transform, filter, opacity;
+  }
+
+  .categoryContentIncoming {
+    animation: golyLaptopCategoryContentIn 720ms cubic-bezier(0.65, 0, 0.35, 1) both;
+    will-change: transform, filter, opacity;
+  }
+
+  @keyframes golyLaptopCategoryContentOut {
+    from {
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+      opacity: 1;    }    to {
+      transform: translate3d(var(--goly-outgoing-end), 0, 0);
+      filter: blur(12px);
+      opacity: 0;    }  }
+
+  @keyframes golyLaptopCategoryContentIn {
+    from {
+      transform: translate3d(var(--goly-incoming-start), 0, 0);
+      filter: blur(12px);
+      opacity: 0;    }    to {
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+      opacity: 1;    } }
+
+ 
+
+  .groupBar {
+    display: none !important;  }
+
+  .categoryBar {
+    display: flex !important;
+    justify-content: center !important;
+    width: max-content !important;
+    max-width: min(1080px, calc(100vw - 64px)) !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 auto 18px !important;
+    padding: 0 !important;
+    gap: 24px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    overflow: visible !important;
+    touch-action: auto !important;
+    overscroll-behavior-x: auto !important;  }
+
+  .categoryGlass {
+    display: none !important;  }
+
+  .categoryTab {
+    position: relative;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 5px 0 8px !important;
+    border-radius: 0;
+    color: rgba(252, 239, 217, 0.58);
+    font-size: 15px !important;
+    font-weight: 800;
+    line-height: 1 !important;
+    letter-spacing: 0.02em;
+    transition: color 260ms ease, transform 260ms ease;  }
+
+  .categoryTab::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: #fcefd9;
+    transform: translateX(-50%);
+    transition: width 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .categoryTab:hover {
+    color: #fcefd9;  }
+
+  .categoryTab:hover::after {
+    width: 16px; }
+
+  .categoryTabActive {
+    color: #ffffff;  }
+  .categoryTabActive::after {
+    width: 100%;  }}
+/* =========================================================
+   TABLET LANDSCAPE — HEADING SCALE
+   ========================================================= */
+
+@media
+  (min-width: 768px)
+  and (max-width: 1180px)
+  and (orientation: landscape)
+  and (hover: none)
+  and (pointer: coarse) {
+
+  .page .fixedHeroSection .header {
+    margin-bottom: 12px !important;
+  }
+
+  .page .fixedHeroSection .categoryHeading :global(p) {
+    font-size: 10px !important;
+    letter-spacing: 0.18em !important;
+  }
+
+  .page .fixedHeroSection .categoryHeading :global(h2) {
+    margin-top: 6px !important;
+
+    font-size:
+      clamp(26px, 3vw, 34px)
+      !important;
+
+    line-height: 0.95 !important;
+    letter-spacing: -0.035em !important;
+  }
+}
+/* =========================
+GOLY ROZH MASTER CATEGORY RAIL
+========================= */
+.masterRail {
+  position: relative;
+  width: 100%;
+}
+.categoryPanel {
+  position: relative;
+  width: 100%;
+}
+.categoryPanel:not( .categoryPanelActive ) {
+  display: none;
+}
+/* =========================================================
+GOLY ROZH PRODUCT GROUP - LARGE MONITOR EDITORIAL + ORGANIC COMPOSITION
+=========================================================== */
+@media (min-width: 1280px) and (min-height: 900px) and (orientation: landscape) {
+  .page {
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  /* =========================================
+           FIXED RED HERO
+  ========================================= */
+  .fixedHeroSection {
+    display: block;
+    height: 30vh;
+    min-height: 0;
+    padding: 82px 24px 90px;
+    position: relative;
+    z-index: 10;
+  }
+  .panelHeroSection {
+    display: none;
+  }
+ 
+  /* =========================================
+           CREAM CATEGORY STAGE
+  ========================================= */
+  .masterRail {
+    position: relative;
+    display: block;
+    width: 100vw;
+    min-width: 100vw;
+    height: 70vh;
+    min-height: 70vh;
+    direction: ltr;
+    transform: none;
+    background: radial-gradient( ellipse 1100px 700px at 50% 0%, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.32) 32%, transparent 70% ), #fcefd9;
+  }
+  /* =========================================
+                 CATEGORY PANELS
+      all panels occupy same cream stage
+  ========================================= */
+  .masterRail .categoryPanel {
+    display: none;
+    position: absolute;
+    inset: 0;
+    width: 100vw;
+    min-width: 100vw;
+    height: 70vh;
+    min-height: 70vh;
+    overflow: visible;
+    background: transparent;
+  }
+  .masterRail .categoryPanelActive {
+    display: block;
+    z-index: 1;
+  }
+  .masterRail .categoryPanelIncoming {
+    display: block;
+    z-index: 2;
+  }
+  /* =========================================
+        ---------- CREAM PRODUCT AREA -----------
+  ========================================= */
+  .productSection {
+    height: 70vh;
+    min-height: 0;
+    padding: 20px 0 0;
+    overflow: visible;
+    background: transparent;
+  }
+  /* =========================================
+  --------   CATEGORY CONTENT TRANSITION   --------
+  ========================================= */
+  .categoryContentOutgoing {
+    animation: golyCategoryContentOut 720ms cubic-bezier( 0.65, 0, 0.35, 1 ) both;
+    will-change: transform, filter, opacity;
+  }
+  .categoryContentIncoming {
+    animation: golyCategoryContentIn 720ms cubic-bezier( 0.65, 0, 0.35, 1 ) both;
+    will-change: transform, filter, opacity;
+  }
+  /* Current category */
+  @keyframes golyCategoryContentOut {
+    from {
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+      opacity: 1;
+    }
+    to {
+      transform: translate3d( var(--goly-outgoing-end), 0, 0 );
+      filter: blur(14px);
+      opacity: 0;
+    }
+  }
+  /* Selected category */
+  @keyframes golyCategoryContentIn {
+    from {
+      transform: translate3d( var(--goly-incoming-start), 0, 0 );
+      filter: blur(14px);
+      opacity: 0;
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+      opacity: 1;
+    }
+  }
+  .categoryHeading :global(p) {
+    margin: 0 !important;
+    color: #050505 !important;
+    font-size: 21px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: 0.22em !important;
+    opacity: 0;
+    animation: golyCategoryEyebrowIn 700ms cubic-bezier(0.22, 1, 0.36, 1) 100ms forwards;
+  }
+  .categoryHeading :global(h2) {
+    margin-top: 14px !important;
+    font-size: clamp(48px, 3.4vw, 68px) !important;
+    font-weight: 900 !important;
+    line-height: 0.92 !important;
+    letter-spacing: -0.045em !important;
+    opacity: 0;
+    animation: golyCategoryTitleIn 950ms cubic-bezier(0.16, 1, 0.3, 1) 220ms forwards;
+  }
+  @keyframes golyCategoryEyebrowIn {
+    from {
+      opacity: 0;
+      transform: translateY(-14px);
+      letter-spacing: 0.34em;
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      letter-spacing: 0.22em;
+    }
+  }
+  @keyframes golyCategoryTitleIn {
+    from {
+      opacity: 0;
+      transform: translateY(34px) scale(0.94);
+      filter: blur(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
+  .productSection .shell {
+    position: relative;
+    width: 100vw;
+  }
+ 
+  
+  
+  /* =========================================================
+   LARGE MONITOR — CATEGORY / PRODUCT GROUP RAILS
+   ========================================================= */
+
+.categoryBar,
+.heroGroupBar {
+  position: relative;
+  isolation: isolate;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: max-content;
+  min-height: 0;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 0;
+
+  background: transparent;
+  box-shadow: none;
+
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  overflow: visible;
+}
+
+
+.categoryBar {
+  max-width: min(1280px, calc(100vw - 80px));
+
+  margin-bottom: 18px;
+
+  gap: 36px;
+}
+
+
+.heroGroupBar {
+  display: flex !important;
+
+  max-width: min(900px, calc(100vw - 120px));
+
+  margin-top: 0;
+  margin-bottom: 22px;
+
+  gap: 30px;
+}
+
+/* =========================================================
+   RAIL TRACK — THIN CREAM LINE
+   ========================================================= */
+
+.categoryBar::before,
+.heroGroupBar::before {
+  content: "";
+
+  position: absolute;
+  z-index: 0;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 1px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(252, 239, 217, 0.28);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   MOVING LIGHT INDICATOR
+   ========================================================= */
+
+.categoryGlass,
+.heroGroupBar .groupGlass {
+  position: absolute;
+  z-index: 1;
+
+  left: 0;
+  top: auto;
+  bottom: 0;
+
+  border: 0;
+  border-radius: 999px;
+
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  pointer-events: none;
+
+  transition:
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    width 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 180ms ease;
+}
+
+
+/* CATEGORY — stronger light */
+
+.categoryGlass {
+  height: 1.5px;
+  background: transparent;
+  box-shadow: none;
+}
+
+
+/* PRODUCT GROUP — softer secondary light */
+
+.heroGroupBar .groupGlass {
+  height: 1px;
+  background: transparent;
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   VISIBLE LIGHT — SHORTER THAN LABEL WIDTH
+   ========================================================= */
+
+.categoryGlass::after,
+.heroGroupBar .groupGlass::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  border-radius: 999px;
+
+  pointer-events: none;
+}
+
+
+/* CATEGORY — about 84% of label width */
+
+.categoryGlass::after {
+  left: 9%;
+  right: 9%;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 248, 235, 0) 0%,
+      rgba(255, 248, 235, 0.18) 8%,
+      rgba(255, 248, 235, 0.62) 18%,
+      #fffdf8 50%,
+      rgba(255, 248, 235, 0.62) 82%,
+      rgba(255, 248, 235, 0.18) 92%,
+      rgba(255, 248, 235, 0) 100%
+    );
+
+ box-shadow:
+  0 0 1px rgba(255, 250, 240, 0.52),
+  0 0 1.5px rgba(255, 236, 200, 0.10);
+}
+
+
+.heroGroupBar .groupGlass::after {
+  left: 11%;
+  right: 11%;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 248, 235, 0) 0%,
+      rgba(255, 248, 235, 0.14) 8%,
+      rgba(255, 248, 235, 0.46) 18%,
+      rgba(255, 253, 248, 0.90) 50%,
+      rgba(255, 248, 235, 0.46) 82%,
+      rgba(255, 248, 235, 0.14) 92%,
+      rgba(255, 248, 235, 0) 100%
+    );
+
+  box-shadow:
+  0 0 1.5px rgba(255, 250, 240, 0.62),
+  0 0 2.5px rgba(255, 236, 200, 0.16);
+}/* remove old glass decoration */
+
+/* concentrated center glow */
+
+.categoryGlass::before,
+.heroGroupBar .groupGlass::before {
+  content: "";
+  display: block !important;
+
+  position: absolute;
+  z-index: -1;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 999px;
+
+  pointer-events: none;
+}
+
+
+/* CATEGORY — strong center glow */
+
+.categoryGlass::before {
+  width: 34%;
+  height: 7px;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 253, 245, 0.95) 0%,
+      rgba(255, 240, 205, 0.55) 28%,
+      rgba(255, 220, 155, 0.16) 58%,
+      transparent 78%
+    );
+
+  filter: blur(1.5px);
+}
+
+
+/* PRODUCT GROUP — softer center glow */
+
+.heroGroupBar .groupGlass::before {
+  width: 30%;
+  height: 5px;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 253, 245, 0.72) 0%,
+      rgba(255, 240, 205, 0.36) 30%,
+      rgba(255, 220, 155, 0.10) 58%,
+      transparent 78%
+    );
+
+  filter: blur(1.2px);
+}.categoryGlass::before,
+.heroGroupBar .groupGlass::before {
+  display: none !important;
+}
+
+/* CATEGORY — primary */
+
+.categoryTab {
+  position: relative;
+  z-index: 2;
+
+  min-height: 0;
+
+  padding: 7px 0 11px;
+
+  border-radius: 0;
+
+  color: rgba(252, 239, 217, 0.58);
+
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+
+  letter-spacing: 0.02em;
+
+  white-space: nowrap;
+
+  transition:
+    color 260ms ease;
+}
+
+
+.categoryTab::after {
+  display: none;
+}
+
+
+.categoryTab:hover {
+  color: rgba(252, 239, 217, 0.88);
+}
+
+
+.categoryTabActive {
+  color: #ffffff;
+}
+
+
+/* PRODUCT GROUP — secondary */
+
+.heroGroupBar .groupTab {
+  position: relative;
+  z-index: 2;
+
+  min-height: 0;
+
+  padding: 5px 0 9px;
+
+  border-radius: 0;
+
+  color: rgba(252, 239, 217, 0.46);
+
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+
+  letter-spacing: 0.02em;
+
+  white-space: nowrap;
+
+  transition:
+    color 260ms ease;
+}
+
+
+.heroGroupBar .groupTab:hover {
+  color: rgba(252, 239, 217, 0.78);
+}
+
+
+.heroGroupBar .groupTabActive {
+  color: rgba(255, 255, 255, 0.94);
+}
+}
+/* ==================================================
+GOLY ROZH CATEGORY PAGE - MOBILE PORTRAIT CHIPS FINAL WINDOW
+==================================================== */
+@media (max-width: 767px) and (min-height: 551px) {
+  .page .categoryBar, .page .groupBar {
+    width: calc(100vw - 36px) !important;
+    max-width: calc(100vw - 36px) !important;
+    min-height: 34px !important;
+    height: 34px !important;
+    padding: 4px !important;
+    gap: 5px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: none !important;
+    overscroll-behavior-x: contain !important;
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
+  }
+  .page .categoryBar {
+    margin-bottom: 14px !important;
+  }
+  .page .groupBar {
+    margin-bottom: 18px !important;
+  }
+  .page .categoryBar::-webkit-scrollbar, .page .groupBar::-webkit-scrollbar {
+    display: none !important;
+  }
+  .page .categoryTab, .page .groupTab {
+    min-height: 26px !important;
+    height: 26px !important;
+    padding: 0 14px !important;
+    font-size: 11px !important;
+    line-height: 1 !important;
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-user-drag: none !important;
+  }
+  .page .categoryGlass, .page .groupGlass {
+    top: 4px !important;
+    height: calc(100% - 8px) !important;
+  }
+ }
+/*======================
+ Mobile Landscape
+====================== */
+
+@media (max-width: 932px) and (max-height: 550px) and (orientation: landscape) {
+  .categoryBar, .groupBar {
+    width: max-content !important;
+    max-width: calc(100vw - 140px) !important;
+    min-height: 34px !important;
+    height: 34px !important;
+    padding: 4px !important;
+    gap: 5px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: none !important;
+    overscroll-behavior-x: contain !important;
+  }
+  .categoryBar {
+    margin-bottom: 12px !important;
+  }
+  .groupBar {
+    margin-bottom: 18px !important;
+  }
+  .categoryTab, .groupTab {
+    min-height: 26px !important;
+    height: 26px !important;
+    padding: 0 15px !important;
+    font-size: 11px !important;
+    line-height: 1 !important;
+    flex: 0 0 auto !important;
+  }
+  .categoryGlass, .groupGlass {
+    top: 4px !important;
+    height: calc(100% - 8px) !important;
+  }
+  .categoryIntro {
+    margin-top: 12px !important;
+    margin-bottom: 16px !important;
+    font-size: 11px !important;
+    line-height: 1.35 !important;
+    max-width: 620px !important;
+  }
+}
+/* =====================================================
+GOLY ROZH CATEGORY PAGE - MOBILE PORTRAIT GROUP CHIPS SMART WIDTH
+======================================================= */
+@media (max-width: 767px) and (min-height: 551px) {
+  .page .groupBarCompact {
+    width: max-content !important;
+    max-width: calc(100vw - 36px) !important;
+    min-width: 0 !important;
+    justify-content: flex-start !important;
+  }
+  .page .groupBarScrollable {
+    width: calc(100vw - 36px) !important;
+    max-width: calc(100vw - 36px) !important;
+    min-width: 0 !important;
+    justify-content: flex-start !important;
+  }
+  .page .groupBarCompact .groupTab {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+  .page .groupBarScrollable .groupTab {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+  .page[dir="rtl"] .categoryTab, .page[dir="rtl"] .groupTab {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    font-size: 10.5px !important;
+  }
+}
+/* =========================================
+GOLY ROZH CATEGORY PAGE - CHIP DIRECTION STABILITY
+============================================ */
+.categoryBar, .groupBar {
+  direction: ltr !important;
+}
+.categoryTab, .groupTab {
+  direction: inherit !important;
+  unicode-bidi: plaintext !important;
+}
+/* =========================================
+GOLY ROZH CATEGORY PAGE - MOBILE CHIPS FINAL FIX
+=========================================== */
+@media (max-width: 600px) and (orientation: portrait) and (hover: none) and (pointer: coarse) {
+  /* موبایل: فقط active سفید باشد، hover موبایل سفید نکند */
+  .page .categoryTab:not(.categoryTabActive), .page .groupTab:not(.groupTabActive) {
+    color: #b8872d !important;
+  }
+  .page .categoryTabActive, .page .groupTabActive {
+    color: rgba(255, 255, 255, 0.88) !important;
+  }
+  .page .categoryTab:hover:not(.categoryTabActive), .page .groupTab:hover:not(.groupTabActive) {
+    color: #b8872d !important;
+  }
+  /* category بالا همیشه تعداد زیاد دارد: 4 آیتم کامل داخل پنجره */
+  .page .categoryBar {
+    width: calc(100vw - 36px) !important;
+    max-width: calc(100vw - 36px) !important;
+  }
+  .page .categoryTab {
+    flex: 0 0 calc((100% - 15px) / 4) !important;
+    width: calc((100% - 15px) / 4) !important;
+    min-width: calc((100% - 15px) / 4) !important;
+    max-width: calc((100% - 15px) / 4) !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+    font-size: 10.5px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+  }
+  /* group با 1 یا 2 آیتم: جمع و compact */
+  .page .groupBarCompact {
+    width: max-content !important;
+    max-width: calc(100vw - 36px) !important;
+  }
+  .page .groupBarCompact .groupTab {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+  /* group با 3 آیتم: دقیقاً 3 آیتم کامل */
+  .page .groupBarScrollable[data-count="3"] {
+    width: calc(100vw - 36px) !important;
+    max-width: calc(100vw - 36px) !important;
+  }
+  .page .groupBarScrollable[data-count="3"] .groupTab {
+    flex: 0 0 calc((100% - 10px) / 3) !important;
+    width: calc((100% - 10px) / 3) !important;
+    min-width: calc((100% - 10px) / 3) !important;
+    max-width: calc((100% - 10px) / 3) !important;
+  }
+  /* group با 4 آیتم: دقیقاً 4 آیتم کامل */
+  .page .groupBarScrollable[data-count="4"] {
+    width: calc(100vw - 36px) !important;
+    max-width: calc(100vw - 36px) !important;
+  }
+  .page .groupBarScrollable[data-count="4"] .groupTab {
+    flex: 0 0 calc((100% - 15px) / 4) !important;
+    width: calc((100% - 15px) / 4) !important;
+    min-width: calc((100% - 15px) / 4) !important;
+    max-width: calc((100% - 15px) / 4) !important;
+  }
+  /* group با بیشتر از 4 آیتم: پنجره 4تایی، بقیه اسکرول */
+  .page .groupBarScrollable[data-count="5"], .page .groupBarScrollable[data-count="6"], .page .groupBarScrollable[data-count="7"], .page .groupBarScrollable[data-count="8"], .page .groupBarScrollable[data-count="9"] {
+    width: calc(100vw - 36px) !important;
+    max-width: calc(100vw - 36px) !important;
+  }
+  .page .groupBarScrollable[data-count="5"] .groupTab, .page .groupBarScrollable[data-count="6"] .groupTab, .page .groupBarScrollable[data-count="7"] .groupTab, .page .groupBarScrollable[data-count="8"] .groupTab, .page .groupBarScrollable[data-count="9"] .groupTab {
+    flex: 0 0 calc((100% - 15px) / 4) !important;
+    width: calc((100% - 15px) / 4) !important;
+    min-width: calc((100% - 15px) / 4) !important;
+    max-width: calc((100% - 15px) / 4) !important;
+  }
+  .page .groupBarScrollable .groupTab {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+    font-size: 10.5px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+  }
+}
+/* ===============================================
+GOLY ROZH CATEGORY PAGE - TABLET PORTRAIT CHIPS FINAL FIX
+================================================= */
+@media (min-width: 601px) and (max-width: 1180px) and (orientation: portrait) {
+  /* تبلت: فقط active سفید باشد، hover الکی سفید نکند */
+  .page .categoryTab:not(.categoryTabActive), .page .groupTab:not(.groupTabActive) {
+    color: #b8872d !important;
+  }
+  .page .categoryTabActive, .page .groupTabActive {
+    color: rgba(255, 255, 255, 0.88) !important;
+  }
+  .page .categoryTab:hover:not(.categoryTabActive), .page .groupTab:hover:not(.groupTabActive) {
+    color: #b8872d !important;
+  }
+  /* category بالا: پنجره 5 آیتمی نسبت به عرض تبلت */
+  .page .categoryBar {
+    width: min(820px, calc(100vw - 64px)) !important;
+    max-width: min(820px, calc(100vw - 64px)) !important;
+    min-height: 38px !important;
+    height: 38px !important;
+    padding: 5px !important;
+    gap: 6px !important;
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    flex-wrap: nowrap !important;
+  }
+  .page .categoryTab {
+    flex: 0 0 calc((100% - 24px) / 5) !important;
+    width: calc((100% - 24px) / 5) !important;
+    min-width: calc((100% - 24px) / 5) !important;
+    max-width: calc((100% - 24px) / 5) !important;
+    min-height: 28px !important;
+    height: 28px !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  /* group با 1 یا 2 آیتم: جمع و compact */
+  .page .groupBarCompact {
+    width: max-content !important;
+    max-width: min(820px, calc(100vw - 64px)) !important;
+    min-width: 0 !important;
+    justify-content: flex-start !important;
+  }
+  .page .groupBarCompact .groupTab {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+  }
+  /* group با 3 آیتم: 3 آیتم کامل */
+  .page .groupBarScrollable[data-count="3"] {
+    width: min(720px, calc(100vw - 64px)) !important;
+    max-width: min(720px, calc(100vw - 64px)) !important;
+  }
+  .page .groupBarScrollable[data-count="3"] .groupTab {
+    flex: 0 0 calc((100% - 12px) / 3) !important;
+    width: calc((100% - 12px) / 3) !important;
+    min-width: calc((100% - 12px) / 3) !important;
+    max-width: calc((100% - 12px) / 3) !important;
+  }
+  /* group با 4 آیتم: 4 آیتم کامل */
+  .page .groupBarScrollable[data-count="4"] {
+    width: min(780px, calc(100vw - 64px)) !important;
+    max-width: min(780px, calc(100vw - 64px)) !important;
+  }
+  .page .groupBarScrollable[data-count="4"] .groupTab {
+    flex: 0 0 calc((100% - 18px) / 4) !important;
+    width: calc((100% - 18px) / 4) !important;
+    min-width: calc((100% - 18px) / 4) !important;
+    max-width: calc((100% - 18px) / 4) !important;
+  }
+  /* group با 5 آیتم و بیشتر: پنجره 5تایی */
+  .page .groupBarScrollable {
+    width: min(820px, calc(100vw - 64px)) !important;
+    max-width: min(820px, calc(100vw - 64px)) !important;
+    min-height: 38px !important;
+    height: 38px !important;
+    padding: 5px !important;
+    gap: 6px !important;
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    flex-wrap: nowrap !important;
+  }
+  .page .groupBarScrollable .groupTab {
+    flex: 0 0 calc((100% - 24px) / 5) !important;
+    width: calc((100% - 24px) / 5) !important;
+    min-width: calc((100% - 24px) / 5) !important;
+    max-width: calc((100% - 24px) / 5) !important;
+    min-height: 28px !important;
+    height: 28px !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .page .categoryGlass, .page .groupGlass {
+    top: 5px !important;
+    height: calc(100% - 10px) !important;
+  }
+}
+.cardContent[dir="rtl"] h3, .cardContent[dir="rtl"] span {
+  direction: rtl !important;
+  unicode-bidi: plaintext !important;
+  text-align: left !important;
+}
+
+/* =========================================================
+   GOLY ROZH — SMALL DEVICES FINAL LAYOUT
+   Tablet Portrait / Mobile Portrait / Mobile Landscape only
+   ========================================================= */
+
+/* ---------- TABLET PORTRAIT ---------- */
+
+@media (min-width: 601px) and (max-width: 1180px) and (min-height: 900px) and (orientation: portrait) {
+ .page {
+  position: fixed;
+  inset: 0;
+
+  width: 100vw;
+  height: 100svh;
+  min-height: 100svh;
+  max-height: 100svh;
+
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+  overscroll-behavior: none;
+}
+
+  .page > .fixedHeroSection {
+    display: none !important;
+  }
+
+  .masterRail {
+    position: relative;
+    display: block;
+    width: 100vw;
+    min-width: 100vw;
+    height: 100svh;
+    min-height: 100svh;
+    max-height: 100svh;
+    overflow: hidden;
+    direction: ltr;
+    background: #fcefd9;
+  }
+
+  .masterRail .categoryPanel {
+    display: none;
+    position: absolute;
+    inset: 0;
+    width: 100vw;
+    min-width: 100vw;
+    height: 100svh;
+    min-height: 100svh;
+    max-height: 100svh;
+    overflow: hidden;
+    background: transparent;
+  }
+
+  .masterRail .categoryPanelActive {
+    display: block !important;
+    z-index: 1;
+  }
+
+  .masterRail .categoryPanelIncoming {
+    display: none !important;
+  }
+
+  .panelHeroSection {
+    display: block !important;
+    box-sizing: border-box;
+    height: 32svh;
+    min-height: 0 !important;
+    max-height: 32svh;
+    padding: 70px 20px 38px;
+    position: relative;
+    z-index: 10;
+    overflow: visible;
+  }
+
+  .panelHeroSection .shell {
+  width: 100%;
+  margin: 0 auto;
+  transform: translateY(36px) !important;
+}
+
+  .panelHeroSection .header {
+    margin-bottom: 14px;
+  }
+
+ .panelHeroSection .categoryHeading,
+.panelHeroSection .categoryHeadingLong,
+.page[dir="rtl"] .panelHeroSection .categoryHeading,
+.page[dir="rtl"] .panelHeroSection .categoryHeadingLong {
+  width: min(700px, 90vw) !important;
+  max-width: 90vw !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+  opacity: 0;
+  animation: golyTabletHeadingIn 850ms cubic-bezier(0.16, 1, 0.3, 1) 80ms forwards !important;
+}
+
+.panelHeroSection .categoryHeading :global(p) {
+  margin: 0 !important;
+  color: #050505 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.20em !important;
+
+  }  .panelHeroSection .categoryHeading :global(h2) {
+  margin-top: 8px !important;
+  color: #fcefd9 !important;
+  font-size: clamp(34px, 4.7vw, 48px) !important;
+  font-weight: 900 !important;
+  line-height: 0.94 !important;
+  letter-spacing: -0.04em !important;
+
+ 
+}
+  .panelHeroSection .categoryBar {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center;
+  justify-content: center !important;
+
+  width: min(680px, calc(100vw - 70px)) !important;
+  max-width: min(680px, calc(100vw - 70px)) !important;
+
+  margin: 18px auto 24px !important;
+  padding: 0 !important;
+
+  column-gap: 30px !important;
+  row-gap: 20px !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+
+  overflow: visible !important;
+  direction: ltr !important;
+}
+.page[dir="rtl"] .panelHeroSection .categoryBar {
+  column-gap: 14px !important;
+}
+  .panelHeroSection .categoryBar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .panelHeroSection .categoryGlass {
+    display: none !important;
+  }
+
+  .panelHeroSection .categoryTab {
+    position: relative;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: max-content !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 5px 0 8px !important;
+    border-radius: 0 !important;
+    color: rgba(252, 239, 217, 0.60) !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: 0.01em !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+  }
+.page[dir="rtl"] .panelHeroSection .categoryTab {
+  font-size: 16px !important;
+}
+  .panelHeroSection .categoryTab::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: #fcefd9;
+    transform: translateX(-50%);
+    transition: width 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .panelHeroSection .categoryTabActive {
+    color: #ffffff !important;
+  }
+
+  .panelHeroSection .categoryTabActive::after {
+    width: 60%;
+  }
+.page .panelHeroSection .categoryTab:not(.categoryTabActive) {
+  color: rgba(252, 239, 217, 0.48) !important;
+}
+
+.page .panelHeroSection .categoryTabActive {
+  color: #ffffff !important;
+}
+
+.page .panelHeroSection .categoryTab:hover:not(.categoryTabActive) {
+  color: rgba(252, 239, 217, 0.58) !important;
+}
+  
+  .productSection {
+    box-sizing: border-box;
+    height: 68svh;
+    min-height: 0 !important;
+    max-height: 68svh;
+    padding: 0;
+    overflow: hidden;
+    background: radial-gradient(ellipse 900px 620px at 50% 0%, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.30) 34%, transparent 72%), #fcefd9;
+  }
+
+  .productSection .shell {
+    position: relative;
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100%;
+    min-height: 0;
+    margin: 0;
+    padding: 56px 0 0;
+    direction: ltr;
+  }
+
+  .productSection .groupBar {
+    display: none !important;
+  }
+
+  
+@keyframes golyTabletHeadingIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+    filter: blur(7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes golyTabletIntroIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}}
+/* =========================================================
+   ---------- MOBILE PORTRAIT ----------
+   ========================================================= */
+
+@media (max-width: 600px) and (min-height: 551px) and (orientation: portrait) {
+
+  .page {
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100svh;
+    min-height: 100svh;
+    max-height: 100svh;
+
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    overscroll-behavior: none;
+  }
+
+  .page > .fixedHeroSection {
+    display: none !important;
+  }
+
+  .masterRail {
+    position: relative;
+    display: block;
+
+    width: 100vw;
+    min-width: 100vw;
+
+    height: 100svh;
+    min-height: 100svh;
+    max-height: 100svh;
+
+    overflow: hidden;
+
+    direction: ltr;
+    background: #fcefd9;
+  }
+
+  .masterRail .categoryPanel {
+    display: none;
+
+    position: absolute;
+    inset: 0;
+
+    width: 100vw;
+    min-width: 100vw;
+
+    height: 100svh;
+    min-height: 100svh;
+    max-height: 100svh;
+
+    overflow: hidden;
+    background: transparent;
+  }
+
+  .masterRail .categoryPanelActive {
+    display: block !important;
+    z-index: 1;
+  }
+
+  .masterRail .categoryPanelIncoming {
+    display: none !important;
+  }
+
+  .panelHeroSection {
+    display: block !important;
+
+    box-sizing: border-box;
+
+    height: 32svh;
+    min-height: 0 !important;
+    max-height: 32svh;
+
+    padding: 48px 16px 26px;
+
+    position: relative;
+    z-index: 10;
+
+    overflow: visible;
+  }
+
+  .panelHeroSection .shell {
+    width: 100%;
+    margin: 0 auto;
+
+    transform: translateY(18px) !important;
+  }
+
+  .panelHeroSection .header {
+  margin-bottom: 7px;
+}
+
+  .panelHeroSection .categoryHeading,
+  .panelHeroSection .categoryHeadingLong,
+  .page[dir="rtl"] .panelHeroSection .categoryHeading,
+  .page[dir="rtl"] .panelHeroSection .categoryHeadingLong {
+    width: min(440px, 92vw) !important;
+    max-width: 92vw !important;
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    opacity: 0;
+
+    animation:
+      golyMobileHeadingIn
+      850ms
+      cubic-bezier(0.16, 1, 0.3, 1)
+      80ms
+      forwards !important;
+  }
+
+  .panelHeroSection .categoryHeading :global(p) {
+  margin: 0 !important;
+
+  color: #050505 !important;
+
+  font-size: 9px !important;
+  font-weight: 800 !important;
+
+  line-height: 1 !important;
+  letter-spacing: 0.17em !important;
+}
+
+.panelHeroSection .categoryHeading :global(h2) {
+  margin-top: 5px !important;
+
+  color: #fcefd9 !important;
+
+  font-size: clamp(23px, 6.5vw, 31px) !important;
+  font-weight: 900 !important;
+
+  line-height: 0.95 !important;
+  letter-spacing: -0.035em !important;
+}
+
+  .panelHeroSection .categoryBar {
+  display: flex !important;
+  flex-wrap: wrap !important;
+
+  align-items: center;
+  justify-content: center !important;
+
+  width: min(420px, calc(100vw - 36px)) !important;
+  max-width: min(420px, calc(100vw - 36px)) !important;
+
+  min-height: 0 !important;
+  height: auto !important;
+
+  margin: 12px auto 16px !important;
+  padding: 0 !important;
+
+  column-gap: 16px !important;
+  row-gap: 10px !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+  box-shadow: none !important;
+
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+
+  overflow: visible !important;
+  direction: ltr !important;
+}
+
+  .page[dir="rtl"] .panelHeroSection .categoryBar {
+    column-gap: 12px !important;
+  }
+
+  .panelHeroSection .categoryBar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .panelHeroSection .categoryGlass {
+    display: none !important;
+  }
+
+  .panelHeroSection .categoryTab {
+    position: relative;
+
+    flex: 0 0 auto !important;
+
+    width: auto !important;
+    min-width: max-content !important;
+    max-width: none !important;
+
+    min-height: 0 !important;
+    height: auto !important;
+
+    padding: 5px 0 8px !important;
+
+    border-radius: 0 !important;
+
+    color: rgba(252, 239, 217, 0.48) !important;
+
+    font-size: 12.5px !important;
+    font-weight: 800 !important;
+
+    line-height: 1 !important;
+    letter-spacing: 0.01em !important;
+
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: nowrap !important;
+
+    text-align: center !important;
+  }
+
+  .page[dir="rtl"] .panelHeroSection .categoryTab {
+    font-size: 12px !important;
+  }
+
+  .panelHeroSection .categoryTab::after {
+    content: "";
+
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+
+    width: 0;
+    height: 1px;
+
+    background: #fcefd9;
+
+    transform: translateX(-50%);
+
+    transition:
+      width 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .panelHeroSection .categoryTabActive {
+    color: #ffffff !important;
+  }
+
+  .panelHeroSection .categoryTabActive::after {
+    width: 60%;
+  }
+
+  .page .panelHeroSection .categoryTab:not(.categoryTabActive) {
+    color: rgba(252, 239, 217, 0.48) !important;
+  }
+
+  .page .panelHeroSection .categoryTabActive {
+    color: #ffffff !important;
+  }
+
+  .page .panelHeroSection .categoryTab:hover:not(.categoryTabActive) {
+    color: rgba(252, 239, 217, 0.58) !important;
+  }
+
+  
+  .productSection {
+    box-sizing: border-box;
+
+    height: 68svh;
+    min-height: 0 !important;
+    max-height: 68svh;
+
+    padding: 0;
+
+    overflow: hidden;
+
+    background:
+      radial-gradient(
+        ellipse 680px 520px at 50% 0%,
+        rgba(255, 255, 255, 0.72) 0%,
+        rgba(255, 255, 255, 0.30) 34%,
+        transparent 72%
+      ),
+      #fcefd9;
+  }
+
+  .productSection .shell {
+    position: relative;
+
+    box-sizing: border-box;
+
+    width: 100vw;
+    height: 100%;
+    min-height: 0;
+
+    margin: 0;
+    padding: 44px 0 0;
+
+    direction: ltr;
+  }
+
+  .productSection .groupBar {
+    display: none !important;
+  }
+
+  
+  @keyframes golyMobileHeadingIn {
+    from {
+      opacity: 0;
+
+      transform:
+        translateY(18px)
+        scale(0.97);
+
+      filter: blur(6px);
+    }
+
+    to {
+      opacity: 1;
+
+      transform:
+        translateY(0)
+        scale(1);
+
+      filter: blur(0);
+    }
+  }
+
+  @keyframes golyMobileIntroIn {
+    from {
+      opacity: 0;
+
+      transform: translateY(10px);
+
+      filter: blur(3px);
+    }
+
+    to {
+      opacity: 1;
+
+      transform: translateY(0);
+
+      filter: blur(0);
+    }
+  }
+}
+/* =========================================================
+ ---------- MOBILE LANDSCAPE ---------- 
+  =========================================================*/
+
+@media (max-width: 932px) and (max-height: 550px) and (orientation: landscape) {
+  .page {
+    height: 100svh;
+    min-height: 100svh;
+    max-height: 100svh;
+    overflow: hidden !important;
+  }
+
+  .page > .fixedHeroSection {
+    display: none !important;
+  }
+
+  .masterRail {
+    position: relative;
+    display: block;
+    width: 100vw;
+    min-width: 100vw;
+    height: 100svh;
+    min-height: 100svh;
+    max-height: 100svh;
+    overflow: hidden;
+    direction: ltr;
+    background: #fcefd9;
+  }
+
+  .masterRail .categoryPanel {
+    display: none;
+    position: absolute;
+    inset: 0;
+    width: 100vw;
+    min-width: 100vw;
+    height: 100svh;
+    min-height: 100svh;
+    max-height: 100svh;
+    overflow: hidden;
+    background: transparent;
+  }
+
+  .masterRail .categoryPanelActive {
+    display: block !important;
+    z-index: 1;
+  }
+
+  .masterRail .categoryPanelIncoming {
+    display: none !important;
+  }
+
+ .panelHeroSection {
+  display: block !important;
+  box-sizing: border-box;
+  height: 42svh;
+  min-height: 0 !important;
+  max-height: 42svh;
+
+  padding: 34px 18px 24px;
+
+  position: relative;
+  z-index: 10;
+  overflow: visible;
+}
+
+  .panelHeroSection .shell {
+    width: min(880px, 96vw);
+    margin: 0 auto;
+    transform: none !important;
+  }
+
+  .panelHeroSection .header {
+    margin-bottom: 7px;
+  }
+
+  .panelHeroSection .categoryHeading,
+.panelHeroSection .categoryHeadingLong,
+.page[dir="rtl"] .panelHeroSection .categoryHeading,
+.page[dir="rtl"] .panelHeroSection .categoryHeadingLong {
+  width: min(520px, 80vw) !important;
+  max-width: 80vw !important;
+
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+  opacity: 0;
+
+  animation:
+    golyMobileLandscapeHeadingIn
+    850ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    80ms
+    forwards !important;
+}
+
+  .panelHeroSection .categoryHeading :global(p) {
+  margin: 0 !important;
+  color: #050505 !important;
+  font-size: 7.5px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.16em !important;
+}
+
+.panelHeroSection .categoryHeading :global(h2) {
+  margin-top: 3px !important;
+
+  color: #fcefd9 !important;
+
+  font-size: clamp(19px, 3.2vw, 26px) !important;
+  font-weight: 900 !important;
+
+  line-height: 0.95 !important;
+  letter-spacing: -0.03em !important;
+}
+
+  .panelHeroSection .categoryBar {
+  display: flex !important;
+  align-items: center;
+  justify-content: center !important;
+    width: min(820px, calc(100vw - 90px)) !important;
+    max-width: min(820px, calc(100vw - 90px)) !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 auto 5px !important;
+    padding: 0 2px 2px !important;
+    gap: 18px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-x !important;
+    overscroll-behavior-x: contain !important;
+    flex-wrap: nowrap !important;
+    direction: ltr !important;
+  }
+
+  .panelHeroSection .categoryBar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .panelHeroSection .categoryGlass {
+    display: none !important;
+  }
+
+  .panelHeroSection .categoryTab {
+    position: relative;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: max-content !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 3px 0 6px !important;
+    border-radius: 0 !important;
+    color: rgba(252, 239, 217, 0.60) !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: 0 !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+  }
+
+  .panelHeroSection .categoryTab::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: #fcefd9;
+    transform: translateX(-50%);
+  }
+
+  .panelHeroSection .categoryTabActive {
+    color: #ffffff !important;
+  }
+
+  .panelHeroSection .categoryTabActive::after {
+    width: 100%;
+  }
+
+ 
+  .productSection {
+    box-sizing: border-box;
+    height: 58svh;
+    min-height: 0 !important;
+    max-height: 58svh;
+    padding: 0;
+    overflow: hidden;
+    background: radial-gradient(ellipse 900px 420px at 50% 0%, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.30) 34%, transparent 72%), #fcefd9;
+  }
+
+  .productSection .shell {
+    position: relative;
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100%;
+    min-height: 0;
+    margin: 0;
+    padding: 34px 0 0;
+    direction: ltr;
+  }
+
+  .productSection .groupBar {
+    display: none !important;
+  }
+
+  
+@keyframes golyMobileLandscapeHeadingIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+    filter: blur(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+}
+/* =========================================================
+   GOLY ROZH — TOUCH CREAM CATEGORY TRANSITION
+   Red hero stays fixed
+   ========================================================= */
+
+@media
+  (min-width: 601px)
+  and (max-width: 1180px)
+  and (min-height: 900px)
+  and (orientation: portrait),
+
+  (max-width: 600px)
+  and (min-height: 551px)
+  and (orientation: portrait),
+
+  (max-width: 932px)
+  and (max-height: 550px)
+  and (orientation: landscape) {
+
+  /* both cream panels must exist during transition */
+  .masterRail .categoryPanelActive,
+.masterRail .categoryPanelIncoming {
+  display: block !important;
+
+  /* خود کل Panel نباید stacking context جدا بسازد */
+  z-index: auto !important;
+}
+
+/* =========================
+   RED HERO — ALWAYS ABOVE
+   ========================= */
+
+.masterRail
+.categoryPanelActive
+.panelHeroSection {
+  visibility: visible !important;
+
+  position: relative;
+  z-index: 30 !important;
+}
+
+/* Hero صفحه ورودی در زمان Transition دیده نشود */
+.masterRail
+.categoryPanelIncoming
+.panelHeroSection {
+  visibility: hidden !important;
+  pointer-events: none !important;
+
+  z-index: 30 !important;
+}
+
+/* =========================
+   CREAM PANELS
+   ========================= */
+
+.masterRail
+.categoryPanelActive
+.productSection {
+  position: relative;
+  z-index: 2 !important;
+}
+
+.masterRail
+.categoryPanelIncoming
+.productSection {
+  position: relative;
+  z-index: 3 !important;
+}
+
+  /* ONLY CREAM CONTENT MOVES */
+  .categoryContentOutgoing {
+    animation:
+      golyTouchCreamOut
+      720ms
+      cubic-bezier(0.65, 0, 0.35, 1)
+      both;
+
+    will-change: transform, filter, opacity;
+  }
+
+  .categoryContentIncoming {
+    animation:
+      golyTouchCreamIn
+      720ms
+      cubic-bezier(0.65, 0, 0.35, 1)
+      both;
+
+    will-change: transform, filter, opacity;
+  }
+
+  @keyframes golyTouchCreamOut {
+    from {
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+      opacity: 1;
+    }
+
+    to {
+      transform:
+        translate3d(
+          var(--goly-outgoing-end),
+          0,
+          0
+        );
+
+      filter: blur(14px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes golyTouchCreamIn {
+    from {
+      transform:
+        translate3d(
+          var(--goly-incoming-start),
+          0,
+          0
+        );
+
+      filter: blur(14px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+      opacity: 1;
+    }
+  }
+}

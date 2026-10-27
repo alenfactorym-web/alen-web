@@ -111,10 +111,10 @@ export default function AlshafiAboutSection({ lang = "en" }) {
             }
             desc={
               safeLang === "ar"
-                ? "نفس قصة الجودة من عائلة ئالين، بروح الشافي الخاصة."
+                ? "نفس الجودة التي تعرفونها من عائلة ئالين، بروح الشافي الخاصة"
                 : safeLang === "ku"
-                ? "هەمان چیرۆکی کوالیتی لە بنەماڵەی ئالین، بە ڕۆحی تایبەتی ئەلشافی."
-                : "The same Alen quality story, shaped with Alshafi’s own identity."
+                ? "هەمان کوالیتیی ناسراوی خێزانی ئالین، بە ڕۆح و تایبەتمەندییەکانی ئەلشافی"
+                : "The quality you know from the Alen family, reimagined with Alshafi’s distinctive spirit."
             }
 features={[
   {
@@ -122,27 +122,27 @@ features={[
       safeLang === "ar"
         ? "جودة موثوقة"
         : safeLang === "ku"
-        ? "کوالێتی باوەڕپێکراو"
+        ? "کوالیتییەکی جێی متمانە"
         : "PREMIUM QUALITY",
     desc:
       safeLang === "ar"
-        ? "اختيار دقيق للمواد."
+        ? "اختيار دقيق للمكونات"
         : safeLang === "ku"
-        ? "هەڵبژاردنی وردی کەرەستەکان."
+        ? "هەڵبژاردنی وردی پێکهاتەکانی بەرهەمەکانمان"
         : "Carefully selected ingredients.",
   },
   {
     title:
       safeLang === "ar"
-        ? "طبيعي وأصيل"
+        ? "طبيعي و أصيل"
         : safeLang === "ku"
         ? "سروشتی و ڕەسەن"
         : "NATURAL & AUTHENTIC",
     desc:
       safeLang === "ar"
-        ? "نكهات وتفاصيل خاصة بالعلامة."
+        ? "نكهات مميزة تعكس هوية العلامة التجارية"
         : safeLang === "ku"
-        ? "تام و وردەکاری تایبەت بە براند."
+        ? "تامێکی جیاواز، ڕەنگدانەوەی ناسنامەی براندەکەمان."
         : "Authentic taste made for the brand.",
   },
 ]}
@@ -154,7 +154,7 @@ features={[
                 <img
                   src={mainImage}
                   alt="Main"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className={styles.heroImageElement}
                   draggable="false"
                 />
               </div>
@@ -178,7 +178,7 @@ features={[
                       <img
                         src={c.img}
                         alt=""
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        className={styles.gridImageElement}
                         draggable="false"
                       />
                     </picture>

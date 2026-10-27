@@ -387,34 +387,78 @@ border-right: 4px solid rgba(201, 154, 58, 0.68);
    ALSHAFI PRODUCT GALLERY - 1024x1024 IMAGE FINAL
    all product images are square webp
    ========================= */
-
 /* Large Monitor */
 @media (min-width: 1280px) and (min-height: 900px) and (orientation: landscape) {
+
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    gap: 22px !important;
-    width: min(1280px, 94vw) !important;
-    margin-top: 48px !important;
+    column-gap: 55px !important;
+    row-gap: 22px !important;
+    width: min(1540px, calc(100vw - 40px)) !important;
+    margin: 48px auto 0 !important;
   }
 
-  .card {
-    min-height: 315px !important;
+  /* 1 Product */
+  .grid.grid[data-count="1"] {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    width: min(343.75px, calc(100vw - 40px)) !important;
+    margin: 48px auto 0 !important;
   }
 
+  /* 2 Products */
+  .grid.grid[data-count="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    column-gap: 55px !important;
+    width: min(742.5px, calc(100vw - 40px)) !important;
+    margin: 48px auto 0 !important;
+  }
+
+  /* 3 Products */
+  .grid.grid[data-count="3"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    column-gap: 55px !important;
+    width: min(1141.25px, calc(100vw - 40px)) !important;
+    margin: 48px auto 0 !important;
+  }
+
+  /* Cards */
+  .grid .card {
+    min-height: 430px !important;
+    width: calc(100% + 40px) !important;
+    margin-left: -20px !important;
+  }
+
+  /* Image Container */
   .imageWrap {
-    padding: 34px 28px 82px !important;
+    padding: 30px 24px 82px !important;
   }
 
+  /* Product Images */
   .image {
     object-position: center center !important;
-    transform: scale(0.80) !important;
+    transform: scale(0.94) !important;
   }
 
   .card:hover .image {
-    transform: scale(0.84) !important;
+    transform: scale(1) !important;
   }
+.image.bottleImage {
+  transform: scale(0.86) !important;
 }
 
+.card:hover .image.bottleImage {
+  transform: scale(0.93) !important;
+}
+  /* Product Name / Glass Chip */
+  .cardContent h3 {
+    width: min(100%, 250px) !important;
+    min-height: 34px !important;
+    padding: 0 20px !important;
+    font-size: 13px !important;
+    line-height: 1.1 !important;
+  }
+
+}
 /* Laptop */
 @media (min-width: 1024px) and (max-height: 899px) and (orientation: landscape) {
   .grid {

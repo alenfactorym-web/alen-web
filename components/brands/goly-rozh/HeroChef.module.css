@@ -1,0 +1,157 @@
+/* =========================================================
+   GOLY ROZH HERO CHEF
+   ========================================================= */
+
+.chef {
+  position: absolute;
+  left: 6vw;
+  top: 13%;
+  z-index: 1;
+  width: clamp(290px, 25vw, 480px);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.chefSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.drawPath {
+  fill: none;
+  stroke: #606060;
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: golyRozhChefDraw 1.15s ease forwards;
+  animation-delay: calc(var(--path-index) * 115ms);
+}
+
+.strokeMiter {
+  stroke-miterlimit: 10;
+}
+
+.strokeRound {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.strokeJoin {
+  stroke-linejoin: round;
+}
+
+.yellowFill {
+  fill: #ffe183;
+  opacity: 0;
+  transform: translateY(5px);
+  transform-origin: center;
+  animation: golyRozhChefFill 650ms ease forwards;
+  animation-delay: 2.05s;
+}
+
+@keyframes golyRozhChefDraw {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes golyRozhChefFill {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* LARGE MONITOR */
+@media (min-width: 1280px) and (min-height: 900px) and (orientation: landscape) {
+  .chef {
+    left: 10vw;
+    top: 9%;
+    width: clamp(420px, 28vw, 520px);
+  }
+}
+
+/* LAPTOP */
+@media (min-width: 1024px) and (max-height: 950px) and (orientation: landscape) {
+  .chef {
+    left: 10vw;
+    top: 7%;
+    width: clamp(240px, 20vw, 350px);
+  }
+}
+
+/* TABLET LANDSCAPE */
+@media (min-width: 768px) and (max-width: 1180px) and (orientation: landscape) {
+  .chef {
+    left: 8vw;
+    top: 15%;
+    width: clamp(260px, 24vw, 360px);
+  }
+}
+
+/* TABLET PORTRAIT */
+@media (min-width: 768px) and (max-width: 1180px) and (min-height: 900px) and (orientation: portrait) {
+  .chef {
+    left: 0vw;
+    top: 36%;
+    width: min(340px, 35vw);
+    opacity: 0.68;
+  }
+}
+
+/* MOBILE LANDSCAPE */
+@media (max-width: 932px) and (max-height: 550px) and (orientation: landscape) {
+  .chef {
+    left: 12vw;
+    top: 7%;
+    width: min(180px, 21vw);
+    opacity: 0.72;
+  }
+}
+
+/* MOBILE PORTRAIT */
+@media (max-width: 430px) and (orientation: portrait) {
+  .chef {
+    left: 0vw;
+    top: 42%;
+    width: 43vw;
+    max-width: 185px;
+    opacity: 0.58;
+  }
+}
+
+/* REAL TABLET PORTRAIT */
+@media (min-width: 431px) and (max-width: 767px) and (orientation: portrait) {
+  .chef {
+    left: 0vw;
+    top: 36%;
+    width: min(340px, 35vw);
+    opacity: 0.68;
+  }
+}
+
+/* ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+  .drawPath {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+
+  .yellowFill {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

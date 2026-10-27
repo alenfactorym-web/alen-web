@@ -1,9 +1,10 @@
 export const dynamic = "force-dynamic";
 
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { client } from "@/sanity/lib/client";
-import VideosClient from "./VideosClient";
+
 import AlshafiVideosClient from "@/components/brands/alshafi/video/AlshafiVideosClient";
+import GolyRozhVideosClient from "@/components/brands/goly-rozh/video/GolyRozhVideosClient";
 
 export default async function BrandVideosPage({ params, searchParams }) {
   const p = await Promise.resolve(params);
@@ -42,8 +43,14 @@ export default async function BrandVideosPage({ params, searchParams }) {
       | order(coalesce(publishDate, publishedAt, date, _createdAt) desc)
       [${safeStart}...${safeEnd}]{
         _id,
-        "title": coalesce(title[$lang], title.en, title),
-        "image": coalesce(coverImage.asset->url, thumbnail.asset->url),
+
+"title": coalesce(title[$lang], title.en),
+
+"title_en": coalesce(title.en, ""),
+"title_ar": coalesce(title.ar, title.en, ""),
+"title_ku": coalesce(title.ku, title.en, ""),
+
+"image": coalesce(coverImage.asset->url, thumbnail.asset->url),
         "date": coalesce(publishDate, publishedAt, date, _createdAt),
         source,
         youtubeUrl,
@@ -61,12 +68,16 @@ export default async function BrandVideosPage({ params, searchParams }) {
   };
 
   if (brand === "alshafi") {
-    return <AlshafiVideosClient {...props} />;
-  }
+  return <AlshafiVideosClient {...props} />;
+}
 
-  if (brand === "alen") {
-    return <VideosClient {...props} />;
-  }
+if (brand === "goly-rozh") {
+  return <GolyRozhVideosClient {...props} />;
+}
 
-  notFound();
+if (brand === "alen") {
+  redirect(`/videos?lang=${lang}&page=${safePage}`);
+}
+
+notFound();
 }

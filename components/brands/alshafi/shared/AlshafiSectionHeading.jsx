@@ -1,3 +1,6 @@
+"use client";
+
+import { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 function AnimatedLetters({ text }) {
@@ -16,8 +19,8 @@ function AnimatedLetters({ text }) {
 }
 
 export default function AlshafiSectionHeading({
-  bottomTitle = "SECTION",
-  desc = "",
+  autoFitMobile = false,
+  bottomTitle = "SECTION",  desc = "",
   featureOne = "",
   featureOneDesc = "",
   featureTwo = "",
@@ -32,8 +35,73 @@ export default function AlshafiSectionHeading({
 }) {
   const safeLang = (lang || "en").toLowerCase();
   const isRTL = safeLang === "ar" || safeLang === "ku";
-  const fontClass =
+    const fontClass =
     safeLang === "ar" ? "font-ar-title" : safeLang === "ku" ? "ku-title" : "";
+
+  const titleRef = useRef(null);
+  const [fitSize, setFitSize] = useState(52);
+
+  useLayoutEffect(() => {
+    if (!autoFitMobile) return;
+
+    let cancelled = false;
+
+    function fitTitle() {
+      if (cancelled || !titleRef.current) return;
+
+      const mobile = window.matchMedia(
+        "(max-width: 600px) and (orientation: portrait)"
+      ).matches;
+
+      if (!mobile) {
+        setFitSize(52);
+        return;
+      }
+
+      const title = titleRef.current;
+      const BASE = 52;
+      const available = Math.max(
+        1,
+        Math.min(title.clientWidth, window.innerWidth - 48)
+      );
+
+      const probe = title.cloneNode(true);
+probe.querySelectorAll(".alshafi-letter").forEach((letter) => {
+  letter.style.animation = "none";
+});
+
+      probe.style.setProperty("position", "absolute", "important");
+      probe.style.setProperty("visibility", "hidden", "important");
+      probe.style.setProperty("width", "max-content", "important");
+      probe.style.setProperty("max-width", "none", "important");
+      probe.style.setProperty("white-space", "nowrap", "important");
+      probe.style.setProperty("font-size", `${BASE}px`, "important");
+      probe.style.setProperty("animation", "none", "important");
+      probe.style.setProperty("pointer-events", "none", "important");
+
+      document.body.appendChild(probe);
+
+      const needed = probe.getBoundingClientRect().width;
+
+      probe.remove();
+
+      if (!needed) return;
+
+      const next = Math.min(BASE, (BASE * available) / needed);
+
+      setFitSize(Math.floor(next * 100) / 100);
+    }
+
+    fitTitle();
+
+    window.addEventListener("resize", fitTitle);
+    document.fonts?.ready?.then(fitTitle);
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener("resize", fitTitle);
+    };
+  }, [autoFitMobile, titleTop, safeLang]);
 
   return (
     <aside
@@ -56,7 +124,16 @@ export default function AlshafiSectionHeading({
       </p>
 
       <h2 className="mt-3 text-center text-5xl font-light leading-[0.72] text-[#111] sm:text-5xl">
-        <span className="alshafi-section-top-title block text-center text-5xl font-bold sm:text-6xl">
+        <span
+  ref={titleRef}
+  className="alshafi-section-top-title block text-center text-5xl font-bold sm:text-6xl"
+  data-auto-fit-mobile={autoFitMobile ? "true" : undefined}
+  style={
+    autoFitMobile
+      ? { "--alshafi-fit-size": `${fitSize}px` }
+      : undefined
+  }
+>
           {animateLetters ? (
   <AnimatedLetters text={titleTop} />
 ) : (

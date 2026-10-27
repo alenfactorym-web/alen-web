@@ -193,16 +193,7 @@
   color: rgba(255, 255, 255, 0.82);
 }
 
-.galleryIntro {
-  max-width: 680px;
-  margin: 22px auto 0;
-  color: rgba(255, 255, 255, 0.64);
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.75;
-  text-align: center;
-  letter-spacing: 0.015em;
-}
+
 
 .pagination {
   display: flex;
@@ -282,11 +273,7 @@
     font-size: 12px;
   }
 
-  .galleryIntro {
-    max-width: 92vw;
-    font-size: 13px;
-    line-height: 1.65;
-  }
+  
 }
 .pagination {
   display: flex;
@@ -388,13 +375,7 @@
     height: calc(100% - 10px) !important;
   }
 
-  .galleryIntro {
-    margin-top: 16px !important;
-    margin-bottom: 18px !important;
-    font-size: 12px !important;
-    line-height: 1.35 !important;
-    max-width: 560px !important;
-  }
+  
 }
 
 /* Tablet Landscape */
@@ -460,13 +441,7 @@
     height: calc(100% - 10px) !important;
   }
 
-  .galleryIntro {
-    margin-top: 16px !important;
-    margin-bottom: 18px !important;
-    font-size: 12px !important;
-    line-height: 1.35 !important;
-    max-width: 560px !important;
-  }
+  
 }
 
 /* Mobile Landscape */
@@ -530,13 +505,7 @@
     height: calc(100% - 8px) !important;
   }
 
-  .galleryIntro {
-    margin-top: 12px !important;
-    margin-bottom: 16px !important;
-    font-size: 11px !important;
-    line-height: 1.35 !important;
-    max-width: 620px !important;
-  }
+  
 }
 /* =========================
    ALSHAFI PRODUCT GROUP PAGE - MOBILE PORTRAIT CHIPS FINAL WINDOW
@@ -882,50 +851,24 @@
     height: calc(100% - 10px) !important;
   }
 }
-/* =========================
-   ALSHAFI PRODUCT GROUP PAGE - TITLE BACK LINK
-   ========================= */
+/* ALSHAFI — MOBILE PORTRAIT TITLE AUTO-FIT */
 
-.titleBackWrap {
-  display: flex;
-  justify-content: center;
-  margin: -28px auto 24px;
-}
+@media (max-width: 600px) and (orientation: portrait) {
+  .categoryHeading :global(.alshafi-section-top-title[data-auto-fit-mobile="true"]),
+  .categoryHeadingLong :global(.alshafi-section-top-title[data-auto-fit-mobile="true"]) {
+    box-sizing: border-box !important;
 
-.titleBackLink {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(201, 154, 58, 0.78);
-  font-size: 12px;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  transition: 220ms ease;
-}
+    width: 100% !important;
+    max-width: 100% !important;
 
-.titleBackLink:hover {
-  color: #f3d98a;
-  transform: translateX(-3px);
-}
+    padding-inline: 0 !important;
 
-@media (max-width: 767px) {
-  .titleBackWrap {
-    margin: -18px auto 22px;
-  }
+    font-size: var(--alshafi-fit-size, 52px) !important;
+    line-height: 1.1 !important;
 
-  .titleBackLink {
-    font-size: 11px;
-  }
-}
+    white-space: nowrap !important;
+    text-align: center !important;
 
-@media (min-width: 601px) and (max-width: 1180px) and (orientation: portrait) {
-  .titleBackWrap {
-    margin: -20px auto 24px;
-  }
-
-  .titleBackLink {
-    font-size: 11px;
+    letter-spacing: 0 !important;
   }
 }

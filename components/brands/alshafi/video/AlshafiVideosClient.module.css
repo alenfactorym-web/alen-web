@@ -1,12 +1,25 @@
 .videosPage {
   position: relative !important;
   min-height: 100vh !important;
-  background: transparent !important;
+  background: #070707 !important;
   overflow: hidden !important;
   isolation: isolate !important;
 }
+/* ALSHAFI VIDEO GALLERY — LANDSCAPE BACKGROUND */
 
-.section {
+@media (orientation: landscape) {
+  .videosPage {
+    background: linear-gradient(
+      to right,
+      #fdfcf9 0%,
+      #fdfcf9 27%,
+      #c99a3a 27%,
+      #c99a3a calc(27% + 8px),
+      #070707 calc(27% + 8px),
+      #070707 100%
+    ) !important;
+  }
+}.section {
   position: relative !important;
   padding-top: 80px !important;
   padding-bottom: 80px !important;

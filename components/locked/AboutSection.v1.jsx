@@ -126,7 +126,7 @@ const cards = [
       {/* Pattern Overlay */}
      
       <div
-  className="w-[min(1500px,96vw)] mx-auto px-[clamp(16px,3vw,56px)] mb-24 mt-16 relative z-10"
+  className="w-[min(1500px,96vw)] [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:w-[min(1880px,96vw)] mx-auto px-[clamp(16px,3vw,56px)] mb-24 mt-16 relative z-10"
   dir={isRTL ? "rtl" : "ltr"}
 >
         {/* ✅ Header (Motion + Arc via SectionHeader) */}
@@ -171,8 +171,8 @@ const cards = [
         />
 
         {/* Hero Image */}
-        <ThemeCard className="alen-about-hero-card max-w-[1100px] 2xl:max-w-[1400px] mx-auto">
-          <div className="relative h-[200px] sm:h-[280px] md:h-[340px] lg:h-[380px] 2xl:h-[450px] bg-zinc-200 overflow-hidden">
+        <ThemeCard className="alen-about-hero-card max-w-[1100px] 2xl:max-w-[1400px] [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:max-w-[1760px] mx-auto">
+  <div className="relative h-[200px] sm:h-[280px] md:h-[340px] lg:h-[380px] 2xl:h-[450px] [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:h-[550px] bg-zinc-200 overflow-hidden">
 {mainImage ? (
   <img
     src={mainImage}
@@ -192,13 +192,14 @@ const cards = [
     grid grid-cols-1 sm:grid-cols-3
     gap-4 md:gap-4 lg:gap-4 xl:gap-4
     max-w-[1100px] 2xl:max-w-[1400px]
+[@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:max-w-[1760px]
     mx-auto
     items-start
   "
 >
           {cards.map((c, i) => (
             <ThemeCard key={i}>
-             <div className="relative h-[150px] sm:h-[170px] md:h-[180px] 2xl:h-[200px] bg-zinc-100 overflow-hidden">
+             <div className="relative h-[150px] sm:h-[170px] md:h-[180px] 2xl:h-[200px] [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:h-[260px] bg-zinc-100 overflow-hidden">
                <picture>
   {c.imgSquare ? (
     <>
@@ -227,11 +228,12 @@ const cards = [
         </div>
 
         {/* Text Content */}
-        <div
- className={`
+       <div
+  className={`
     alen-about-text
     mt-10
     max-w-[1100px] 2xl:max-w-[1400px]
+    [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:max-w-[1760px]
     mx-auto
     px-2 lg:px-0
     text-justify leading-relaxed
@@ -242,7 +244,7 @@ const cards = [
         </div>
 
         {/* Back Button */}
-        <div className="alen-about-back mt-10 max-w-[1100px] 2xl:max-w-[1400px] mx-auto px-2 lg:px-0">
+        <div className="alen-about-back mt-10 max-w-[1100px] 2xl:max-w-[1400px] [@media(min-width:1280px)_and_(min-height:900px)_and_(orientation:landscape)]:max-w-[1760px] mx-auto px-2 lg:px-0">
           <Link
             href={`/?lang=${safeLang}`}
             className="inline-block rounded-full border bg-white/90 px-8 py-3 text-sm font-bold text-zinc-500 hover:bg-white shadow-md transition-all active:scale-95"

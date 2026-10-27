@@ -73,6 +73,9 @@ export default function ProductGalleryClient({
             `Product ${index + 1}`;
 
           const src = item.image || "/fallback.png";
+const isBottle = /bottle/i.test(
+  String(item.productGroup?.slug || item.productGroupSlug || "")
+);
 
           return (
            <button
@@ -88,7 +91,7 @@ export default function ProductGalleryClient({
                   alt={label}
                   fill
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                  className={styles.image}
+                  className={`${styles.image} ${isBottle ? styles.bottleImage : ""}`}
                   draggable={false}
                 />
               </div>

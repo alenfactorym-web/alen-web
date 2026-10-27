@@ -1,0 +1,1693 @@
+/* =====================================================
+BASE PRODUCT GROUP CARDS
+===================================================== */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 26px;
+  width: min(1280px, 94vw);
+  margin: 42px auto 0;
+}
+.card {
+  position: relative;
+  isolation: isolate;
+  flex: 1 1 340px;
+  max-width: 410px;
+  min-height: 390px;
+  overflow: hidden;
+  border-radius: 26px;
+}
+.cardLarge {
+  flex: 1 1 700px;
+  max-width: 820px;
+}
+.imageWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  overflow: hidden;
+}
+.image {
+  object-fit: cover;
+}
+.cardContent {
+  position: absolute;
+  z-index: 5;
+  left: 28px;
+  right: 28px;
+  bottom: 26px;
+}
+.cardContent h3 {
+  display: inline-block;
+  max-width: 330px;
+  font-size: clamp(18px, 1.7vw, 25px);
+  font-weight: 900;
+  line-height: 1.02;
+  white-space: pre-line;
+  text-align: center;
+  text-transform: uppercase;
+}
+.cardContent span {
+  display: inline-flex;
+  margin-top: 18px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+/* =====================================================
+   PRODUCT RAIL — RESPONSIVE NAVIGATION ARROWS
+   ===================================================== */
+
+.productRailViewport {
+  position: relative;
+}
+
+.railNavArrow {
+  position: absolute;
+  z-index: 40;
+
+  top: var(--rail-arrow-top, 24px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--rail-arrow-box-width, 46px);
+  height: var(--rail-arrow-box-height, 40px);
+
+  padding: 0;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: #8f0e18;
+
+  opacity: 0;
+
+  pointer-events: none;
+  cursor: pointer;
+
+  transition:
+    opacity 260ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+.railNavArrowVisible {
+  opacity: var(--rail-arrow-opacity, 0.3);
+  pointer-events: auto;
+}
+/* ---------- SOFT DIRECTION MOTION ---------- */
+
+.railNavArrowVisible.railNavArrowLeft {
+  animation:
+    golyRailArrowLeftHint
+    1.8s
+    ease-in-out
+    infinite;
+}
+
+.railNavArrowVisible.railNavArrowRight {
+  animation:
+    golyRailArrowRightHint
+    1.8s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes golyRailArrowLeftHint {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateX(0);
+  }
+
+  50% {
+    opacity: 0.58;
+    transform: translateX(-4px);
+  }
+}
+
+
+@keyframes golyRailArrowRightHint {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateX(0);
+  }
+
+  50% {
+    opacity: 0.58;
+    transform: translateX(4px);
+  }
+}
+
+/* فلش‌ها همیشه نسبت به مرکز صفحه قرار می‌گیرند */
+
+.railNavArrowLeft {
+  left:
+    calc(
+      50% -
+      var(--rail-arrow-center-offset, 100px)
+    );
+}
+
+.railNavArrowRight {
+  right:
+    calc(
+      50% -
+      var(--rail-arrow-center-offset, 100px)
+    );
+}
+
+
+/* Chevron */
+
+.railNavChevron {
+  display: block;
+
+  width: var(--rail-chevron-size, 16px);
+  height: var(--rail-chevron-size, 16px);
+
+  border-top:
+    var(--rail-chevron-stroke, 2.4px)
+    solid
+    currentColor;
+
+  border-right:
+    var(--rail-chevron-stroke, 2.4px)
+    solid
+    currentColor;
+
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+.railNavArrowLeft .railNavChevron {
+  transform: rotate(-135deg);
+}
+
+.railNavArrowRight .railNavChevron {
+  transform: rotate(45deg);
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+
+  @media (hover: hover) and (pointer: fine) {
+
+  .railNavArrow:hover {
+    animation: none;
+  }
+
+  .railNavArrowLeft:hover {
+    opacity: 1;
+    transform: translateX(-6px);
+  }
+
+  .railNavArrowRight:hover {
+    opacity: 1;
+    transform: translateX(6px);
+  }
+}
+
+}
+
+
+.railNavArrow:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+/* =====================================================
+BASE RESPONSIVE
+===================================================== */
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .card {
+    min-height: 280px;
+    border-radius: 22px;
+  }
+  .cardContent {
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+  }
+}
+/* =====================================================
+LARGE MONITOR
+===================================================== */
+@media ( min-width: 1280px ) and ( min-height: 900px ) and ( orientation: landscape ) {
+  .shapeArt {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    left: var(--shape-x);
+    top: var(--shape-y);
+    width: var(--shape-w);
+    height: var(--shape-h);
+    pointer-events: none;
+    overflow: visible;
+    filter: drop-shadow( 0 24px 22px rgba(84, 3, 10, 0.22) );
+    transform-origin: center;
+    transform: rotate(var(--shape-r)) scale(var(--shape-s));
+    transition: transform 700ms cubic-bezier( 0.22, 1, 0.36, 1 ), filter 700ms cubic-bezier( 0.22, 1, 0.36, 1 );
+  }
+ .productRailViewport {
+  position: relative;
+
+  width: 100vw;
+  min-width: 100vw;
+
+  direction: ltr;
+
+  overflow: visible;
+}
+
+
+  .grid {
+    display: flex !important;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    width: max-content !important;
+    min-width: 100vw;
+    margin: 0 !important;
+    position: relative;
+    top: 230px;
+    gap: 0;
+    direction: ltr;
+    will-change: transform;
+  }
+  .grid[data-count="1"], .grid[data-count="2"] {
+    justify-content: center;
+  }
+  .card, .cardLarge {
+    --shape-r: 0deg;
+    --shape-s: 1;
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-items: center;
+    min-height: 500px;
+    flex: none !important;
+    max-width: none !important;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: #8f0e18;
+    text-decoration: none;
+  }
+  .card:hover .shapeArt {
+    filter: drop-shadow( 0 32px 30px rgba(84, 3, 10, 0.3) );
+    transform: translate3d(0, -7px, 0) rotate(4deg) scale(1.035);
+  }
+  .shapeArt [data-layer="solid-contour"], .shapeArt [data-layer="dotted-contour"] {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 700ms cubic-bezier( 0.22, 1, 0.36, 1 );
+  }
+  .card:hover .shapeArt [data-layer="solid-contour"] {
+    transform: rotate(5deg) scale(1.02);
+  }
+  .card:hover .shapeArt [data-layer="dotted-contour"] {
+    transform: rotate(-7deg) scale(1.035);
+  }
+  .imageWrap {
+    position: relative;
+    inset: auto;
+    z-index: 1;
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    height: 440px;
+    overflow: visible;
+    border-radius: 0;
+  }
+  .image {
+    position: absolute;
+    z-index: 2;
+    object-fit: contain !important;
+    padding: 18px;
+    filter: drop-shadow( 0 20px 20px rgba(77, 4, 10, 0.18) ) drop-shadow( 0 6px 7px rgba(77, 4, 10, 0.11) );
+    transform: translate3d(0px, 0px, 0) scale(1.1);
+    transition: transform 750ms cubic-bezier( 0.22, 1, 0.36, 1 ), filter 750ms cubic-bezier( 0.22, 1, 0.36, 1 );
+  }
+  .cardContent {
+    color: #8f0e18;
+  }
+  .cardContent h3 {
+    display: block;
+  }
+  .cardContent span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 12px;
+    color: #a81720;
+    font-size: 11px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    transform-origin: left center;
+    transition: transform 500ms cubic-bezier( 0.22, 1, 0.36, 1 ), color 300ms ease;
+  }
+  .cardContent span::after {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: currentColor;
+    clip-path: polygon( 0 0, 100% 50%, 0 100% );
+    transition: width 500ms cubic-bezier( 0.22, 1, 0.36, 1 ), clip-path 500ms cubic-bezier( 0.22, 1, 0.36, 1 );
+  }
+  .card:hover
+  .cardContent
+  span::after { width: 15px;
+    clip-path: polygon( 0 38%, 68% 38%, 68% 0, 100% 50%, 68% 100%, 68% 62%, 0 62% );
+  }
+  .card:hover .cardContent span {
+    transform: scale(1.1);
+  }
+  .card, .cardLarge {
+    --shape-x: -70px;
+    --shape-y: -50px;
+    --shape-w: 780px;
+    --shape-h: 720px;
+    grid-template-columns: 140px 360px;
+    column-gap: 15px;
+  }
+  .card, .cardLarge {
+    flex: 0 0 33.333333vw !important;
+    width: 33.333333vw;
+    justify-content: center;
+    transform: translateX(-90px);
+  }
+  .card .cardContent, .cardLarge .cardContent {
+    position: relative;
+    z-index: 5;
+    grid-column: 1;
+    grid-row: 1;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 140px;
+    padding: 0;
+    justify-self: end;
+    transform: none;
+    text-align: center;
+  }
+  .card .cardContent h3, .cardLarge .cardContent h3 {
+    width: 140px;
+    max-width: 140px;
+    margin: 0;
+    font-size: 22px;
+    text-align: center;
+  }
+  .card .imageWrap, .cardLarge .imageWrap {
+    width: 360px;
+    height: 430px;
+  }
+  .card .image, .cardLarge .image {
+    position: absolute;
+    z-index: 2;
+    object-fit: contain !important;
+    padding: 18px;
+    transform: translate3d(40px, 0, 0) scale(1.4);
+    transition: transform 750ms cubic-bezier( 0.22, 1, 0.36, 1 ), filter 750ms cubic-bezier( 0.22, 1, 0.36, 1 );
+  }
+  .card:hover .image, .cardLarge:hover .image {
+    transform: translate3d( 40px, -8px, 0 ) scale(1.48);
+  }
+  .productRailViewport .cardContent[dir="rtl"] {
+    left: auto !important;
+    right: auto !important;
+    width: 140px !important;
+    justify-self: end;
+    text-align: center !important;
+  }
+  .productRailViewport .cardContent[dir="rtl"] h3 {
+    width: 140px !important;
+    max-width: 140px !important;
+    text-align: center !important;
+  }
+  .productRailViewport .cardContent[dir="rtl"] span {
+  width: 100%;
+  justify-content: center;
+  flex-direction: row-reverse;
+  direction: rtl !important;
+  text-align: center !important;
+  transform-origin: center center;
+}
+
+}
+
+
+/* =====================================================
+   TABLET LANDSCAPE — TOUCH ONLY
+   ===================================================== */
+
+@media
+  (min-width: 768px)
+  and (max-width: 1366px)
+  and (orientation: landscape)
+  and (hover: none)
+  and (pointer: coarse) {
+
+  .productRailViewport {
+    touch-action: pan-y;
+  }
+
+  .grid {
+    left: -20px !important;
+  }
+
+  .image,
+  .card .image,
+  .cardLarge .image {
+    scale: 1.1;
+left: -20px !important;
+  }
+}/* =====================================================
+TABLET PORTRAIT
+===================================================== */
+@media ( min-width: 601px ) and ( max-width: 1180px ) and ( orientation: portrait ) {
+  .grid {
+    display: grid !important;
+    grid-template-columns: repeat( 2, minmax(0, 1fr) ) !important;
+    gap: 20px !important;
+    width: min( 860px, 92vw ) !important;
+    margin-top: 38px !important;
+  }
+  .card, .cardLarge {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 320px !important;
+    flex: none !important;
+  }
+  .cardLarge {
+    grid-column: auto !important;
+  }
+}
+/* =====================================================
+TABLET LANDSCAPE
+===================================================== */
+@media ( min-width: 768px ) and ( max-width: 1180px ) and ( orientation: landscape ) {
+  .grid {
+    display: grid !important;
+    grid-template-columns: repeat( 2, minmax(0, 1fr) ) !important;
+    gap: 20px !important;
+    width: min( 920px, 90vw ) !important;
+    margin-top: 36px !important;
+  }
+  .card, .cardLarge {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 280px !important;
+    flex: none !important;
+  }
+  .cardLarge {
+    grid-column: auto !important;
+  }
+}
+/* =====================================================
+MOBILE LANDSCAPE
+===================================================== */
+@media ( max-width: 932px ) and ( max-height: 550px ) and ( orientation: landscape ) {
+  .grid {
+    display: grid !important;
+    grid-template-columns: repeat( 2, minmax(0, 1fr) ) !important;
+    gap: 14px !important;
+    width: min( 760px, 88vw ) !important;
+    margin-top: 28px !important;
+  }
+  .card, .cardLarge {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 220px !important;
+    border-radius: 20px !important;
+    flex: none !important;
+  }
+  .cardLarge {
+    grid-column: auto !important;
+  }
+  .cardContent {
+    left: 18px !important;
+    right: 18px !important;
+    bottom: 18px !important;
+  }
+  .cardContent h3 {
+    width: 190px;
+    max-width: 190px;
+    margin: 0 auto;
+    color: #8f0e18;
+    font-size: clamp( 27px, 1.75vw, 38px );
+    font-weight: 900;
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}
+/* =====================================================
+RTL — NON LARGE MONITOR
+===================================================== */
+.cardContent[dir="rtl"] {
+  left: 28px !important;
+  right: auto !important;
+  width: 330px !important;
+  text-align: left !important;
+}
+.cardContent[dir="rtl"] h3, .cardContent[dir="rtl"] span {
+  direction: rtl !important;
+  unicode-bidi: plaintext !important;
+  text-align: left !important;
+}
+
+
+/* =====================================================
+LAPTOP — HORIZONTAL PRODUCT RAIL
+===================================================== */
+@media (min-width: 1024px) and (max-height: 899px) and (orientation: landscape) {
+  .productRailViewport {
+    width: 100vw;
+    min-width: 100vw;
+    height: 100%;
+    direction: ltr;
+    overflow: visible;
+  }
+
+  .grid {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+       left: -45px;
+      top: clamp(98px, 13vh, 92px);
+    width: max-content !important;
+    min-width: 100vw;
+    margin: 0 !important;
+    padding: 0 5vw;
+    gap: 0.5vw !important;
+    box-sizing: border-box;
+    direction: ltr;
+     will-change: transform;
+  }
+
+  .grid[data-count="1"],
+  .grid[data-count="2"] {
+    justify-content: center;
+    width: 100vw !important;
+    padding-left: 8vw;
+    padding-right: 8vw;
+  }
+
+  .card,
+  .cardLarge {
+    --shape-r: 0deg;
+    --shape-s: 1;
+   --shape-x: -44px;
+  --shape-y: -36px;
+  --shape-w: clamp(405px, 30vw, 485px);
+  --shape-h: clamp(370px, 34vw, 440px);
+
+    position: relative;
+    isolation: isolate;
+    display: grid;
+       grid-template-columns:clamp(96px, 7.8vw, 118px) clamp(220px, 17.5vw, 255px); 
+    column-gap: clamp(8px, 0.8vw, 12px);
+    align-items: center;
+    justify-content: center;
+    min-height: clamp(260px, 37vh, 305px) !important;
+    flex: 0 0 32vw !important;
+     width: 32vw !important;
+    max-width: none !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent;
+    box-shadow: none;
+    color: #8f0e18;
+    text-decoration: none;
+    transform: none;
+  }
+
+  .shapeArt {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    left: var(--shape-x);
+    top: var(--shape-y);
+    width: var(--shape-w);
+    height: var(--shape-h);
+    pointer-events: none;
+    overflow: visible;
+    filter: drop-shadow(0 15px 15px rgba(84, 3, 10, 0.17));
+    transform-origin: center;
+    transform: rotate(var(--shape-r)) scale(var(--shape-s));
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), filter 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .shapeArt [data-layer="solid-contour"],
+  .shapeArt [data-layer="dotted-contour"] {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .imageWrap,
+  .card .imageWrap,
+  .cardLarge .imageWrap {
+    position: relative;
+    inset: auto;
+    z-index: 1;
+    grid-column: 2;
+    grid-row: 1;
+    width: clamp(195px, 16vw, 235px) !important;
+  height: clamp(235px, 32vh, 275px) !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
+  }
+
+  .image,
+.card .image,
+.cardLarge .image {
+  position: absolute;
+  z-index: 2;
+  object-fit: contain !important;
+  padding: 8px;
+  filter: drop-shadow(0 12px 12px rgba(77, 4, 10, 0.15))
+    drop-shadow(0 4px 5px rgba(77, 4, 10, 0.09));
+  transform: translate3d(18px, 0, 0) scale(1.20);
+  transition: transform 750ms cubic-bezier(0.22, 1, 0.36, 1),
+   filter 750ms cubic-bezier(0.22, 1, 0.36, 1);
+left: -20px !important;
+}
+
+  .card .cardContent,
+  .cardLarge .cardContent {
+    position: relative;
+    z-index: 5;
+    grid-column: 1;
+    grid-row: 1;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: clamp(78px, 6.5vw, 96px);
+    padding: 0;
+    justify-self: end;
+    transform: none;
+    color: #8f0e18;
+    text-align: center;
+  }
+
+  .card .cardContent h3,
+  .cardLarge .cardContent h3 {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    color: #8f0e18;
+    font-size: clamp(13px, 1.05vw, 16px);
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .cardContent span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 8px;
+    color: #a81720;
+    font-size: 8px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    transform-origin: center center;
+    transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms ease;
+  }
+
+  .cardContent span::after {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    transition: width 500ms cubic-bezier(0.22, 1, 0.36, 1), clip-path 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card:hover .shapeArt {
+    filter: drop-shadow(0 20px 19px rgba(84, 3, 10, 0.23));
+    transform: translate3d(0, -4px, 0) rotate(3deg) scale(1.02);
+  }
+
+  .card:hover .shapeArt [data-layer="solid-contour"] {
+    transform: rotate(4deg) scale(1.012);
+  }
+
+  .card:hover .shapeArt [data-layer="dotted-contour"] {
+    transform: rotate(-5deg) scale(1.02);
+  }
+
+  .card:hover .image,
+  .cardLarge:hover .image {
+    transform: translate3d(18px, -5px, 0) scale(1.19);
+
+  }
+
+  .card:hover .cardContent span {
+    transform: scale(1.06);
+  }
+
+  .card:hover .cardContent span::after {
+    width: 11px;
+    clip-path: polygon(0 38%, 68% 38%, 68% 0, 100% 50%, 68% 100%, 68% 62%, 0 62%);
+  }
+
+  .productRailViewport .cardContent[dir="rtl"] {
+    left: auto !important;
+    right: auto !important;
+    width: clamp(78px, 6.5vw, 96px) !important;
+    justify-self: end;
+    text-align: center !important;
+  }
+
+  .productRailViewport .cardContent[dir="rtl"] h3 {
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: center !important;
+  }
+
+  .productRailViewport .cardContent[dir="rtl"] span {
+    width: 100%;
+    justify-content: center;
+    flex-direction: row-reverse;
+    direction: rtl !important;
+    text-align: center !important;
+    transform-origin: center center;
+  }
+
+}
+
+/* =====================================================
+   GOLY ROZH — SMALL DEVICES FINAL PRODUCT RAIL
+   Tablet Portrait / Mobile Portrait / Mobile Landscape only
+   ===================================================== */
+
+/* ===========================
+---------- TABLET PORTRAIT ---------- 
+=============================*/
+@media (min-width: 601px) and (max-width: 1180px) and (min-height: 900px) and (orientation: portrait) {
+  .productRailViewport {
+    width: 100vw;
+    min-width: 100vw;
+    height: 100%;
+    direction: ltr;
+    overflow: visible;
+    touch-action: pan-y;
+  }
+
+ .grid {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  position: relative;
+  left: 0 !important;
+  top: 0 !important;
+
+  width: max-content !important;
+  min-width: 100vw;
+
+  margin: 130px 0 0 !important;
+  padding: 0;
+
+  gap: 0 !important;
+
+  box-sizing: border-box;
+  direction: ltr;
+
+  will-change: transform;
+}
+
+.grid[data-count="1"],
+.grid[data-count="2"] {
+  justify-content: center;
+  width: 100vw !important;
+  padding: 0;
+  gap: 0 !important;
+} .card,
+.cardLarge {
+  --shape-r: 0deg;
+  --shape-s: 1;
+  --shape-x: -82px;
+  --shape-y: -10px;
+  --shape-w: clamp(425px, 66vw, 525px);
+  --shape-h: clamp(385px, 57vw, 480px);
+    position: relative;
+    isolation: isolate;
+    display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start;
+
+min-height: clamp(320px, 35svh, 385px) !important;
+
+flex: 0 0 50vw !important;
+width: 50vw !important;
+    max-width: none !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #8f0e18;
+    text-decoration: none;
+    transform: none !important;
+  }
+
+  .shapeArt {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    left: var(--shape-x);
+    top: var(--shape-y);
+    width: var(--shape-w);
+    height: var(--shape-h);
+    pointer-events: none;
+    overflow: visible;
+    filter: drop-shadow(0 14px 14px rgba(84, 3, 10, 0.17));
+    transform-origin: center;
+    transform: rotate(var(--shape-r)) scale(var(--shape-s));
+  }
+
+  .shapeArt [data-layer="solid-contour"],
+  .shapeArt [data-layer="dotted-contour"] {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .imageWrap,
+  .card .imageWrap,
+  .cardLarge .imageWrap {
+    position: relative;
+    inset: auto;
+    z-index: 1;
+    grid-column: auto;
+grid-row: auto;
+
+width: clamp(200px, 28vw, 250px) !important;
+height: clamp(240px, 27svh, 300px) !important;
+
+margin: 0 auto;
+    overflow: visible !important;
+    border-radius: 0 !important;
+  }
+
+  .image,
+  .card .image,
+  .cardLarge .image {
+    position: absolute;
+    left: 0 !important;
+    z-index: 2;
+    object-fit: contain !important;
+    padding: 6px;
+    scale: 1 !important;
+    filter: drop-shadow(0 11px 11px rgba(77, 4, 10, 0.15)) drop-shadow(0 4px 5px rgba(77, 4, 10, 0.08));
+    transform: translate3d(0, 0, 0) scale(1.48);
+  }
+
+  .card .cardContent,
+.cardLarge .cardContent {
+  position: relative;
+  z-index: 5;
+
+  grid-column: auto;
+  grid-row: auto;
+
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+
+  width: 100% !important;
+
+  margin-top: 50px;
+  padding: 0 8px;
+
+  align-self: center;
+
+  transform: none !important;
+
+  color: #8f0e18;
+  text-align: center !important;
+}
+
+  .card .cardContent h3,
+  .cardLarge .cardContent h3 {
+    display: block;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0;
+    color: #8f0e18;
+    font-size: clamp(13px, 1.75vw, 17px);
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    text-align: center !important;
+    text-transform: uppercase;
+  }
+
+  .cardContent span,
+  .productRailViewport .cardContent[dir="rtl"] span {
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 8px;
+    color: #a81720;
+    font-size: 8.5px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center !important;
+  }
+
+  .cardContent span::after {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+
+ .productRailViewport .cardContent[dir="rtl"] {
+  left: auto !important;
+  right: auto !important;
+  width: 100% !important;
+  align-self: center;
+  text-align: center !important;
+}
+
+  .productRailViewport .cardContent[dir="rtl"] h3 {
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: center !important;
+  }
+
+  .productRailViewport .cardContent[dir="rtl"] span {
+    flex-direction: row-reverse;
+    direction: rtl !important;
+  }
+}
+
+/* =============================
+   ---------- MOBILE PORTRAIT ----------
+   ============================== */
+
+@media (max-width: 600px) and (min-height: 551px) and (orientation: portrait) {
+
+  .productRailViewport {
+    width: 100vw;
+    min-width: 100vw;
+    height: 100%;
+
+    direction: ltr;
+
+    overflow: visible;
+
+    touch-action: pan-y;
+  }
+
+  .grid {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  position: relative;
+  left: 0 !important;
+  top: 0 !important;
+
+  width: max-content !important;
+  min-width: 100vw;
+
+  margin: 84px 0 0 !important;
+  padding: 0;
+
+  gap: 0 !important;
+
+  box-sizing: border-box;
+  direction: ltr;
+  will-change: transform;
+}
+
+  .grid[data-count="1"],
+.grid[data-count="2"] {
+  justify-content: center;
+  width: 100vw !important;
+  padding: 0;
+  gap: 0 !important;
+}
+
+  .card,
+.cardLarge {
+  --shape-r: 0deg;
+  --shape-s: 1;
+
+  --shape-x: -22px;
+  --shape-y: -8px;
+
+  --shape-w: clamp(280px, 78vw, 335px);
+  --shape-h: clamp(255px, 72vw, 315px);
+
+  position: relative;
+  isolation: isolate;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  min-height: clamp(300px, 38svh, 350px) !important;
+
+  flex: 0 0 50vw !important;
+  width: 50vw !important;
+
+  max-width: none !important;
+
+  overflow: visible !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+  box-shadow: none !important;
+
+  color: #8f0e18;
+  text-decoration: none;
+
+  transform: none !important;
+}
+
+  .shapeArt {
+    position: absolute;
+    z-index: 1;
+
+    display: block;
+
+    left: var(--shape-x);
+    top: var(--shape-y);
+
+    width: var(--shape-w);
+    height: var(--shape-h);
+
+    pointer-events: none;
+
+    overflow: visible;
+
+    filter:
+      drop-shadow(
+        0 12px 12px rgba(84, 3, 10, 0.16)
+      );
+
+    transform-origin: center;
+
+    transform:
+      rotate(var(--shape-r))
+      scale(var(--shape-s));
+  }
+
+  .shapeArt [data-layer="solid-contour"],
+  .shapeArt [data-layer="dotted-contour"] {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .imageWrap,
+  .card .imageWrap,
+  .cardLarge .imageWrap {
+    position: relative;
+
+    inset: auto;
+
+    z-index: 1;
+
+    grid-column: auto;
+    grid-row: auto;
+
+    width: clamp(205px, 64vw, 250px) !important;
+    height: clamp(225px, 28svh, 275px) !important;
+
+    margin: 0 auto;
+
+    overflow: visible !important;
+
+    border-radius: 0 !important;
+  }
+
+ .image,
+.card .image,
+.cardLarge .image {
+  position: absolute;
+  left: 0 !important;
+  z-index: 2;
+  object-fit: contain !important;
+  padding: 5px;
+  scale: 1 !important;
+
+  filter:
+    drop-shadow(0 10px 10px rgba(77, 4, 10, 0.14))
+    drop-shadow(0 3px 4px rgba(77, 4, 10, 0.08));
+
+  transform: translate3d(-15px, 0, 0) scale(0.9);
+}
+
+  .card .cardContent,
+  .cardLarge .cardContent,
+  .productRailViewport .cardContent[dir="rtl"] {
+    position: relative;
+
+    z-index: 5;
+
+    grid-column: auto;
+    grid-row: auto;
+
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+
+    width: 100% !important;
+
+    margin-top: 38px;
+
+    padding: 0 12px;
+
+    align-self: center;
+
+    transform: none !important;
+
+    color: #8f0e18;
+
+    text-align: center !important;
+  }
+
+  .card .cardContent h3,
+  .cardLarge .cardContent h3,
+  .productRailViewport .cardContent[dir="rtl"] h3 {
+    display: block;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0;
+
+    color: #8f0e18;
+
+    font-size: clamp(14.5px, 3.8vw, 19px);
+
+    font-weight: 900;
+
+    line-height: 0.98;
+
+    letter-spacing: -0.015em;
+
+    text-align: center !important;
+
+    text-transform: uppercase;
+  }
+
+  .cardContent span,
+  .productRailViewport .cardContent[dir="rtl"] span {
+    display: inline-flex;
+
+    width: 100%;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    margin-top: 7px;
+
+    color: #a81720;
+
+    font-size: 9.5px;
+    font-weight: 900;
+
+    line-height: 1;
+
+    letter-spacing: 0.04em;
+
+    text-transform: uppercase;
+
+    text-align: center !important;
+  }
+
+  .cardContent span::after {
+    content: "";
+
+    display: inline-block;
+
+    width: 5px;
+    height: 5px;
+
+    background: currentColor;
+
+    clip-path:
+      polygon(
+        0 0,
+        100% 50%,
+        0 100%
+      );
+  }
+
+  .productRailViewport .cardContent[dir="rtl"] {
+    left: auto !important;
+    right: auto !important;
+
+    width: 100% !important;
+
+    align-self: center;
+
+    text-align: center !important;
+  }
+
+  .productRailViewport .cardContent[dir="rtl"] h3 {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    text-align: center !important;
+  }
+
+  .productRailViewport .cardContent[dir="rtl"] span {
+    flex-direction: row-reverse;
+
+    direction: rtl !important;
+  }
+}
+/*===================================
+ ---------- MOBILE LANDSCAPE ----------
+==================================== */
+
+@media (max-width: 932px) and (max-height: 550px) and (orientation: landscape) {
+  .productRailViewport {
+    width: 100vw;
+    min-width: 100vw;
+    height: 100%;
+    direction: ltr;
+    overflow: visible;
+    touch-action: pan-y;
+  }
+
+  .grid {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    left: 0 !important;
+    top: 0 !important;
+    width: max-content !important;
+    min-width: 100vw;
+    margin: 2px 0 0 !important;
+    padding: 0 2.5vw;
+    gap: 0.5vw !important;
+    box-sizing: border-box;
+    direction: ltr;
+    will-change: transform;
+  }
+
+  .grid[data-count="1"],
+  .grid[data-count="2"] {
+    justify-content: center;
+    width: 100vw !important;
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+
+  .card,
+  .cardLarge {
+    --shape-r: 0deg;
+    --shape-s: 1;
+    --shape-x: -18px;
+    --shape-y: -15px;
+    --shape-w: clamp(210px, 28vw, 270px);
+    --shape-h: clamp(190px, 25vw, 240px);
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: clamp(62px, 8vw, 76px) clamp(145px, 19vw, 185px);
+    column-gap: 4px;
+    align-items: center;
+    justify-content: center;
+    min-height: clamp(150px, 42svh, 190px) !important;
+    flex: 0 0 47vw !important;
+    width: 47vw !important;
+    max-width: none !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #8f0e18;
+    text-decoration: none;
+    transform: none !important;
+  }
+
+  .shapeArt {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    left: var(--shape-x);
+    top: var(--shape-y);
+    width: var(--shape-w);
+    height: var(--shape-h);
+    pointer-events: none;
+    overflow: visible;
+    filter: drop-shadow(0 10px 10px rgba(84, 3, 10, 0.15));
+    transform-origin: center;
+    transform: rotate(var(--shape-r)) scale(var(--shape-s));
+  }
+
+  .imageWrap,
+  .card .imageWrap,
+  .cardLarge .imageWrap {
+    position: relative;
+    inset: auto;
+    z-index: 1;
+    grid-column: 2;
+    grid-row: 1;
+    width: clamp(145px, 19vw, 185px) !important;
+    height: clamp(140px, 36svh, 175px) !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
+  }
+
+  .image,
+  .card .image,
+  .cardLarge .image {
+    position: absolute;
+    left: 0 !important;
+    z-index: 2;
+    object-fit: contain !important;
+    padding: 4px;
+    scale: 1 !important;
+    filter: drop-shadow(0 8px 8px rgba(77, 4, 10, 0.13)) drop-shadow(0 3px 4px rgba(77, 4, 10, 0.07));
+    transform: translate3d(8px, 0, 0) scale(1.12);
+  }
+
+  .card .cardContent,
+  .cardLarge .cardContent,
+  .productRailViewport .cardContent[dir="rtl"] {
+    position: relative;
+    z-index: 5;
+    grid-column: 1;
+    grid-row: 1;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: clamp(62px, 8vw, 76px) !important;
+    padding: 0;
+    justify-self: end;
+    transform: none !important;
+    color: #8f0e18;
+    text-align: center !important;
+  }
+
+  .card .cardContent h3,
+  .cardLarge .cardContent h3,
+  .productRailViewport .cardContent[dir="rtl"] h3 {
+    display: block;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0;
+    color: #8f0e18;
+    font-size: clamp(10px, 1.6vw, 13px);
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+    text-align: center !important;
+    text-transform: uppercase;
+  }
+
+  .cardContent span,
+  .productRailViewport .cardContent[dir="rtl"] span {
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    margin-top: 5px;
+    color: #a81720;
+    font-size: 6.5px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+    text-align: center !important;
+  }
+
+  .cardContent span::after {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: currentColor;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+
+  .productRailViewport .cardContent[dir="rtl"] span {
+    flex-direction: row-reverse;
+    direction: rtl !important;
+  }
+}
+/* =====================================================
+   PRODUCT RAIL ARROWS — RESPONSIVE POSITIONS
+   ===================================================== */
+
+
+/* ---------- LARGE MONITOR ---------- */
+
+@media
+  (min-width: 1280px)
+  and (min-height: 900px)
+  and (orientation: landscape) {
+
+  .productRailViewport {
+    --rail-arrow-top: 110px;
+
+    --rail-arrow-center-offset:
+      clamp(90px, 6.25vw, 160px);
+
+    --rail-arrow-box-width: 54px;
+    --rail-arrow-box-height: 46px;
+
+    --rail-chevron-size: 18px;
+    --rail-chevron-stroke: 2.8px;
+
+    --rail-arrow-opacity: 0.3;
+  }
+}
+
+
+/* ---------- LAPTOP ---------- */
+
+@media
+  (min-width: 1024px)
+  and (max-height: 899px)
+  and (orientation: landscape) {
+
+  .productRailViewport {
+    --rail-arrow-top:
+      clamp(42px, 3.5vh, 52px);
+
+    --rail-arrow-center-offset:
+      clamp(96px, 27vw, 125px);
+
+    --rail-arrow-box-width: 48px;
+    --rail-arrow-box-height: 40px;
+
+    --rail-chevron-size: 16px;
+    --rail-chevron-stroke: 2.4px;
+
+    --rail-arrow-opacity: 0.3;
+  }
+}
+
+
+/* ---------- TABLET LANDSCAPE ---------- */
+
+@media
+  (min-width: 768px)
+  and (max-width: 1366px)
+  and (orientation: landscape)
+  and (hover: none)
+  and (pointer: coarse) {
+
+  .productRailViewport {
+    --rail-arrow-top: 18px;
+
+    --rail-arrow-center-offset:
+      clamp(88px, 29vw, 120px);
+
+    --rail-arrow-box-width: 46px;
+    --rail-arrow-box-height: 38px;
+
+    --rail-chevron-size: 15px;
+    --rail-chevron-stroke: 2.2px;
+
+    --rail-arrow-opacity: 0.3;
+  }
+}
+
+
+/* ---------- TABLET PORTRAIT ---------- */
+
+@media
+  (min-width: 601px)
+  and (max-width: 1180px)
+  and (min-height: 900px)
+  and (orientation: portrait) {
+
+  .productRailViewport {
+    --rail-arrow-top: -120px;
+
+    --rail-arrow-center-offset:
+      clamp(82px, 29vw, 92px);
+
+    --rail-arrow-box-width: 44px;
+    --rail-arrow-box-height: 38px;
+
+    --rail-chevron-size: 15px;
+    --rail-chevron-stroke: 2.2px;
+
+    --rail-arrow-opacity: 0.3;
+  }
+}
+
+
+/* ---------- MOBILE PORTRAIT ---------- */
+
+@media
+  (max-width: 600px)
+  and (min-height: 551px)
+  and (orientation: portrait) {
+
+  .productRailViewport {
+    --rail-arrow-top: -60px;
+
+    --rail-arrow-center-offset:
+      clamp(72px, 26vw, 74px);
+
+    --rail-arrow-box-width: 40px;
+    --rail-arrow-box-height: 34px;
+
+    --rail-chevron-size: 13px;
+    --rail-chevron-stroke: 2px;
+
+    --rail-arrow-opacity: 0.32;
+  }
+}
+
+
+/* ---------- MOBILE LANDSCAPE ---------- */
+
+@media
+  (max-width: 932px)
+  and (max-height: 550px)
+  and (orientation: landscape) {
+
+  .productRailViewport {
+    --rail-arrow-top: -10px;
+
+    --rail-arrow-center-offset:
+      clamp(58px, 9vw, 78px);
+
+    --rail-arrow-box-width: 40px;
+    --rail-arrow-box-height: 34px;
+
+    --rail-chevron-size: 13px;
+    --rail-chevron-stroke: 2px;
+
+    --rail-arrow-opacity: 0.32;
+  }
+}
+/* =====================================================
+   GOLY ROZH — RTL VIEW PRODUCTS ARROW FINAL FIX
+   Arabic + Kurdish
+   ===================================================== */
+
+.productRailViewport
+.cardContent[dir="rtl"]
+span {
+  direction: rtl !important;
+
+  flex-direction: row !important;
+}
+
+
+/* RTL arrow points LEFT */
+
+.productRailViewport
+.cardContent[dir="rtl"]
+span::after {
+  transform: none !important;
+
+  clip-path:
+    polygon(
+      100% 0,
+      0 50%,
+      100% 100%
+    ) !important;
+}
+
+
+/* RTL hover arrow — mirrored long arrow */
+
+@media (hover: hover) and (pointer: fine) {
+
+  .productRailViewport
+  .card:hover
+  .cardContent[dir="rtl"]
+  span::after,
+
+  .productRailViewport
+  .cardLarge:hover
+  .cardContent[dir="rtl"]
+  span::after {
+    clip-path:
+      polygon(
+        100% 38%,
+        32% 38%,
+        32% 0,
+        0 50%,
+        32% 100%,
+        32% 62%,
+        100% 62%
+      ) !important;
+  }
+}
