@@ -435,19 +435,20 @@ border-right: 4px solid rgba(201, 154, 58, 0.68);
 
   /* Product Images */
   .image {
-    object-position: center center !important;
-    transform: scale(0.94) !important;
-  }
+  object-position: center center !important;
+  transform: scale(0.85) !important;
+}
 
-  .card:hover .image {
-    transform: scale(1) !important;
-  }
+.card:hover .image {
+  transform: scale(0.90) !important;
+}
+
 .image.bottleImage {
-  transform: scale(0.86) !important;
+  transform: scale(0.77) !important;
 }
 
 .card:hover .image.bottleImage {
-  transform: scale(0.93) !important;
+  transform: scale(0.84) !important;
 }
   /* Product Name / Glass Chip */
   .cardContent h3 {
@@ -478,13 +479,13 @@ border-right: 4px solid rgba(201, 154, 58, 0.68);
   }
 
   .image {
-    object-position: center center !important;
-    transform: scale(0.78) !important;
-  }
+  object-position: center center !important;
+  transform: scale(0.70) !important;
+}
 
-  .card:hover .image {
-    transform: scale(0.82) !important;
-  }
+.card:hover .image {
+  transform: scale(0.74) !important;
+}
 
   .cardContent {
     bottom: 16px !important;
@@ -518,13 +519,13 @@ border-right: 4px solid rgba(201, 154, 58, 0.68);
   }
 
   .image {
-    object-position: center center !important;
-    transform: scale(0.76) !important;
-  }
+  object-position: center center !important;
+  transform: scale(0.68) !important;
+}
 
-  .card:hover .image {
-    transform: scale(0.80) !important;
-  }
+.card:hover .image {
+  transform: scale(0.72) !important;
+}
 
   .cardContent {
     left: 14px !important;
@@ -560,13 +561,13 @@ border-right: 4px solid rgba(201, 154, 58, 0.68);
   }
 
   .image {
-    object-position: center center !important;
-    transform: scale(0.90) !important;
-  }
+  object-position: center center !important;
+  transform: scale(0.81) !important;
+}
 
-  .card:hover .image {
-    transform: scale(0.94) !important;
-  }
+.card:hover .image {
+  transform: scale(0.85) !important;
+}
 
   .cardContent h3 {
     width: min(100%, 180px) !important;
@@ -595,14 +596,14 @@ border-right: 4px solid rgba(201, 154, 58, 0.68);
     padding: 24px 16px 66px !important;
   }
 
-  .image {
-    object-position: center center !important;
-    transform: scale(0.78) !important;
-  }
+ .image {
+  object-position: center center !important;
+  transform: scale(0.70) !important;
+}
 
-  .card:hover .image {
-    transform: scale(0.82) !important;
-  }
+.card:hover .image {
+  transform: scale(0.74) !important;
+}
 
   .cardContent {
     left: 10px !important;
@@ -641,16 +642,14 @@ border-right: 4px solid rgba(201, 154, 58, 0.68);
   .imageWrap {
     padding: 20px 12px 56px !important;
   }
+.image {
+  object-position: center center !important;
+  transform: scale(0.63) !important;
+}
 
-  .image {
-    object-position: center center !important;
-    transform: scale(0.70) !important;
-  }
-
-  .card:hover .image {
-    transform: scale(0.74) !important;
-  }
-
+.card:hover .image {
+  transform: scale(0.67) !important;
+}
   .cardContent {
     left: 10px !important;
     right: 10px !important;

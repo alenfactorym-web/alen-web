@@ -1258,93 +1258,47 @@ transition={{
     : activeLabel}
 </h2>
 
+<div
+  className={
+    styles.takeoverSpecs
+  }
+>
+  <div
+    className={
+      styles.takeoverSpecItem
+    }
+  >
+    <span>
+      {safeLang === "ar"
+        ? "عدد الوحدات"
+        : safeLang === "ku"
+        ? "ژمارەی دانە"
+        : "UNITS / PACK"}
+    </span>
 
-        <div
-          className={
-            styles.takeoverSpecs
-          }
-        >
+    <strong>
+      {activeItem?.unitsPerPack || "-"}
+    </strong>
+  </div>
 
-          <div
-            className={
-              styles.takeoverSpecItem
-            }
-          >
-            <span>
-              {safeLang === "ar"
-                ? "نوع التعبئة"
-                : safeLang === "ku"
-                ? "جۆری پاکەت"
-                : "PACKAGING"}
-            </span>
+  <div
+    className={
+      styles.takeoverSpecItem
+    }
+  >
+    <span>
+      {safeLang === "ar"
+        ? "باكيت / كرتون"
+        : safeLang === "ku"
+        ? "پاکێت / کارتۆن"
+        : "PACKS / CARTON"}
+    </span>
 
-            <strong>
-              {activePackagingLabel}
-            </strong>
-          </div>
-
-
-          <div
-            className={
-              styles.takeoverSpecItem
-            }
-          >
-            <span>
-              {safeLang === "ar"
-                ? "الكمية / كرتون"
-                : safeLang === "ku"
-                ? "ژمارە / کارتۆن"
-                : "QTY / CARTON"}
-            </span>
-
-            <strong>
-              {getCartonText(
-                activeItem,
-                safeLang
-              )}
-            </strong>
-          </div>
-
-
-          <div
-            className={
-              styles.takeoverSpecItem
-            }
-          >
-            <span>
-              {safeLang === "ar"
-                ? "عدد الوحدات"
-                : safeLang === "ku"
-                ? "ژمارەی دانە"
-                : "UNITS / PACK"}
-            </span>
-
-            <strong>
-              {activeItem?.unitsPerPack || "-"}
-            </strong>
-          </div>
-
-
-          <div
-            className={
-              styles.takeoverSpecItem
-            }
-          >
-            <span>
-              {safeLang === "ar"
-                ? "باكيت / كرتون"
-                : safeLang === "ku"
-                ? "پاکێت / کارتۆن"
-                : "PACKS / CARTON"}
-            </span>
-
-            <strong>
-              {activeItem?.packsPerCarton || "-"}
-            </strong>
-                   </div>
-
-        </div>
-
+    <strong>
+      {activeItem?.packsPerCarton || "-"}
+    </strong>
+  </div>
+</div>
 
       </motion.div>
     </AnimatePresence>

@@ -328,50 +328,28 @@ function renderInfoContent(info) {
 </AutoFitTitle>
 
       <div className={styles.specGrid}>
-        <div className={styles.specItem}>
-          <span>
-            {safeLang === "ar"
-              ? "نوع التعبئة"
-              : safeLang === "ku"
-              ? "جۆری پاکەت"
-              : "Packaging"}
-          </span>
-          <strong>{info.packagingLabel}</strong>
-        </div>
+  <div className={styles.specItem}>
+    <span>
+      {safeLang === "ar"
+        ? "عدد الوحدات"
+        : safeLang === "ku"
+        ? "ژمارەی دانە"
+        : "Units / Pack"}
+    </span>
+    <strong>{info.item?.unitsPerPack || "-"}</strong>
+  </div>
 
-        <div className={styles.specItem}>
-          <span>
-            {safeLang === "ar"
-              ? "الكمية / كرتون"
-              : safeLang === "ku"
-              ? "ژمارە / کارتۆن"
-              : `QTY / ${cartonWord(safeLang)}`}
-          </span>
-          <strong>{getCartonText(info.item, safeLang)}</strong>
-        </div>
-
-        <div className={styles.specItem}>
-          <span>
-            {safeLang === "ar"
-              ? "عدد الوحدات"
-              : safeLang === "ku"
-              ? "ژمارەی دانە"
-              : "Units / Pack"}
-          </span>
-          <strong>{info.item?.unitsPerPack || "-"}</strong>
-        </div>
-
-        <div className={styles.specItem}>
-          <span>
-            {safeLang === "ar"
-              ? "باكيت / كرتون"
-              : safeLang === "ku"
-              ? "پاکێت / کارتۆن"
-              : "Packs / Carton"}
-          </span>
-          <strong>{info.item?.packsPerCarton || "-"}</strong>
-        </div>
-      </div>
+  <div className={styles.specItem}>
+    <span>
+      {safeLang === "ar"
+        ? "باكيت / كرتون"
+        : safeLang === "ku"
+        ? "پاکێت / کارتۆن"
+        : "Packs / Carton"}
+    </span>
+    <strong>{info.item?.packsPerCarton || "-"}</strong>
+  </div>
+</div>
 
       <div className={styles.cardBottom}>
         <div className={styles.progressTrack}>

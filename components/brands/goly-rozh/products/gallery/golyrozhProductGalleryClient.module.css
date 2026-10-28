@@ -97,10 +97,11 @@ main.page > .galleryHero {
   position: relative;
   z-index: 5;
 
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+  --gallery-columns: 4;
 
   gap: 46px 32px;
 
@@ -112,6 +113,12 @@ main.page > .galleryHero {
   direction: ltr;
 }
 
+.grid > .card {
+  flex: 0 0 calc(
+    (100% - (var(--gallery-columns) - 1) * 32px)
+    / var(--gallery-columns)
+  );
+}
 
 /* =========================================================
    PRODUCT CARD
@@ -561,8 +568,7 @@ main.page > .galleryHero {
   and (orientation: landscape) {
 
   .grid {
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+  --gallery-columns: 4;
 
   gap:
     40px 26px;
@@ -576,7 +582,9 @@ main.page > .galleryHero {
   transform:
     translateY(-30px);
 }
-
+.grid > .card {
+  flex-basis: calc((100% - 3 * 26px) / 4);
+}
 
   .card {
     min-height:
@@ -639,15 +647,14 @@ main.page > .galleryHero {
   and (hover: none)
   and (pointer: coarse) {
 
-  .grid {
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
+ .grid {
+  --gallery-columns: 3;
 
   width:
-  min(840px, 80vw);
+    min(840px, 80vw);
 
-   gap:
- 18px 0px;
+  gap:
+    18px 0px;
 
     margin-top:
       34px;
@@ -656,7 +663,9 @@ main.page > .galleryHero {
       translateY(-60px);
   }
 
-
+.grid > .card {
+  flex-basis: calc(100% / 3);
+}
   .card {
     min-height:
       335px;
@@ -718,14 +727,13 @@ main.page > .galleryHero {
   and (orientation: landscape) {
 
   .grid {
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
+  --gallery-columns: 3;
 
-    width:
-      min(720px, 86vw);
+  width:
+    min(720px, 86vw);
 
-    gap:
-      5px 0;
+  gap:
+    5px 0;
 
     margin-top:
       24px;
@@ -733,7 +741,9 @@ main.page > .galleryHero {
     transform:
       translateY(-90px);
   }
-
+.grid > .card {
+  flex-basis: calc(100% / 3);
+}
 
   .card {
     min-height:
@@ -795,23 +805,24 @@ main.page > .galleryHero {
   (min-width: 601px)
   and (max-width: 1180px)
   and (min-height: 900px)
-  and (orientation: portrait) {  .grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+  and (orientation: portrait) {  
+.grid {
+  --gallery-columns: 2;
 
-    width:
-      min(720px, 86vw);
+  width:
+    min(720px, 86vw);
 
-    gap:
-      10px 8px;
-
+  gap:
+    10px 8px;
     margin-top:
       -20px;
 
     transform:
       translateY(-10px);
   }
-
+.grid > .card {
+  flex-basis: calc((100% - 8px) / 2);
+}
 
   .card {
     min-height:
@@ -872,23 +883,23 @@ main.page > .galleryHero {
   and (min-height: 551px)
   and (orientation: portrait) {
 
-  .grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+.grid {
+  --gallery-columns: 2;
 
-    width:
-      min(420px, 84vw);
+  width:
+    min(420px, 84vw);
 
-    gap:
-      5px 0;
-
+  gap:
+    5px 0;
     margin-top:
       10px;
 
     transform:
       translateY(-90px);
   }
-
+.grid > .card {
+  flex-basis: calc(100% / 2);
+}
 
   .card {
     min-height:
@@ -962,11 +973,10 @@ main.page > .galleryHero {
 
 
   .grid {
-    grid-template-columns:
-      repeat(4, minmax(0, 1fr));
+  --gallery-columns: 4;
 
-    gap:
-      52px 34px;
+  gap:
+    52px 34px;
 
     width:
       min(1420px, 88vw);
@@ -974,7 +984,9 @@ main.page > .galleryHero {
     margin-top:
       58px;
   }
-
+.grid > .card {
+  flex-basis: calc((100% - 3 * 34px) / 4);
+}
 
  .card {
   min-height: 430px;
